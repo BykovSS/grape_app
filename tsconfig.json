@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "lib": ["es5", "dom", "esnext"],
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./"
+  },
+  "include": ["./**/**/*"],
+  "exclude": ["node_modules"]
+}

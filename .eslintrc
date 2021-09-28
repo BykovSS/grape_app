@@ -1,0 +1,66 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "es2017": true,
+    "node": true,
+    "jest": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "react",
+    "react-hooks",
+    "sonarjs",
+    "jest-dom"
+//    "testing-library"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:sonarjs/recommended",
+    "plugin:jest-dom/recommended"
+//    "plugin:testing-library/react"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "padding-line-between-statements": [
+      "error",
+      {"blankLine": "always", "prev": "*", "next": "return"}
+    ],
+    "comma-spacing": ["error", {"before":  false, "after":  true}],
+    "no-empty-pattern": "off",
+    "no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "import/no-unresolved": "error",
+    "import/no-duplicates": "error",
+    "react/prop-types": "off",
+    "sonarjs/cognitive-complexity": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

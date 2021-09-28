@@ -1,0 +1,217 @@
+@headerHeight: 41px;
+@paddingTop: 10px;
+@paddingRight: 220px;
+@paddingBottom: 100px;
+@paddingLeft: 70px;
+@otherHeight: @headerHeight + @paddingTop + @paddingBottom;
+@otherWidth: @paddingLeft + @paddingRight;
+@navigateButtonsLength: 120px;
+@navigateButtonLength: 50px;
+@navigateButtonWidth: 40px;
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.app_workspase {
+  position: relative;
+}
+
+.main_header {
+  font-size: 18px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.view_field {
+  position: relative;
+  height: calc(100vh - @otherHeight);
+  padding: @paddingTop @paddingRight @paddingBottom @paddingLeft;
+}
+
+.svg_field {
+  height: inherit;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid black;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+.svg-cells-wrap {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.svg-cell {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  cursor: default;
+  box-sizing: border-box;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  &.selected {
+	background: #aaa;
+  }
+}
+
+.zoom_buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.zoom_button {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 15px;
+  padding: 0;
+  &:disabled {
+    background-color: rgba(239, 239, 239);
+  }
+}
+
+.row_labels_field {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid purple;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.svg-row-labels {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: inherit;
+  box-sizing: border-box;
+}
+
+.svg-row-label {
+  position: absolute;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid purple;
+  color: purple;
+  font-weight: bold;
+  cursor: default;
+  box-sizing: border-box;
+  background-color: rgba(128, 0, 128, 0.15);
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+
+.navigate_buttons {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.navigate_button {
+  font-size: 30px;
+  line-height: 15px;
+  padding: 0;
+  &:disabled {
+    background-color: rgba(239, 239, 239);
+  }
+}
+
+.vertical_buttons {
+  bottom: calc(@paddingBottom + (100vh - @otherHeight)/2 - @navigateButtonsLength/2);
+  left: 15px;
+  height: @navigateButtonsLength;
+  flex-direction: column;
+}
+
+.vertical_button {
+  width: @navigateButtonWidth;
+  height: @navigateButtonLength;
+}
+
+.horizontal_buttons {
+  bottom: 15px;
+  left: calc(@paddingLeft + (100vw - @otherWidth)/2 - @navigateButtonsLength/2);
+  width: @navigateButtonsLength;
+}
+
+.horizontal_button {
+  width: @navigateButtonLength;
+  height: @navigateButtonWidth;
+  &__right {
+    transform: rotate(180deg);
+  }
+}
+
+.add_button {
+  position: absolute;
+  height: @navigateButtonWidth;
+  bottom: 15px;
+  &__left {
+	left: @paddingLeft;
+  }
+  &__right {
+	right: @paddingRight;
+  }
+}
+
+.warning_window {
+  max-width: 50%;
+  max-height: 50%;
+  background: #fff;
+  border-radius: 7px;
+  &-wrap {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	z-index: 10;
+	background: rgba(0,0,0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  &-title {
+	padding: 10px 20px;
+	background: #ccc;
+	font-size: 18px;
+	border-radius: 7px 7px 0 0;
+  }
+  &-description {
+	padding: 10px 20px;
+	display: flex;
+	flex-direction: column;
+  }
+  &-buttons {
+	padding: 10px 20px 20px;
+	display: flex;
+	justify-content: flex-end;
+  }
+  &-button {
+	height: 30px;
+	&:last-child {
+	  margin-left: 20px
+	}
+  }
+}
