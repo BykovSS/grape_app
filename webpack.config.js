@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
 			'./src/index.tsx'
 		]},
 		output: {
-			path: path.resolve(__dirname, './dist'),
+			path: path.resolve(__dirname, './docs'),
 			filename: '[name].js',
 		},
 		plugins: [
@@ -134,7 +134,7 @@ module.exports = (env, argv) => {
 			open: true,
 			port: 8082,
 			static: {
-				directory: path.resolve(__dirname, './dist'),
+				directory: path.resolve(__dirname, './docs'),
 				publicPath: '/',
 				watch: true
 			}
