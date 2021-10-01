@@ -7,10 +7,23 @@ export type dataType = {
     date: number
 }
 
+export type CoordinatesType = {
+    width?: number
+    windowWidth?: number
+    currentAbscissa?: number
+    height?: number
+    windowHeight?: number
+    currentOrdinate?: number
+}
+
 export type ActionType = {
     type: string
     data?: dataType[]
+    windowSizes?: CoordinatesType
+    currentPosition?: CoordinatesType
+    mouseInMap?: boolean
     zoom?: number
-    length?: number
+    isWarningVisible?: boolean
+    selectedCells?: string[]
     error?: string
 };

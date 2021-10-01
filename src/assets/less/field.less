@@ -1,0 +1,32 @@
+.svg_field {
+  height: inherit;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid black;
+  z-index: 0;
+  box-sizing: border-box;
+}
+
+.svg-cells-wrap {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.svg-cell {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  cursor: default;
+  box-sizing: border-box;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  &.selected {
+	background: #aaa;
+  }
+}

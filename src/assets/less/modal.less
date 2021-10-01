@@ -1,0 +1,40 @@
+.modal_window {
+  max-width: 50%;
+  max-height: 50%;
+  background: #fff;
+  border-radius: 7px;
+  &-wrap {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	z-index: 10;
+	background: rgba(0,0,0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  &-title {
+	padding: 10px 20px;
+	background: #ccc;
+	font-size: 18px;
+	border-radius: 7px 7px 0 0;
+  }
+  &-description {
+	padding: 10px 20px;
+	display: flex;
+	flex-direction: column;
+  }
+  &-buttons {
+	padding: 10px 20px 20px;
+	display: flex;
+	justify-content: flex-end;
+  }
+  &-button {
+	height: 30px;
+	&:last-child {
+	  margin-left: 20px
+	}
+  }
+}

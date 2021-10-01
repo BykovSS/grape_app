@@ -1,0 +1,77 @@
+@import './variables';
+
+.zoom_buttons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.zoom_button {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 15px;
+  padding: 0;
+  &:disabled {
+	background-color: rgba(239, 239, 239);
+  }
+}
+
+.navigate_buttons {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.navigate_button {
+  font-size: 30px;
+  line-height: 15px;
+  padding: 0;
+  &:disabled {
+	background-color: rgba(239, 239, 239);
+  }
+}
+
+.vertical_buttons {
+  bottom: calc(@paddingBottom + (100vh - @otherHeight)/2 - @navigateButtonsLength/2);
+  left: 15px;
+  height: @navigateButtonsLength;
+  flex-direction: column;
+}
+
+.vertical_button {
+  width: @navigateButtonWidth;
+  height: @navigateButtonLength;
+}
+
+.horizontal_buttons {
+  bottom: 15px;
+  left: calc(@paddingLeft + (100vw - @otherWidth)/2 - @navigateButtonsLength/2);
+  width: @navigateButtonsLength;
+}
+
+.horizontal_button {
+  width: @navigateButtonLength;
+  height: @navigateButtonWidth;
+  &__right, &__right > span {
+	transform: rotate(180deg);
+  }
+}
+
+.add_button {
+  position: absolute;
+  height: @navigateButtonWidth;
+  bottom: 15px;
+  &__left {
+	left: @paddingLeft;
+  }
+  &__right {
+	right: @paddingRight;
+  }
+}
