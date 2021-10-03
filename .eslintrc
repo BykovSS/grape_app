@@ -56,7 +56,8 @@
     "import/no-unresolved": "error",
     "import/no-duplicates": "error",
     "react/prop-types": "off",
-    "sonarjs/cognitive-complexity": "off"
+    "sonarjs/cognitive-complexity": "off",
+    "sonarjs/no-duplicate-string": "off"
   },
   "settings": {
     "react": {

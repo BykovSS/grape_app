@@ -4,14 +4,14 @@ import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
 import {OTHER_WIDTH, X_LEFT_MAX} from '../../constants';
-import {getCellSize, getMinKoord} from '../../utils';
+import {getCellSize, getMinCoord} from '../../utils';
 
 const HorizontalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numCol, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);
     const {windowWidth} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
     const cell_size = getCellSize(zoom);
-    const x_left_min = getMinKoord(zoom, numCol, windowWidth, OTHER_WIDTH);
+    const x_left_min = getMinCoord(zoom, numCol, windowWidth, OTHER_WIDTH);
 
     const dispatch = useDispatch();
 

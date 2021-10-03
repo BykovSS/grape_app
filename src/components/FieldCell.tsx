@@ -21,12 +21,14 @@ export const FieldCell: React.FC<Props> = (props) => {
         style={{
             width: cell_size,
             height: cell_size,
-            left: (cell.col - 1) * cell_size,
-            bottom: (cell.row - 1) * cell_size,
+            left: (cell.x - 1) * cell_size,
+            bottom: (cell.y - 1) * cell_size,
             fontSize: `${11*zoom}px`,
-            borderRight: cell.col === numCol ? 'none' : '1px solid #aaa',
-            borderTop: cell.row === numRow ? 'none' : '1px solid #aaa',
+            borderRight: cell.x === numCol ? 'none' : '1px solid #aaa',
+            borderTop: cell.y === numRow ? 'none' : '1px solid #aaa',
         }}
+        data-x={cell.x}
+        data-y={cell.y}
         onClick={handleClickCell(cell.id)}
     >{cell.id}</div>;
 };

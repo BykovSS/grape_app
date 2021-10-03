@@ -1,10 +1,16 @@
 export type dataType = {
     id: string
-    active: boolean
     row: number
-    col: number
+    x: number
+    y:number
     sort: string
     date: number
+}
+
+export type RowDataType = {
+    id: string | number
+    row: number
+    x: number
 }
 
 export type CoordinatesType = {

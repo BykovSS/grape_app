@@ -4,13 +4,13 @@ import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
 import {OTHER_HEIGHT, Y_BOTTOM_MAX} from '../../constants';
-import {getMinKoord} from '../../utils';
+import {getMinCoord} from '../../utils';
 
 const VerticalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numRow, zoom} = useSelector((state: any) => state, shallowEqual);
     const {windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
-    const y_bottom_min = getMinKoord(zoom, numRow, windowHeight, OTHER_HEIGHT);
+    const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, OTHER_HEIGHT);
 
     const dispatch = useDispatch();
 

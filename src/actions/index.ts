@@ -65,7 +65,7 @@ export const fetchData = (/*url = 'data.json'*/) => async (dispatch: Function) =
     try {
         // const response = await fetch(`${url}`);
         // const data = await response.json();
-        const data = await generateData(80, 50);
+        const data = await generateData(200, 300);
         dispatch(loadDataSuccess(data));
     } catch (error) {
         dispatch(loadDataError(error));
