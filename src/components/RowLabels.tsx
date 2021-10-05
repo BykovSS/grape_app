@@ -1,16 +1,20 @@
 import * as React from 'react';
 import {RowLabel} from './RowLabel';
-import {useSelector, shallowEqual} from 'react-redux';
-import {getCellSize, getRowsData} from '../utils';
+import {getCellSize} from '../utils';
 import '../assets/less/rows.less';
 import {RowDataType} from '../types';
 
-export const RowLabels:React.FC = () => {
-    const {data, currentPosition, numCol, zoom} = useSelector((state: any) => state, shallowEqual);
-    const {currentAbscissa} = currentPosition || {};
+type Props = {
+    zoom: number
+    numCol: number
+    currentAbscissa: number
+    rowsData: RowDataType[]
+    handleClickRowLabel: (rowLabel: string) => () => void
+}
 
+export const RowLabels:React.FC<Props> = (props) => {
+    const {zoom, numCol, currentAbscissa, rowsData, handleClickRowLabel} = props;
     const cell_size = getCellSize(zoom);
-    const rowsData = getRowsData(data);
 
     return <div className={'row_labels_field'} style={{height: 25*zoom}}>
         <div
@@ -21,12 +25,13 @@ export const RowLabels:React.FC = () => {
                 left: currentAbscissa
             }}
         >
-            {rowsData ? (rowsData as RowDataType[]).map((item, i: number) => <RowLabel
+            {rowsData ? rowsData.map((item, i: number) => <RowLabel
                 key={i}
                 row={item}
                 cell_size={cell_size}
                 zoom={zoom}
                 numCol={numCol}
+                handleClickRowLabel={handleClickRowLabel}
                 />) : null}
         </div>
     </div>;

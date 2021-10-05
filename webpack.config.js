@@ -99,7 +99,7 @@ module.exports = (env, argv) => {
 					}
 				},
 				{
-					test: /\.(eot|svg|ttf|woff)(\?[0-9]+)?$/,
+					test: /\.(eot|svg|ttf|woff|otf)(\?[0-9]+)?$/,
 					type: 'asset/resource',
 					generator: {
 						filename: 'fonts/[name][ext]'

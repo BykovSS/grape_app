@@ -12,19 +12,18 @@ const ModalWindow:React.FC = () => {
         dispatch(actions.changeWarningVisible(false));
     }, [dispatch]);
 
-    const handleConfirm = React.useCallback(() => {
-        dispatch(actions.addLeftRow());
-        handleCloseModalWindow();
-    }, [dispatch, handleCloseModalWindow]);
+    // const handleConfirm = React.useCallback(() => {
+    //
+    //     handleCloseModalWindow();
+    // }, [handleCloseModalWindow]);
 
     return <ModalWindowComponent
         visible={isWarningVisible}
-        title={'Подтвердите добавление рядов слева'}
+        title={'Результат сохранения'}
         description={<span>
-                <span>{'Добавление рядов слева повлечет за собой изменение нумерации.'}</span>
-                <span>{'Вы действительно хотите добавить ряд?'}</span></span>}
+                <span>{'Сохранение данных прошло успешно!'}</span></span>}
         handleCloseModalWindow={handleCloseModalWindow}
-        handleConfirm={handleConfirm}
+        // handleConfirm={handleConfirm}
     />;
 };
 

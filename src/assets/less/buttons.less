@@ -1,5 +1,27 @@
 @import './variables';
 
+button {
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: #804480;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 14px;
+  &:hover {
+	background: #571753;
+  }
+  &:active {
+	outline: none;
+	box-shadow: 0 0 0 4px rgba(128, 68, 128, .3);
+  }
+  &:disabled {
+	color: #b3adad;
+	background: rgba(84, 75, 92, .6);
+	cursor: not-allowed;
+  }
+}
+
 .zoom_buttons {
   position: absolute;
   top: 10px;
@@ -16,9 +38,13 @@
   font-size: 30px;
   line-height: 15px;
   padding: 0;
-  &:disabled {
-	background-color: rgba(239, 239, 239);
+  &__dec {
+	margin-top: 5px;
+	padding-bottom: 7px;
   }
+  //&:disabled {
+	//background-color: rgba(239, 239, 239);
+  //}
 }
 
 .navigate_buttons {
@@ -33,15 +59,15 @@
   font-size: 30px;
   line-height: 15px;
   padding: 0;
-  &:disabled {
-	background-color: rgba(239, 239, 239);
-  }
+  //&:disabled {
+	//background-color: rgba(239, 239, 239);
+  //}
 }
 
 .vertical_buttons {
-  bottom: calc(@paddingBottom + (100vh - @otherHeight)/2 - @navigateButtonsLength/2);
+  bottom: calc(@mainPaddingBottom + (100vh - @otherHeight)/2 - @navigateButtonsGroupLength/2);
   left: 15px;
-  height: @navigateButtonsLength;
+  height: @navigateButtonsGroupLength;
   flex-direction: column;
 }
 
@@ -52,8 +78,8 @@
 
 .horizontal_buttons {
   bottom: 15px;
-  left: calc(@paddingLeft + (100vw - @otherWidth)/2 - @navigateButtonsLength/2);
-  width: @navigateButtonsLength;
+  left: calc(@mainPaddingLeft + (100vw - @otherWidth)/2 - @navigateButtonsGroupLength/2);
+  width: @navigateButtonsGroupLength;
 }
 
 .horizontal_button {
@@ -65,13 +91,32 @@
 }
 
 .add_button {
+  font-family: GothamPro, serif;
   position: absolute;
   height: @navigateButtonWidth;
   bottom: 15px;
   &__left {
-	left: @paddingLeft;
+	left: @mainPaddingLeft;
   }
   &__right {
-	right: @paddingRight;
+	right: @mainPaddingRight;
   }
+}
+
+.deselect_button {
+  font-family: GothamPro, serif;
+  position: absolute;
+  bottom: 15px;
+  right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
+  height: @navigateButtonWidth;
+  width: @rightButtonWidth;
+}
+
+.save_button {
+  font-family: GothamPro, serif;
+  position: absolute;
+  bottom: calc(30px + @navigateButtonWidth);
+  right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
+  height: @navigateButtonWidth;
+  width: @rightButtonWidth;
 }

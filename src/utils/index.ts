@@ -73,7 +73,7 @@ export const addRightRow = (data: dataType[]) => {
     const newCol: dataType[] = [];
     for (let i = 1; i<= height; i++) {
         newCol.push({
-            id: '[' + Number(width + 1) + '/' + i + ']',
+            id: Number(width + 1) + '/' + i,
             row: width + 1,
             x: width + 1,
             y: i,
@@ -95,7 +95,7 @@ export const addLeftRow = (data: dataType[]) => {
     const newCol: dataType[] = [];
     for (let i = 1; i<= height; i++) {
         newCol.push({
-            id: '{' + Number(width + 1) + '/' + i + '}',
+            id: Number(width + 1) + '/' + i,
             row: width + 1,
             x: 1,
             y: i,
@@ -109,4 +109,10 @@ export const addLeftRow = (data: dataType[]) => {
     }));
 
     return [...newCol, ...newData];
+};
+
+export const getRowFromId = (id: string) => {
+    const arr = id.split('/');
+
+    return arr && arr.length > 0 ? arr[0] : '';
 };

@@ -7,17 +7,17 @@ type Props = {
     cell_size: number
     numCol: number
     numRow: number
-    selectedCells: string[]
+    selected: boolean
     zoom: number
     handleClickCell: (id: string) => () => void
 }
 
 export const FieldCell: React.FC<Props> = (props) => {
 
-    const {cell, cell_size, numCol, numRow, selectedCells, zoom, handleClickCell} = props;
+    const {cell, cell_size, numCol, numRow, selected, zoom, handleClickCell} = props;
 
     return <div
-        className={`svg-cell ${selectedCells.includes(cell.id) ? 'selected' : ''}`}
+        className={`svg-cell ${selected ? 'selected' : ''}`}
         style={{
             width: cell_size,
             height: cell_size,

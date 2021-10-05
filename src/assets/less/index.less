@@ -1,8 +1,17 @@
+@font-face {
+  font-family: 'GothamPro';
+  src: url('../fonts/GothamPro.eot?') format('eot'),
+  url('../fonts/GothamPro.otf')  format('opentype'),
+  url('../fonts/GothamPro.woff') format('woff'),
+  url('../fonts/GothamPro.ttf')  format('truetype');
+}
+
 @import "./variables";
 
 html, body {
   margin: 0;
   padding: 0;
+  font-family: GothamPro, serif;
 }
 
 .app_workspase {
@@ -12,5 +21,5 @@ html, body {
 .view_field {
   position: relative;
   height: calc(100vh - @otherHeight);
-  padding: @paddingTop @paddingRight @paddingBottom @paddingLeft;
+  padding: @mainPaddingTop @mainPaddingRight @mainPaddingBottom @mainPaddingLeft;
 }

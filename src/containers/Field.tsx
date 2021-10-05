@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useDispatch, useSelector, shallowEqual} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../actions';
 import {Field as FieldComponent} from '../components/Field';
 import {getWindowSizes, getCellSize, getMinCoord, getVisibleData} from '../utils';
@@ -7,7 +7,7 @@ import {MIN_ZOOM, MAX_ZOOM, OTHER_WIDTH, OTHER_HEIGHT, X_LEFT_MAX, Y_BOTTOM_MAX}
 
 const Field: React.FC = () => {
 
-    const {data, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state, shallowEqual);
+    const {data, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state);
     const {windowWidth, windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
 
@@ -122,15 +122,12 @@ const Field: React.FC = () => {
         return () => window.removeEventListener('wheel', handlerOnScrool, false);
     });
 
-    const isMooved = React.useRef(false);
-
     const handleMouseDownMap = React.useCallback((event: MouseEvent) => {
         const {clientX, clientY} = event || {};
         const map = document.querySelector('.svg_field');
 
         const handleMouseMooveMap = (event: MouseEvent) => {
             map.classList.add('moved');
-            isMooved.current = true;
             const {pageX, pageY} = event || {};
             dispatch(actions.changeCurrentPosition({
                 currentAbscissa: currentAbscissa + pageX - clientX,
@@ -158,15 +155,11 @@ const Field: React.FC = () => {
     });
 
     const handleClickCell = React.useCallback((id: string) => () => {
-        if (!isMooved.current) {
             if (selectedCells.includes(id)) {
                 dispatch(actions.changeSelectedCells(selectedCells.filter((item: string) => item !== id)));
             } else {
                 dispatch(actions.changeSelectedCells([...selectedCells, id]));
             }
-        } else {
-            isMooved.current = false;
-        }
     }, [selectedCells, dispatch]);
 
     return <FieldComponent

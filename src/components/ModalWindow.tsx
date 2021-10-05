@@ -6,11 +6,11 @@ type Props = {
     title: string
     description: string | JSX.Element
     handleCloseModalWindow: () => void
-    handleConfirm: () => void
+    handleConfirm?: () => void
 }
 
 export const ModalWindow:React.FC<Props> = (props) => {
-    const {visible, title, description, handleCloseModalWindow, handleConfirm} = props;
+    const {visible, title, description, handleCloseModalWindow/*, handleConfirm*/} = props;
 
     return visible && <div className={'modal_window-wrap'}>
         <div className={'modal_window'}>
@@ -20,11 +20,11 @@ export const ModalWindow:React.FC<Props> = (props) => {
                 <button
                     className={'modal_window-button'}
                     onClick={handleCloseModalWindow}
-                >Отмена</button>
-                <button
-                    className={'modal_window-button'}
-                    onClick={handleConfirm}
-                >Подтверждаю</button>
+                >ОК</button>
+                {/*<button*/}
+                {/*    className={'modal_window-button'}*/}
+                {/*    onClick={handleConfirm}*/}
+                {/*>Подтверждаю</button>*/}
             </div>
         </div>
     </div>;

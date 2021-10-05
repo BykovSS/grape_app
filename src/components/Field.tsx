@@ -37,7 +37,7 @@ export const Field: React.FC<Props> = (props) => {
                 cell_size={cell_size}
                 numCol={numCol}
                 numRow={numRow}
-                selectedCells={selectedCells}
+                selected={selectedCells.includes(item.id)}
                 zoom={zoom}
                 handleClickCell={handleClickCell}
             />) : null}

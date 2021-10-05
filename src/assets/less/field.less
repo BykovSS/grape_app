@@ -28,7 +28,22 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
+  transition: all 0.1s ease-in;
   &.selected {
 	background: #aaa;
+  }
+  &:hover {
+    cursor: pointer;
+    background: rgba(170,170,170,0.7);
+  }
+  &:not(.selected):hover {
+    background: #ddd;
+  }
+}
+
+.svg_field.moved .svg-cell {
+  &:hover {
+    cursor: grabbing;
+    background: #fff;
   }
 }

@@ -7,7 +7,7 @@ const AddLeftRowButton:React.FC = () => {
     const dispatch = useDispatch();
 
     const handleAddLeftRow = React.useCallback(() => {
-        dispatch(actions.changeWarningVisible(true));
+        dispatch(actions.addLeftRow());
     }, [dispatch]);
 
     return <button
