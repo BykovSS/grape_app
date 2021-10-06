@@ -4,26 +4,27 @@ import * as actions from '../actions';
 import {ModalWindow as ModalWindowComponent} from '../components/ModalWindow';
 
 const ModalWindow:React.FC = () => {
-    const {isWarningVisible} = useSelector((state: any) => state, shallowEqual);
+    const {fetchError, saveError} = useSelector((state: any) => state, shallowEqual);
+    const visible = Boolean(fetchError) || Boolean(saveError);
+    const title = fetchError
+        ? 'Ошибка загрузки данных!'
+        : saveError
+            ? 'Ошибка сохранения данных!'
+            : '';
+    const description = fetchError ? fetchError : saveError ? saveError : '';
+
 
     const dispatch = useDispatch();
 
     const handleCloseModalWindow = React.useCallback(() => {
-        dispatch(actions.changeWarningVisible(false));
+        dispatch(actions.cleanErrors());
     }, [dispatch]);
 
-    // const handleConfirm = React.useCallback(() => {
-    //
-    //     handleCloseModalWindow();
-    // }, [handleCloseModalWindow]);
-
     return <ModalWindowComponent
-        visible={isWarningVisible}
-        title={'Результат сохранения'}
-        description={<span>
-                <span>{'Сохранение данных прошло успешно!'}</span></span>}
+        visible={visible}
+        title={title}
+        description={description}
         handleCloseModalWindow={handleCloseModalWindow}
-        // handleConfirm={handleConfirm}
     />;
 };
 

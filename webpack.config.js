@@ -42,7 +42,8 @@ module.exports = (env, argv) => {
 			}),
 			new CopyWebpackPlugin({
 				patterns: [
-					{from: path.join(__dirname, './src/assets/favicon'), to: 'img'}
+					{from: path.join(__dirname, './src/assets/favicon'), to: 'img'},
+					{from: path.join(__dirname, './src/assets/static/data.json'), to: 'data'}
 				]
 			}),
 			new webpack.HotModuleReplacementPlugin(),

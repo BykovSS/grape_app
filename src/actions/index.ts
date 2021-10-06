@@ -1,20 +1,37 @@
-// import * as fetch from 'isomorphic-fetch';
+import * as fetch from 'isomorphic-fetch';
 import {actionTypes} from '../constants/actionTypes';
-import {dataType} from '../types';
-import {generateData} from '../utils';
+import {GuideType} from '../types';
+import {createErrorMessage, throwError} from '../utils';
 
 export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });
 
-export const loadDataSuccess = (data: dataType[]) => ({
+export const loadDataSuccess = (fetchedData: {data: string[], guide: GuideType[]}) => ({
     type: actionTypes.FETCH_DATA_SUCCESS,
-    data
+    fetchedData
 });
 
-export const loadDataError = (error: string) => ({
+export const loadDataError = (fetchError: string) => ({
     type: actionTypes.FETCH_DATA_FAILURE,
-    error
+    fetchError
+});
+
+export const onRequestSaveData = () => ({
+    type: actionTypes.SAVE_DATA_REQUEST
+});
+
+export const saveDataSuccess = () => ({
+    type: actionTypes.SAVE_DATA_SUCCESS
+});
+
+export const saveDataError = (saveError: string) => ({
+    type: actionTypes.SAVE_DATA_FAILURE,
+    saveError
+});
+
+export const cleanErrors = () => ({
+    type: actionTypes.CLEAN_ERRORS
 });
 
 export const changeWindowSizes = (windowSizes: {windowWidth: number, windowHeight: number}) => ({
@@ -49,25 +66,42 @@ export const disableNeedClicks = () => ({
     type: actionTypes.DISABLE_NEED_CLICKS,
 });
 
-export const changeWarningVisible = (isWarningVisible: boolean) => ({
-    type: actionTypes.CHANGE_WARNING_VISIBLE,
-    isWarningVisible
-});
-
 export const changeSelectedCells = (selectedCells: string[]) => ({
     type: actionTypes.CHANGE_SELECTED_CELLS,
     selectedCells
 });
 
-export const fetchData = (/*url = 'data.json'*/) => async (dispatch: Function) => {
+export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
     dispatch(onRequestFetchData());
 
     try {
-        // const response = await fetch(`${url}`);
-        // const data = await response.json();
-        const data = await generateData(200, 300);
-        dispatch(loadDataSuccess(data));
-    } catch (error) {
-        dispatch(loadDataError(error));
+        const response = await fetch(`${url}`);
+        if (response && !response.ok) {
+            throwError(createErrorMessage(response));
+        }
+        const fetchedData = await response.json();
+        dispatch(loadDataSuccess(fetchedData));
+    } catch (fetchError) {
+        dispatch(loadDataError(String(fetchError)));
+    }
+};
+
+export const saveData = (data: string, url = 'data/data.json') => async (dispatch: Function) => {
+    dispatch(onRequestSaveData());
+
+    try {
+        const response = await fetch(`${url}`, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            },
+            body: data
+        });
+        if (response && !response.ok) {
+            throwError(createErrorMessage(response));
+        }
+        dispatch(saveDataSuccess());
+    } catch (saveError) {
+        dispatch(saveDataError(String(saveError)));
     }
 };

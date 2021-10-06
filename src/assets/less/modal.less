@@ -1,8 +1,10 @@
 .modal_window {
   max-width: 50%;
-  max-height: 50%;
+  min-width: 300px;
+  max-height: 80%;
+  min-height: 158px;
   background: #fff;
-  border-radius: 7px;
+  border-radius: 5px;
   &-wrap {
 	position: fixed;
 	left: 0;
@@ -16,13 +18,13 @@
 	align-items: center;
   }
   &-title {
-	padding: 10px 20px;
-	background: #ccc;
+	padding: 15px 20px;
+	background: #f00;
 	font-size: 18px;
-	border-radius: 7px 7px 0 0;
+	border-radius: 5px 5px 0 0;
   }
   &-description {
-	padding: 10px 20px;
+	padding: 15px 20px;
 	display: flex;
 	flex-direction: column;
   }

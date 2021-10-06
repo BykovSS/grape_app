@@ -24,12 +24,19 @@ export type CoordinatesType = {
 
 export type ActionType = {
     type: string
-    data?: dataType[]
+    fetchedData?: {data: string[], guide: GuideType[]}
     windowSizes?: CoordinatesType
     currentPosition?: CoordinatesType
     mouseInMap?: boolean
     zoom?: number
-    isWarningVisible?: boolean
     selectedCells?: string[]
-    error?: string
+    fetchError?: string
+    saveError?: string
 };
+
+export type GuideType = {
+    id: string
+    label: string
+    html: string
+    type: string
+}

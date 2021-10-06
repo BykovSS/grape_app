@@ -19,6 +19,31 @@ export const generateData = (x: number, y: number) => {
     return data;
 };
 
+export const generateGuide = () => [
+    {id: 'triangle', label: '', html: '&#9650;', type: 'red'},
+    {id: 'square', label: '', html: '&#9632;', type: 'red'},
+    {id: 'circle', label: '', html: '&#9679;', type: 'red'},
+    {id: 'spade', label: '', html: '&spades;', type: 'white'},
+    {id: 'heart', label: '', html: '&hearts;', type: 'white'},
+    {id: 'club', label: '', html: '&clubs;', type: 'white'},
+    {id: 'diamond', label: '', html: '&diams;', type: 'white'},
+    {id: 'star_1', label: '', html: '&#9733;', type: 'other'},
+    {id: 'ring', label: 'Свободное место', html: '&#9675;', type: 'free'},
+    {id: 'hatching', label: 'Непригодно для посадки', html: '', type: 'hatching'},
+];
+
+export const convertDataToSave = (data: dataType[]) => {
+    return data ? data.map(elem => elem.row + '$' + elem.x + '$' + elem.y + '$' + elem.sort + '$' + elem.date) : [];
+};
+
+export const parseDataFromFetch = (data: string[]) => {
+    return data ? data.map(elem => {
+        const [row, x, y, sort, date] = elem.split('$');
+
+        return {id: x+'/'+y, row:Number(row), x:Number(x), y:Number(y), sort, date: Number(date)};
+    }) : [];
+};
+
 export const getWindowSizes = () => {
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -116,3 +141,9 @@ export const getRowFromId = (id: string) => {
 
     return arr && arr.length > 0 ? arr[0] : '';
 };
+
+export const throwError = (error?: string) => {
+    throw new Error(error);
+};
+
+export const createErrorMessage = (response: Response) => ';status: ' + response.status + '; statusText: ' + response.statusText + '; url: ' + response.url;
