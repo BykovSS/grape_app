@@ -37,6 +37,5 @@ export type ActionType = {
 export type GuideType = {
     id: string
     label: string
-    html: string
     type: string
 }

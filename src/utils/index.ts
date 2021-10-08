@@ -20,16 +20,16 @@ export const generateData = (x: number, y: number) => {
 };
 
 export const generateGuide = () => [
-    {id: 'triangle', label: '', html: '&#9650;', type: 'red'},
-    {id: 'square', label: '', html: '&#9632;', type: 'red'},
-    {id: 'circle', label: '', html: '&#9679;', type: 'red'},
-    {id: 'spade', label: '', html: '&spades;', type: 'white'},
-    {id: 'heart', label: '', html: '&hearts;', type: 'white'},
-    {id: 'club', label: '', html: '&clubs;', type: 'white'},
-    {id: 'diamond', label: '', html: '&diams;', type: 'white'},
-    {id: 'star_1', label: '', html: '&#9733;', type: 'other'},
-    {id: 'ring', label: 'Свободное место', html: '&#9675;', type: 'free'},
-    {id: 'hatching', label: 'Непригодно для посадки', html: '', type: 'hatching'},
+    {id: 'triangle', label: '', type: 'red'},
+    {id: 'square', label: '', type: 'red'},
+    {id: 'circle', label: '', type: 'red'},
+    {id: 'spade', label: '', type: 'white'},
+    {id: 'heart', label: '', type: 'white'},
+    {id: 'club', label: '', type: 'white'},
+    {id: 'diamond', label: '', type: 'white'},
+    {id: 'star_1', label: '', type: 'other'},
+    {id: 'ring', label: 'Свободное место', type: 'free'},
+    {id: 'hatching', label: 'Непригодно для посадки', type: 'hatching'},
 ];
 
 export const convertDataToSave = (data: dataType[]) => {

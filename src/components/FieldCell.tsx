@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Icon} from './icons/Icon';
 import '../assets/less/field.less';
 import {dataType} from '../types';
 
@@ -30,5 +31,5 @@ export const FieldCell: React.FC<Props> = (props) => {
         data-x={cell.x}
         data-y={cell.y}
         onClick={handleClickCell(cell.id)}
-    >{cell.id}</div>;
+    ><Icon sort={cell.sort} zoom={zoom}/></div>;
 };

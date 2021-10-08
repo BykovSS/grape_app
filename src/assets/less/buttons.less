@@ -8,6 +8,8 @@ button {
   color: #fff;
   padding: 8px 16px;
   font-size: 14px;
+  transition: all 0.1s ease-in;
+  cursor: pointer;
   &:hover {
 	background: #571753;
   }
@@ -71,7 +73,7 @@ button {
 }
 
 .horizontal_buttons {
-  bottom: 15px;
+  bottom: 17px;
   left: calc(@mainPaddingLeft + (100vw - @otherWidth)/2 - @navigateButtonsGroupLength/2);
   width: @navigateButtonsGroupLength;
 }
@@ -88,7 +90,7 @@ button {
   font-family: GothamPro, serif;
   position: absolute;
   height: @navigateButtonWidth;
-  bottom: 15px;
+  bottom: 17px;
   &__left {
 	left: @mainPaddingLeft;
   }
@@ -100,7 +102,7 @@ button {
 .deselect_button {
   font-family: GothamPro, serif;
   position: absolute;
-  bottom: 15px;
+  bottom: 17px;
   right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
   height: @navigateButtonWidth;
   width: @rightButtonWidth;
@@ -109,7 +111,7 @@ button {
 .save_button {
   font-family: GothamPro, serif;
   position: absolute;
-  bottom: calc(30px + @navigateButtonWidth);
+  bottom: calc(35px + @navigateButtonWidth);
   right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
   height: @navigateButtonWidth;
   width: @rightButtonWidth;
