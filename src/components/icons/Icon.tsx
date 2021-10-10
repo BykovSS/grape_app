@@ -19,6 +19,8 @@ type Props = {
 export const Icon: React.FC<Props> = (props) => {
 
     const {sort, zoom=1, color='black'} = props;
+    const {appVersion} = window.navigator;
+    const isMac = appVersion.indexOf('Mac OS') !== -1;
 
     let locSort = sort;
     let starNum: string;
@@ -31,19 +33,19 @@ export const Icon: React.FC<Props> = (props) => {
         case 'triangle':
             return <Triangle zoom={zoom} color={color}/>;
         case 'square':
-            return <Square zoom={zoom} color={color}/>;
+            return <Square isMac={isMac} zoom={zoom} color={color}/>;
         case 'circle':
-            return <Circle zoom={zoom} color={color}/>;
+            return <Circle isMac={isMac} zoom={zoom} color={color}/>;
         case 'spades':
-            return <Spades zoom={zoom} color={color}/>;
+            return <Spades isMac={isMac} zoom={zoom} color={color}/>;
         case 'hearts':
-            return <Hearts zoom={zoom} color={color}/>;
+            return <Hearts isMac={isMac} zoom={zoom} color={color}/>;
         case 'clubs':
-            return <Clubs zoom={zoom} color={color}/>;
+            return <Clubs isMac={isMac} zoom={zoom} color={color}/>;
         case 'diamonds':
-            return <Diamonds zoom={zoom} color={color}/>;
+            return <Diamonds isMac={isMac} zoom={zoom} color={color}/>;
         case 'star':
-            return <Star zoom={zoom} color={color} num={Number(starNum)}/>;
+            return <Star isMac={isMac} zoom={zoom} color={color} num={Number(starNum)}/>;
         case 'ring':
             return <Ring zoom={zoom}/>;
         case 'hatching':

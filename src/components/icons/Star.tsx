@@ -4,16 +4,17 @@ type Props = {
     zoom?: number
     color?: string
     num?: number
+    isMac?: boolean
 }
 
 export const Star: React.FC<Props> = (props) => {
 
-    const {zoom=1, color='black', num=1} = props;
+    const {zoom=1, color='black', num=1, isMac=false} = props;
 
     return <div
         style={{
-            fontSize: `${34*zoom}px`,
-            marginTop: `${-6*zoom}px`,
+            fontSize: `${(isMac ? 26 : 34)*zoom}px`,
+            marginTop: `${(isMac ? 0 : -6)*zoom}px`,
             color: color,
             position: 'relative'
         }}
