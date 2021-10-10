@@ -32,6 +32,8 @@ export type ActionType = {
     selectedCells?: string[]
     fetchError?: string
     saveError?: string
+    id?: string
+    label?: string
 };
 
 export type GuideType = {

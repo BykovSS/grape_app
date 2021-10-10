@@ -24,7 +24,7 @@ export const App: React.FC = () => {
             <HorizontalNavigateButtonGroup />
             <AddLeftRowButton />
             <AddRightRowButton />
-            <SaveButton title={'Сохранить'}/>
+            <SaveButton/>
             <DeselectButton />
         </div>
         <Guide />

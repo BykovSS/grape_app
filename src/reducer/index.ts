@@ -69,6 +69,8 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return Object.assign({}, state, {isNeedClickRight: false, isNeedClickLeft: false});
         case actionTypes.CHANGE_SELECTED_CELLS:
             return Object.assign({}, state, {selectedCells: action.selectedCells});
+        case actionTypes.CHANGE_GUIDE_LABEL:
+            return Object.assign({}, state, {guide: state.guide.map(elem => elem.id === action.id ? {...elem, label: action.label} : elem)});
         default:
             return state;
     }

@@ -9,10 +9,13 @@ type Props = {
 }
 
 export const SortLine: React.FC<Props> = (props) => {
-    const {id, /* label*/} = props;
+    const {id, label, handleChangeSortLabel} = props;
 
     return <div className={'guide-sort'}>
         <div className={'guide-icon'}><Icon sort={id} zoom={0.8}/></div>
-
+        <span className={'guide-dash'}>-</span>
+        {id === 'ring' || id === 'hatching'
+            ? <p className={'guide-text'}>{label}</p>
+            : <input type={'text'} className={'guide-input'} value={label} onChange={handleChangeSortLabel}/>}
     </div>;
 };

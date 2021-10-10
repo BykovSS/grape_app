@@ -71,6 +71,11 @@ export const changeSelectedCells = (selectedCells: string[]) => ({
     selectedCells
 });
 
+export const changeGuideLabel = (id: string, label: string) => ({
+    type: actionTypes.CHANGE_GUIDE_LABEL,
+    id, label
+});
+
 export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
     dispatch(onRequestFetchData());
 

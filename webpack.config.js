@@ -43,8 +43,7 @@ module.exports = (env, argv) => {
 			new CopyWebpackPlugin({
 				patterns: [
 					{from: path.join(__dirname, './src/assets/favicon'), to: 'img'},
-					{from: path.join(__dirname, './src/assets/static/data.json'), to: 'data'},
-					{from: path.join(__dirname, './src/assets/img'), to: 'img'}
+					{from: path.join(__dirname, './src/assets/static/data.json'), to: 'data'}
 				]
 			}),
 			new webpack.HotModuleReplacementPlugin(),
@@ -97,7 +96,7 @@ module.exports = (env, argv) => {
 					test: /\.(gif|jpeg|jpg|png|ico)(\?[0-9]+)?$/,
 					type: 'asset/resource',
 					generator: {
-						filename: 'favicon/[name][ext]'
+						filename: 'img/[name][ext]'
 					}
 				},
 				{
@@ -134,7 +133,7 @@ module.exports = (env, argv) => {
 			host: 'localhost',
 			hot: true,
 			open: true,
-			port: 8082,
+			port: 8080,
 			static: {
 				directory: path.resolve(__dirname, './docs'),
 				publicPath: '/',

@@ -1,6 +1,6 @@
 import * as React from 'react';
-// import {useDispatch} from 'react-redux';
-// import * as actions from '../actions';
+import {useDispatch} from 'react-redux';
+import * as actions from '../actions';
 import {SortLine as SortLineComponent} from '../components/SortLine';
 
 type Props = {
@@ -10,11 +10,11 @@ type Props = {
 
 const SortLine: React.FC<Props> = (props) => {
     const {id, label} = props;
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const handleChangeSortLabel = React.useCallback((event: any) => {
-        console.log(event);
-    }, [/*dispatch, id*/]);
+        dispatch(actions.changeGuideLabel(id, event.target.value));
+    }, [dispatch, id]);
 
     return <SortLineComponent
         id={id}
