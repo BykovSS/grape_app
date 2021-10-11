@@ -11,7 +11,7 @@ export const generateData = (x: number, y: number) => {
                 x: i,
                 y: j,
                 sort: null,
-                date: 1586523600000
+                date: null
             });
         }
     }
@@ -147,3 +147,14 @@ export const throwError = (error?: string) => {
 };
 
 export const createErrorMessage = (response: Response) => ';status: ' + response.status + '; statusText: ' + response.statusText + '; url: ' + response.url;
+
+export const getStarIdAndNum = (sort: string) => {
+    let locSort = sort;
+    let starNum: string;
+
+    if (sort && sort.startsWith('star_')) {
+        [locSort, starNum] = sort.split('_');
+    }
+
+    return {locSort, starNum};
+};

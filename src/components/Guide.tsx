@@ -22,7 +22,14 @@ export const Guide: React.FC<Props> = (props) => {
             <p className={'guide-separator'}>белые сорта</p>
             {guide && guide.map(elem => elem.type === 'white' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
             <p className={'guide-separator'}>остальное</p>
-            {guide && guide.map(elem => elem.type === 'other' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
+            {guide && guide.map((elem, i, arr) => elem.type === 'other'
+                ? <SortLine
+                    key={elem.id}
+                    id={elem.id}
+                    label={elem.label}
+                    length={arr.filter(item => item.id.indexOf('star_') !== -1).length}
+                />
+                : null)}
             {guide && guide.map(elem => elem.type === 'free' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
             {guide && guide.map(elem => elem.type === 'hatching' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
             <ApplyButton />

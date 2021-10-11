@@ -15,5 +15,7 @@ export const actionTypes = {
     DISABLE_NEED_CLICKS: 'disableNeedClicks',
     CHANGE_WARNING_VISIBLE: 'changeWarningVisible',
     CHANGE_SELECTED_CELLS: 'changeSelectedCells',
-    CHANGE_GUIDE_LABEL: 'changeGuideLabel'
+    CHANGE_GUIDE_LABEL: 'changeGuideLabel',
+    ADD_NEW_GUIDE: 'addNewGuide',
+    REMOVE_GUIDE: 'removeGuide',
 };

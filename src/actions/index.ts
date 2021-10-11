@@ -76,6 +76,16 @@ export const changeGuideLabel = (id: string, label: string) => ({
     id, label
 });
 
+export const addNewGuide = (guide: GuideType) => ({
+    type: actionTypes.ADD_NEW_GUIDE,
+    guide
+});
+
+export const removeGuide = (id: string) => ({
+    type: actionTypes.REMOVE_GUIDE,
+    id
+});
+
 export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
     dispatch(onRequestFetchData());
 

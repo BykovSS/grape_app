@@ -21,6 +21,7 @@ const initialState = {
     isNeedClickRight: false,
     isNeedClickLeft: false,
     selectedCells: [] as string[],
+    currentCell: null as dataType,
     fetchError: null as string,
     saveError: null as string,
     guide: [] as GuideType[]
@@ -68,9 +69,21 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.DISABLE_NEED_CLICKS:
             return Object.assign({}, state, {isNeedClickRight: false, isNeedClickLeft: false});
         case actionTypes.CHANGE_SELECTED_CELLS:
-            return Object.assign({}, state, {selectedCells: action.selectedCells});
+            return Object.assign({}, state, {
+                selectedCells: action.selectedCells,
+                currentCell: action.selectedCells.length > 0 ? state.data.find(elem => elem.id === action.selectedCells[action.selectedCells.length - 1]) : null});
         case actionTypes.CHANGE_GUIDE_LABEL:
             return Object.assign({}, state, {guide: state.guide.map(elem => elem.id === action.id ? {...elem, label: action.label} : elem)});
+        case actionTypes.ADD_NEW_GUIDE: {
+            const newGuide = state.guide;
+            let count = 0;
+            newGuide.forEach((elem, i) => {if (elem.id.indexOf('star_') !== -1) count = i;});
+            newGuide.splice(count+1, 0, action.guide);
+
+            return Object.assign({}, state, {guide: newGuide});
+        }
+        case actionTypes.REMOVE_GUIDE :
+            return Object.assign({}, state, {guide: state.guide.filter(elem => elem.id !== action.id)});
         default:
             return state;
     }

@@ -101,12 +101,22 @@
   }
   &-input {
 	margin: 2px 0;
-	width: 200px;
 	border: 1px solid purple;
 	border-radius: 3px;
+	flex-grow: 2;
 	outline: none;
 	&:focus-visible {
 	  border: 2px solid purple;
 	}
+	&-star {
+	  max-width: 143px;
+	}
+  }
+  &-button {
+	padding: 0;
+	width: 22px;
+	height: 22px;
+	margin-left: 5px;
+	margin-top: 1px;
   }
 }

@@ -34,6 +34,7 @@ export type ActionType = {
     saveError?: string
     id?: string
     label?: string
+    guide?: GuideType
 };
 
 export type GuideType = {

@@ -9,6 +9,7 @@ import {Diamonds} from './Diamonds';
 import {Star} from './Star';
 import {Ring} from './Ring';
 import {Hatching} from './Hatching';
+import {getStarIdAndNum} from '../../utils';
 
 type Props = {
     sort: string
@@ -22,12 +23,7 @@ export const Icon: React.FC<Props> = (props) => {
     const {appVersion} = window.navigator;
     const isMac = appVersion.indexOf('Mac OS') !== -1;
 
-    let locSort = sort;
-    let starNum: string;
-
-    if (sort && sort.startsWith('star_')) {
-        [locSort, starNum] = sort.split('_');
-    }
+    const {locSort, starNum} = getStarIdAndNum(sort);
 
     switch (locSort) {
         case 'triangle':

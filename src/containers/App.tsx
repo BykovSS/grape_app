@@ -12,12 +12,6 @@ const App: React.FC = () => {
         dispatch(actions.fetchData());
     }, [dispatch]);
 
-    const {appVersion} = window.navigator;
-
-    React.useEffect(() => {
-        dispatch(actions.loadDataError(appVersion));
-    }, [dispatch, appVersion]);
-
     return <AppComponent />;
 };
 
