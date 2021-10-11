@@ -12,7 +12,7 @@ export const Hearts: React.FC<Props> = (props) => {
 
     return <div
         style={{
-            fontSize: `${isMac ? 26 : 34*zoom}px`,
+            fontSize: `${(isMac ? 26 : 34)*zoom}px`,
             color: color
         }}
     >&hearts;</div>;
