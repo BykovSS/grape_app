@@ -4,7 +4,7 @@ export type dataType = {
     x: number
     y:number
     sort: string
-    date: number
+    year: number
 }
 
 export type RowDataType = {
@@ -35,6 +35,8 @@ export type ActionType = {
     id?: string
     label?: string
     guide?: GuideType
+    year?: number
+    sort?: string
 };
 
 export type GuideType = {

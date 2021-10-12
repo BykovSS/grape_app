@@ -82,6 +82,10 @@ export const dataReducer = (state = initialState, action: ActionType) => {
 
             return Object.assign({}, state, {guide: newGuide});
         }
+        case actionTypes.CHANGE_CURRENT_YEAR:
+            return Object.assign({}, state, {currentCell: state.currentCell ? {...state.currentCell, year: action.year} : {year: action.year}});
+        case actionTypes.CHANGE_CURRENT_SORT:
+            return Object.assign({}, state, {currentCell: state.currentCell ? {...state.currentCell, sort: action.sort} : {sort: action.sort}});
         case actionTypes.REMOVE_GUIDE :
             return Object.assign({}, state, {guide: state.guide.filter(elem => elem.id !== action.id)});
         default:

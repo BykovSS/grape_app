@@ -86,6 +86,16 @@ export const removeGuide = (id: string) => ({
     id
 });
 
+export const onChangeCurrentYear = (year: number) => ({
+    type: actionTypes.CHANGE_CURRENT_YEAR,
+    year
+});
+
+export const onChangeCurrentSort = (sort: string) => ({
+    type: actionTypes.CHANGE_CURRENT_SORT,
+    sort
+});
+
 export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
     dispatch(onRequestFetchData());
 

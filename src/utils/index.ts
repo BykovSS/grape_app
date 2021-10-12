@@ -1,5 +1,5 @@
 import {dataType, RowDataType} from '../types';
-import {CELL_SIZE, OTHER_HEIGHT, OTHER_WIDTH} from '../constants';
+import {CELL_SIZE, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
 export const generateData = (x: number, y: number) => {
     const data = [] as dataType[];
@@ -11,7 +11,7 @@ export const generateData = (x: number, y: number) => {
                 x: i,
                 y: j,
                 sort: null,
-                date: null
+                year: null
             });
         }
     }
@@ -33,14 +33,14 @@ export const generateGuide = () => [
 ];
 
 export const convertDataToSave = (data: dataType[]) => {
-    return data ? data.map(elem => elem.row + '$' + elem.x + '$' + elem.y + '$' + elem.sort + '$' + elem.date) : [];
+    return data ? data.map(elem => elem.row + '$' + elem.x + '$' + elem.y + '$' + elem.sort + '$' + elem.year) : [];
 };
 
 export const parseDataFromFetch = (data: string[]) => {
     return data ? data.map(elem => {
-        const [row, x, y, sort, date] = elem.split('$');
+        const [row, x, y, sort, year] = elem.split('$');
 
-        return {id: x+'/'+y, row:Number(row), x:Number(x), y:Number(y), sort, date: Number(date)};
+        return {id: x+'/'+y, row:Number(row), x:Number(x), y:Number(y), sort: sort === 'null' ? null : sort, year: Number(year)};
     }) : [];
 };
 
@@ -103,7 +103,7 @@ export const addRightRow = (data: dataType[]) => {
             x: width + 1,
             y: i,
             sort: null,
-            date: null
+            year: null
         });
     }
 
@@ -125,7 +125,7 @@ export const addLeftRow = (data: dataType[]) => {
             x: 1,
             y: i,
             sort: null,
-            date: null
+            year: null
         });
     }
     const newData = data.map(elem => ({
@@ -157,4 +157,28 @@ export const getStarIdAndNum = (sort: string) => {
     }
 
     return {locSort, starNum};
+};
+
+export const getYearsArrray = () => {
+    const yearsArray = [0];
+    const currentYear = (new Date()).getFullYear();
+    for (let i=START_YEAR; i<= currentYear; i++) {
+        yearsArray.push(i);
+    }
+
+    return yearsArray;
+};
+
+export const getCellColor = (year: number) => {
+    const currentYear = (new Date()).getFullYear();
+    const currentMonth = (new Date()).getMonth();
+    const age = currentMonth > 3 ? currentYear - year : currentYear - year - 1;
+    if (typeof age !== 'number' || isNaN(age)) return 'black';
+    switch (age) {
+        case -1:
+        case 0: return 'green';
+        case 1: return '#f5e42c';
+        case 2: return 'blue';
+        default: return 'red';
+    }
 };
