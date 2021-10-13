@@ -6,3 +6,4 @@ export const OTHER_HEIGHT = 153;
 export const X_LEFT_MAX = 0;
 export const Y_BOTTOM_MAX = 0;
 export const START_YEAR = 2010;
+export const KOEF = 0;

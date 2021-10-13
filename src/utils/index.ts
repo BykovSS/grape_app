@@ -1,5 +1,5 @@
 import {dataType, RowDataType} from '../types';
-import {CELL_SIZE, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
+import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
 export const generateData = (x: number, y: number) => {
     const data = [] as dataType[];
@@ -76,11 +76,13 @@ export const getVisibleData = (data: dataType[], zoom: number, currentAbscissa: 
       return data;
   }
 
+  const cell_size = getCellSize(zoom);
+
   data.forEach(elem => {
-      if (elem.x >= Math.abs(Math.floor(currentAbscissa/getCellSize(zoom)))
-          && elem.x <= Math.abs(Math.floor((currentAbscissa - windowWidth + OTHER_WIDTH)/getCellSize(zoom)))
-          && elem.y >= Math.abs(Math.floor(currentOrdinate/getCellSize(zoom)))
-          && elem.y <= Math.abs(Math.floor((currentOrdinate - windowHeight + OTHER_HEIGHT)/getCellSize(zoom)))) {
+      if (elem.x >= Math.abs(Math.floor(currentAbscissa/cell_size)) - Math.floor(KOEF*(windowWidth - OTHER_WIDTH)/cell_size)
+          && elem.x <= Math.abs(Math.floor((currentAbscissa - windowWidth + OTHER_WIDTH)/cell_size)) + Math.floor(KOEF*(windowWidth - OTHER_WIDTH)/cell_size)
+          && elem.y >= Math.abs(Math.floor(currentOrdinate/cell_size)) - Math.floor(2*KOEF*(windowHeight - OTHER_HEIGHT)/cell_size)
+          && elem.y <= Math.abs(Math.floor((currentOrdinate - windowHeight + OTHER_HEIGHT)/cell_size)) + Math.floor(2*KOEF*(windowHeight - OTHER_HEIGHT)/cell_size) ) {
           result.push(elem);
       }
   });

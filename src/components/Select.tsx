@@ -46,7 +46,8 @@ export const Select: React.FC<Props> = (props) => {
         };
 
         const handleClickLabel = (elem_title: Element, elem: Element) => (event: any) => {
-            elem_title.innerHTML = event.target.innerHTML;
+            const eventTarget = event.target.classList.contains('__select__label') ? event.target : event.target.parentElement;
+            elem_title.innerHTML = eventTarget.innerHTML;
             elem.setAttribute('data-state', '');
         };
 
