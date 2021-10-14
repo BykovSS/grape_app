@@ -4,7 +4,7 @@ import * as actions from '../../actions';
 import {convertDataToSave} from '../../utils';
 import '../../assets/less/buttons.less';
 
-const ApplyButton:React.FC = () => {
+const ApplyGuideButton:React.FC = () => {
     const {guide} = useSelector((state: any) => state);
     const dispatch = useDispatch();
 
@@ -18,4 +18,4 @@ const ApplyButton:React.FC = () => {
     >{'Применить'}</button>;
 };
 
-export default ApplyButton;
+export default ApplyGuideButton;

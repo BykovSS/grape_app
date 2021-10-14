@@ -1,6 +1,7 @@
 @import './variables';
 
 button {
+  font-family: GothamPro, serif;
   appearance: none;
   border: 0;
   border-radius: 5px;
@@ -87,7 +88,6 @@ button {
 }
 
 .add_button {
-  font-family: GothamPro, serif;
   position: absolute;
   height: @navigateButtonWidth;
   bottom: 17px;
@@ -100,7 +100,6 @@ button {
 }
 
 .deselect_button {
-  font-family: GothamPro, serif;
   position: absolute;
   bottom: 17px;
   right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
@@ -109,7 +108,6 @@ button {
 }
 
 .save_button {
-  font-family: GothamPro, serif;
   position: absolute;
   bottom: calc(35px + @navigateButtonWidth);
   right: calc(@mainPaddingRight/2 - @rightButtonWidth/2);
@@ -122,4 +120,15 @@ button {
   position: absolute;
   bottom: 15px;
   left: calc(50% - @rightButtonWidth/2);
+}
+
+.apply-clear_button {
+  height: @navigateButtonWidth;
+  width: @rightButtonWidth;
+}
+
+.map-report_button {
+  position: absolute;
+  left: 15px;
+  height: @navigateButtonWidth;
 }

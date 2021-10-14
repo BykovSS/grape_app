@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SortLine from '../containers/SortLine';
-import ApplyButton from '../containers/buttons/ApplyButton';
+import ApplyGuideButton from '../containers/buttons/ApplyGuideButton';
 import '../assets/less/guide.less';
 import {GuideType} from '../types';
 
@@ -32,7 +32,7 @@ export const Guide: React.FC<Props> = (props) => {
                 : null)}
             {guide && guide.map(elem => elem.type === 'free' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
             {guide && guide.map(elem => elem.type === 'hatching' ? <SortLine key={elem.id} id={elem.id} label={elem.label}/> : null)}
-            <ApplyButton />
+            <ApplyGuideButton />
         </div>
         <div className={'guide-open-button'} onClick={handleClickIcon}>
             <div className={'guide-open-button__icon'}/>

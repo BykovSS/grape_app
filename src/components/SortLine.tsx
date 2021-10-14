@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Icon} from './icons/Icon';
-import '../assets/less/guide.less';
 import {getStarIdAndNum} from '../utils';
+import '../assets/less/guide.less';
 
 type Props = {
     id: string

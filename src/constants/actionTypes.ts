@@ -5,6 +5,7 @@ export const actionTypes = {
     SAVE_DATA_REQUEST: 'saveDataRequest',
     SAVE_DATA_SUCCESS: 'saveDataSuccess',
     SAVE_DATA_FAILURE: 'saveDataFailure',
+    CHANGE_DATA: 'changeData',
     CLEAN_ERRORS: 'cleanErrors',
     CHANGE_WINDOW_SIZES: 'changeWindowSizes',
     CHANGE_CURRENT_POSITION: 'changeCurrentPosition',

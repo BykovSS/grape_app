@@ -24,6 +24,7 @@ export type CoordinatesType = {
 
 export type ActionType = {
     type: string
+    data?: dataType[]
     fetchedData?: {data: string[], guide: GuideType[]}
     windowSizes?: CoordinatesType
     currentPosition?: CoordinatesType

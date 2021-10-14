@@ -52,6 +52,8 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return Object.assign({}, state, {isSaving: false});
         case actionTypes.SAVE_DATA_FAILURE:
             return Object.assign({}, state, {isSaving: false, saveError: action.saveError});
+        case actionTypes.CHANGE_DATA:
+            return Object.assign({}, state, {data: action.data, selectedCells: [], currentCell: null});
         case actionTypes.CLEAN_ERRORS:
             return Object.assign({}, state, {fetchError: null, saveError: null});
         case actionTypes.CHANGE_WINDOW_SIZES:

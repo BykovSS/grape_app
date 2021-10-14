@@ -13,12 +13,24 @@ import CurrentCell from '../containers/CurrentCell';
 import Guide from '../containers/Guide';
 import {Preloader} from './Preloader';
 import '../assets/less/index.less';
+import {MAP, REPORT} from '../constants';
 
-export const App: React.FC = () => {
+type Props = {
+    showMap: boolean
+    handleChangeShowMap: () => void
+}
+
+export const App: React.FC<Props> = (props) => {
+
+    const {showMap, handleChangeShowMap} = props;
 
     return <div className={'app_workspase'}>
-        <Header title={'Схема посадки саженцев винограда'}/>
-        <div className={'view_field'}>
+        <Header
+            title={`${showMap ? 'Схема посадки' : 'Отчет о посадке'} саженцев винограда`}
+            buttonType={showMap ? MAP : REPORT}
+            handleChangeShowMap={handleChangeShowMap}
+        />
+        {showMap ? <div className={'view_field'}>
             <Field />
             <RowLabels />
             <VerticalNavigateButtonGroup />
@@ -28,7 +40,7 @@ export const App: React.FC = () => {
             <SaveButton/>
             <DeselectButton />
             <CurrentCell />
-        </div>
+        </div> : null}
         <Guide />
         <Preloader />
         <ModalWindow />

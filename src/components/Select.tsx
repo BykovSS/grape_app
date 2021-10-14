@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Icon} from './icons/Icon';
 import '../assets/less/select.less';
+import {SORT} from '../constants';
 
 type Props = {
     type: string
@@ -45,9 +46,7 @@ export const Select: React.FC<Props> = (props) => {
             }
         };
 
-        const handleClickLabel = (elem_title: Element, elem: Element) => (event: any) => {
-            const eventTarget = event.target.classList.contains('__select__label') ? event.target : event.target.parentElement;
-            elem_title.innerHTML = eventTarget.innerHTML;
+        const handleClickLabel = (elem: Element) => () => {
             elem.setAttribute('data-state', '');
         };
 
@@ -58,13 +57,13 @@ export const Select: React.FC<Props> = (props) => {
         selectSingle_title.addEventListener('click', handleClickInSideContent(selectSingle));
 
         for (let i = 0; i < selectSingle_labels.length; i++) {
-            selectSingle_labels[i].addEventListener('click', handleClickLabel(selectSingle_title, selectSingle));
+            selectSingle_labels[i].addEventListener('click', handleClickLabel(selectSingle));
         }
 
         return () => {
             selectSingle_title.addEventListener('click', handleClickInSideContent(selectSingle));
             for (let i = 0; i < selectSingle_labels.length; i++) {
-                selectSingle_labels[i].removeEventListener('click', handleClickLabel(selectSingle_title, selectSingle));
+                selectSingle_labels[i].removeEventListener('click', handleClickLabel(selectSingle));
             }
         };
     }, [disable, type]);
@@ -79,10 +78,10 @@ export const Select: React.FC<Props> = (props) => {
     >
         <div
             className={`__select__title ${'__' + type + '__select__title'}${disable ? ' disable' : ''}`}
-            data-default={value ? value : ''}
+            data-default={value ? value : 'none'}
         >
             {value
-                ? type === 'sort'
+                ? type === SORT
                     ? <div className={'__select__icon'}><Icon sort={value as string} zoom={0.8}/></div>
                     : value
                 : ''}
@@ -95,7 +94,7 @@ export const Select: React.FC<Props> = (props) => {
                     className={`__select__label ${'__' + type + '__select__label'}`}
                     onClick={onChange(elem)}
                 >
-                    {type === 'sort'
+                    {type === SORT
                         ? <div className={'__select__icon'}><Icon sort={elem as string} zoom={0.8}/></div>
                         : elem}
                 </label>

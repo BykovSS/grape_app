@@ -1,6 +1,6 @@
 import * as fetch from 'isomorphic-fetch';
 import {actionTypes} from '../constants/actionTypes';
-import {GuideType} from '../types';
+import {dataType, GuideType} from '../types';
 import {createErrorMessage, throwError} from '../utils';
 
 export const onRequestFetchData = () => ({
@@ -28,6 +28,11 @@ export const saveDataSuccess = () => ({
 export const saveDataError = (saveError: string) => ({
     type: actionTypes.SAVE_DATA_FAILURE,
     saveError
+});
+
+export const changeData = (data: dataType[]) => ({
+    type: actionTypes.CHANGE_DATA,
+    data
 });
 
 export const cleanErrors = () => ({

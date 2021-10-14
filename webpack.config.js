@@ -46,7 +46,6 @@ module.exports = (env, argv) => {
 					{from: path.join(__dirname, './src/assets/static/data.json'), to: 'data'}
 				]
 			}),
-			new webpack.HotModuleReplacementPlugin(),
 			new MiniCssExtractPlugin()
 		],
 		module: {

@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Select} from './Select';
 import '../assets/less/current.less';
 import {dataType} from '../types';
+import ApplyClearButton from '../containers/buttons/ApplyClearButton';
+import {APPLY, CLEAR, SORT, YEAR} from '../constants';
 
 type Props = {
     currentCell: dataType
@@ -21,7 +23,7 @@ export const CurrentCell: React.FC<Props> = (props) => {
         <div className={'current-cell-select'}>
             <p className={'current-cell-label'}>{'Сорт:'}</p>
             <Select
-                type={'sort'}
+                type={SORT}
                 value={sort ? sort : ''}
                 options={sortsArray}
                 disable={disableSortSelect}
@@ -31,12 +33,18 @@ export const CurrentCell: React.FC<Props> = (props) => {
         <div className={'current-cell-select'}>
             <p className={'current-cell-label'}>{'Год:'}</p>
             <Select
-                type={'year'}
+                type={YEAR}
                 value={year}
                 options={yearsArray}
                 disable={!sort || sort === 'ring' || sort === 'hatching'}
                 onChange={handleChangeYear}
             />
+        </div>
+        <div className={'current-cell-button'}>
+            <ApplyClearButton type={APPLY}/>
+        </div>
+        <div className={'current-cell-button'}>
+            <ApplyClearButton type={CLEAR}/>
         </div>
     </div>;
 };
