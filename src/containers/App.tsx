@@ -6,7 +6,7 @@ import '../assets/less/index.less';
 
 const App: React.FC = () => {
 
-    const [showMap, changeShowMap] = React.useState<boolean>(true);
+    const [showMap, changeShowMap] = React.useState<boolean>(false);
 
     const dispatch = useDispatch();
 

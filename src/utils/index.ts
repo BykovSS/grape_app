@@ -1,4 +1,4 @@
-import {dataType, RowDataType} from '../types';
+import {dataType, GuideType, RowDataType} from '../types';
 import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
 export const generateData = (x: number, y: number) => {
@@ -171,11 +171,19 @@ export const getYearsArrray = () => {
     return yearsArray;
 };
 
-export const getCellColor = (year: number) => {
+export const getAge = (year: number) => {
+    if (typeof year !== 'number' || isNaN(year)) {
+        return null;
+    }
     const currentYear = (new Date()).getFullYear();
     const currentMonth = (new Date()).getMonth();
-    const age = currentMonth > 3 ? currentYear - year : currentYear - year - 1;
-    if (typeof age !== 'number' || isNaN(age)) return 'black';
+
+    return currentMonth > 3 ? currentYear - year : currentYear - year - 1;
+};
+
+export const getCellColor = (year: number) => {
+    const age = getAge(year);
+    if (age === null) return 'black';
     switch (age) {
         case -1:
         case 0: return 'green';
@@ -183,4 +191,12 @@ export const getCellColor = (year: number) => {
         case 2: return 'blue';
         default: return 'red';
     }
+};
+
+export const getInitialTableData = (guide: GuideType[]): (GuideType & {a_1?: number, a_2?: number, a_3?: number, a_4?: number})[] => {
+    if (!guide) {
+        return guide;
+    }
+
+    return [...guide].map(elem => ({...elem, a_1: 0, a_2: 0, a_3: 0, a_4: 0}));
 };
