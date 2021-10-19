@@ -99,7 +99,8 @@ const Field: React.FC = () => {
     const handlerOnScrool = React.useCallback((event: WheelEvent) => {
         if (mouseInMap) {
             const {deltaY, target} = event || {};
-            const {x, y} = (target as HTMLElement).dataset || {};
+            const locTarget = (target as HTMLElement).classList.contains('svg-cell') ? target : (target as HTMLElement).parentElement;
+            const {x, y} = (locTarget as HTMLElement).dataset || {};
             if (deltaY < 0) {
                 const locZoom = zoom < MAX_ZOOM ? zoom + 0.25 : zoom;
                 const deltaZoom = (locZoom - zoom)/zoom;

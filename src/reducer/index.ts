@@ -1,5 +1,5 @@
 import {actionTypes} from '../constants/actionTypes';
-import {ActionType, dataType, GuideType} from '../types';
+import {ActionType, dataType, GuideType, ErrorWindowDataType} from '../types';
 import {addLeftRow, addRightRow, getNumCol, getNumRow, parseDataFromFetch} from '../utils';
 
 const initialState = {
@@ -24,7 +24,11 @@ const initialState = {
     currentCell: null as dataType,
     fetchError: null as string,
     saveError: null as string,
-    guide: [] as GuideType[]
+    errorWindowData: null as ErrorWindowDataType,
+    guide: [] as GuideType[],
+    isAuthorized: null as boolean,
+    login: '',
+    password: ''
 };
 
 export const dataReducer = (state = initialState, action: ActionType) => {
@@ -52,10 +56,12 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return Object.assign({}, state, {isSaving: false});
         case actionTypes.SAVE_DATA_FAILURE:
             return Object.assign({}, state, {isSaving: false, saveError: action.saveError});
+        case actionTypes.SHOW_ERROR_WINDOW:
+            return Object.assign({}, state, {errorWindowData: action.errorWindowData});
         case actionTypes.CHANGE_DATA:
             return Object.assign({}, state, {data: action.data, selectedCells: [], currentCell: null});
-        case actionTypes.CLEAN_ERRORS:
-            return Object.assign({}, state, {fetchError: null, saveError: null});
+        case actionTypes.CLOSE_ERROR_WINDOW:
+            return Object.assign({}, state, {errorWindowData: null});
         case actionTypes.CHANGE_WINDOW_SIZES:
             return Object.assign({}, state, {windowSizes: action.windowSizes});
         case actionTypes.CHANGE_CURRENT_POSITION:
@@ -90,6 +96,12 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return Object.assign({}, state, {currentCell: state.currentCell ? {...state.currentCell, sort: action.sort} : {sort: action.sort}});
         case actionTypes.REMOVE_GUIDE :
             return Object.assign({}, state, {guide: state.guide.filter(elem => elem.id !== action.id)});
+        case actionTypes.CHANGE_AUTH_STATUS:
+            return Object.assign({}, state, {isAuthorized: action.status});
+        case actionTypes.CHANGE_LOGIN:
+            return Object.assign({}, state, {login: action.login});
+        case actionTypes.CHANGE_PASSWORD:
+            return Object.assign({}, state, {password: action.password});
         default:
             return state;
     }

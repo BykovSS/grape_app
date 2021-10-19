@@ -38,10 +38,20 @@ export type ActionType = {
     guide?: GuideType
     year?: number
     sort?: string
+    status?: boolean
+    login?: string
+    password?: string
+    errorWindowData?: ErrorWindowDataType
 };
 
 export type GuideType = {
     id: string
     label: string
     type: string
+}
+
+export type ErrorWindowDataType = {
+    showModalWindow?: boolean
+    title?: string
+    description?: string
 }

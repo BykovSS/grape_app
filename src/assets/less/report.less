@@ -1,13 +1,29 @@
 .report {
   padding: 20px 70px 20px;
+  font-size: 14px;
   &-th_name {
     width: 33%;
-    min-width: 70px;
+    min-width: 100px;
   }
   &-th_icon {
-    width: 61px;
+    width: 54px;
     background: url('../img/icon.png') no-repeat center center;
-    background-size: 30px 30px;
+    background-size: 25px 25px;
+  }
+  &-th_sum {
+	width: 13%;
+	min-width: 60px;
+  }
+  &-th_sum {
+	width: 13%;
+	min-width: 60px;
+  }
+  &-th_num {
+	width: 12%;
+	min-width: 60px;
+  }
+  &-td_hatching {
+	padding: 0;
   }
   table {
     width: 100%;
@@ -23,6 +39,13 @@
   table td {
     border: 1px solid #dddddd;
     padding: 5px;
+	&.report-td_hatching {
+	  padding: 0;
+	  .report-sort_icon {
+		width: 21px;
+		height: 21px;
+	  }
+	}
   }
   &-header {
     text-decoration: underline;
@@ -31,10 +54,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 20px;
+    width: 17px;
+    height: 17px;
+	margin: 0 auto;
   }
   &-number {
     text-align: center;
+  }
+  &-total {
+	font-size: 16px;
+	font-weight: bold;
+	& span {
+	  font-size: 14px;
+	}
   }
 }

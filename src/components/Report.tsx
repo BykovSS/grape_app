@@ -30,14 +30,14 @@ export const Report: React.FC = () => {
                 <tr>
                     <th rowSpan={2} className={'report-th_name'}>{'Сорт'}</th>
                     <th rowSpan={2} className={'report-th_icon'}/>
-                    <th rowSpan={2}>{'Всего'}</th>
+                    <th rowSpan={2} className={'report-th_sum'}>{'Всего'}</th>
                     <th colSpan={4}>{'из них (возраст):'}</th>
                 </tr>
                 <tr>
-                    <th>{'1 год'}</th>
-                    <th>{'2 года'}</th>
-                    <th>{'3 года'}</th>
-                    <th>{'4+ года'}</th>
+                    <th className={'report-th_num'}>{'1 год'}</th>
+                    <th className={'report-th_num'}>{'2 года'}</th>
+                    <th className={'report-th_num'}>{'3 года'}</th>
+                    <th className={'report-th_num'}>{'4+ года'}</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,33 +79,35 @@ export const Report: React.FC = () => {
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <tr key={i}>
 					<td>{elem.label}</td>
-					<td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
+					<td className={'report-td_hatching'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/>
 				</tr>)}
             </tbody>
             <tfoot>
-            <td colSpan={2}>{'Итого'}</td>
-            <td className={'report-number'}>{tableData.reduce((result, item) => {
-                if (item.type === 'free' || item.type === 'hatching') return result;
-                else return result + item.a_1 + item.a_2 + item.a_3 + item.a_4;
-            }, 0)}</td>
-            <td className={'report-number'}>{tableData.reduce((result, item) => {
-                if (item.type === 'free' || item.type === 'hatching') return result;
-                else return result + item.a_1;
-            }, 0)}</td>
-            <td className={'report-number'}>{tableData.reduce((result, item) => {
-                if (item.type === 'free' || item.type === 'hatching') return result;
-                else return result + item.a_2;
-            }, 0)}</td>
-            <td className={'report-number'}>{tableData.reduce((result, item) => {
-                if (item.type === 'free' || item.type === 'hatching') return result;
-                else return result + item.a_3;
-            }, 0)}</td>
-            <td className={'report-number'}>{tableData.reduce((result, item) => {
-                if (item.type === 'free' || item.type === 'hatching') return result;
-                else return result + item.a_4;
-            }, 0)}</td>
+            <tr className={'report-total'}>
+                <td colSpan={2}>{'Итого '}<span>(без свободных и непригодных мест)</span></td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_1 + item.a_2 + item.a_3 + item.a_4;
+                }, 0)}</td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_1;
+                }, 0)}</td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_2;
+                }, 0)}</td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_3;
+                }, 0)}</td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_4;
+                }, 0)}</td>
+            </tr>
             </tfoot>
         </table>
     </div>;

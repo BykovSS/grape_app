@@ -1,0 +1,64 @@
+.login-page {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: purple;
+  &-form {
+    padding-bottom: 100px;
+  }
+  &-greet {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+    &_header {
+      font-size: 48px;
+      display: flex;
+      align-items: flex-end;
+      margin-left: 10px;
+      padding-bottom: 5px;
+    }
+  }
+  &-img {
+    width: 80px;
+    height: 80px;
+    background: url('../img/grape.png') no-repeat center center;
+    background-size: 100% 100%;
+  }
+  &-input-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 10px;
+    min-height: 32px;
+  }
+  &-label {
+    min-width: 70px;
+    display: flex;
+    align-items: center;
+  }
+  &-input {
+    min-width: 250px;
+    font-family: GothamPro, serif;
+    min-height: 22px;
+    border: 1px solid purple;
+    border-radius: 3px;
+    outline: none;
+    padding: 3px 7px;
+    &:focus-visible {
+      border: 2px solid purple;
+      padding: 3px 6px;
+    }
+  }
+  &-button-wrap {
+    width: 334px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+  }
+}

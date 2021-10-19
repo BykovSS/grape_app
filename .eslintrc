@@ -10,9 +10,9 @@
     "@typescript-eslint",
     "import",
     "react",
-    "react-hooks",
-    "sonarjs",
-    "jest-dom"
+    "react-hooks"
+//    "sonarjs",
+//    "jest-dom"
 //    "testing-library"
   ],
   "extends": [
@@ -21,8 +21,8 @@
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "plugin:sonarjs/recommended",
-    "plugin:jest-dom/recommended"
+    "plugin:sonarjs/recommended"
+//    "plugin:jest-dom/recommended"
 //    "plugin:testing-library/react"
   ],
   "parser": "@typescript-eslint/parser",

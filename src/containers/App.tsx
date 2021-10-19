@@ -1,18 +1,27 @@
 import * as React from 'react';
-import {useDispatch} from 'react-redux';
-import * as actions from '../actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
+import * as api from '../api';
 import {App as AppComponent} from '../components/App';
 import '../assets/less/index.less';
 
 const App: React.FC = () => {
 
-    const [showMap, changeShowMap] = React.useState<boolean>(false);
+    const [showMap, changeShowMap] = React.useState<boolean>(true);
+    const {isAuthorized} = useSelector((state: any) => state);
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const redirectToLoginPage = React.useCallback(() => history.push('/login'), [history]);
 
     React.useEffect(() => {
-        dispatch(actions.fetchData());
-    }, [dispatch]);
+        if (isAuthorized) {
+            dispatch(api.fetchData());
+        } else {
+            dispatch(api.checkUserAuthorization(redirectToLoginPage));
+        }
+    }, [isAuthorized, dispatch, redirectToLoginPage]);
 
     const handleChangeShowMap = React.useCallback(() => {
         changeShowMap(!showMap);

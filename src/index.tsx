@@ -1,10 +1,27 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import * as firebase from 'firebase/app';
+import firebaseConfig from './config/config';
 import {Provider} from 'react-redux';
 import {appStore} from './store';
 import App from './containers/App';
+import LoginPage from './containers/LoginPage';
 
-ReactDOM.render(<Provider store={appStore}><App/></Provider>, document.getElementById('app'));
+firebase.initializeApp(firebaseConfig);
+
+ReactDOM.render(<Provider store={appStore}>
+    <Router>
+        <Switch>
+            <Route exact path="/">
+                <App/>
+            </Route>
+            <Route path='/login'>
+                <LoginPage/>
+            </Route>
+        </Switch>
+    </Router>
+</Provider>, document.getElementById('app'));
 
 export const moduleHotAccept = (module: NodeModule) => {
     if (module.hot) {

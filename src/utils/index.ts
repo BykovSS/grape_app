@@ -200,3 +200,12 @@ export const getInitialTableData = (guide: GuideType[]): (GuideType & {a_1?: num
 
     return [...guide].map(elem => ({...elem, a_1: 0, a_2: 0, a_3: 0, a_4: 0}));
 };
+
+export const getErrorMessageByCode = (code: string) => {
+    switch (code) {
+        case 'auth/user-not-found': return 'Пользователь не найден!';
+        case 'auth/invalid-email': return 'Введите корректный email!';
+        case 'auth/user-disabled': return 'Пользователь заблокирован!';
+        default: return 'Неизвестная ошибка!';
+    }
+};

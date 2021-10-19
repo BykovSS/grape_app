@@ -12,7 +12,7 @@ export const ModalWindow:React.FC<Props> = (props) => {
     const {visible, title, description, handleCloseModalWindow} = props;
     const descriptionArr = description ? description.split(';') : [];
 
-    return visible && <div className={'modal_window-wrap'}>
+    return visible ? <div className={'modal_window-wrap'}>
         <div className={'modal_window'}>
             <div className={'modal_window-title'}>{title}</div>
             <div className={'modal_window-description'}>
@@ -25,5 +25,5 @@ export const ModalWindow:React.FC<Props> = (props) => {
                 >ОК</button>
             </div>
         </div>
-    </div>;
+    </div> : null;
 };

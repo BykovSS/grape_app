@@ -1,7 +1,5 @@
-import * as fetch from 'isomorphic-fetch';
 import {actionTypes} from '../constants/actionTypes';
-import {dataType, GuideType} from '../types';
-import {createErrorMessage, throwError} from '../utils';
+import {dataType, ErrorWindowDataType, GuideType} from '../types';
 
 export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
@@ -30,13 +28,18 @@ export const saveDataError = (saveError: string) => ({
     saveError
 });
 
+export const showErrorWindow = (errorWindowData: ErrorWindowDataType) => ({
+    type: actionTypes.SHOW_ERROR_WINDOW,
+    errorWindowData
+});
+
 export const changeData = (data: dataType[]) => ({
     type: actionTypes.CHANGE_DATA,
     data
 });
 
-export const cleanErrors = () => ({
-    type: actionTypes.CLEAN_ERRORS
+export const closeErrorWindow = () => ({
+    type: actionTypes.CLOSE_ERROR_WINDOW
 });
 
 export const changeWindowSizes = (windowSizes: {windowWidth: number, windowHeight: number}) => ({
@@ -101,37 +104,17 @@ export const onChangeCurrentSort = (sort: string) => ({
     sort
 });
 
-export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
-    dispatch(onRequestFetchData());
+export const onChangeAuthStatus = (status: boolean) => ({
+    type: actionTypes.CHANGE_AUTH_STATUS,
+    status
+});
 
-    try {
-        const response = await fetch(`${url}`);
-        if (response && !response.ok) {
-            throwError(createErrorMessage(response));
-        }
-        const fetchedData = await response.json();
-        dispatch(loadDataSuccess(fetchedData));
-    } catch (fetchError) {
-        dispatch(loadDataError(String(fetchError)));
-    }
-};
+export const onChangeLogin = (login: string) => ({
+    type: actionTypes.CHANGE_LOGIN,
+    login
+});
 
-export const saveData = (data: string, url = 'data/data.json') => async (dispatch: Function) => {
-    dispatch(onRequestSaveData());
-
-    try {
-        const response = await fetch(`${url}`, {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json; charset=utf-8'
-            },
-            body: data
-        });
-        if (response && !response.ok) {
-            throwError(createErrorMessage(response));
-        }
-        dispatch(saveDataSuccess());
-    } catch (saveError) {
-        dispatch(saveDataError(String(saveError)));
-    }
-};
+export const onChangePassword = (password: string) => ({
+    type: actionTypes.CHANGE_PASSWORD,
+    password
+});
