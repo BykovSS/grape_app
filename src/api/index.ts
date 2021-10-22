@@ -5,8 +5,10 @@ import {getErrorMessageByCode, throwError} from '../utils';
 
 export const checkUserAuthorization = (failedCallback: Function) => (dispatch: Function) => {
     const auth = getAuth();
+    console.log('tut');
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            console.log(user);
             dispatch(actions.onChangeAuthStatus(true));
         } else failedCallback();
     });
