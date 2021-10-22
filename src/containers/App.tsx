@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         if (isAuthorized) {
-            dispatch(api.fetchData());
+            dispatch(api.loadDataFromBase());
         } else {
             dispatch(api.checkUserAuthorization(redirectToLoginPage));
         }

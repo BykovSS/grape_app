@@ -25,14 +25,12 @@ export type CoordinatesType = {
 export type ActionType = {
     type: string
     data?: dataType[]
-    fetchedData?: {data: string[], guide: GuideType[]}
+    fetchedData?: {data: string, guide: string}
     windowSizes?: CoordinatesType
     currentPosition?: CoordinatesType
     mouseInMap?: boolean
     zoom?: number
     selectedCells?: string[]
-    fetchError?: string
-    saveError?: string
     id?: string
     label?: string
     guide?: GuideType

@@ -1,7 +1,7 @@
-import * as fetch from 'isomorphic-fetch';
 import * as actions from '../actions';
 import {getAuth, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
-import {createErrorMessage, getErrorMessageByCode, throwError} from '../utils';
+import {getDatabase, ref, set, child, get} from 'firebase/database';
+import {getErrorMessageByCode, throwError} from '../utils';
 
 export const checkUserAuthorization = (failedCallback: Function) => (dispatch: Function) => {
     const auth = getAuth();
@@ -27,37 +27,37 @@ export const onUserAuthorized = (login: string, password: string) => async (disp
     }
 };
 
-export const fetchData = (url = 'data/data.json') => async (dispatch: Function) => {
+export const loadDataFromBase = () => async (dispatch: Function) => {
     dispatch(actions.onRequestFetchData());
-
+    const dbRef = ref(getDatabase());
     try {
-        const response = await fetch(`${url}`);
-        if (response && !response.ok) {
-            throwError(createErrorMessage(response));
+        const response = await get(child(dbRef, '/'));
+        if (response.exists()) {
+            dispatch(actions.loadDataSuccess(response.val()));
+        } else {
+            throwError('Ошибка чтения базы данных!');
         }
-        const fetchedData = await response.json();
-        dispatch(actions.loadDataSuccess(fetchedData));
-    } catch (fetchError) {
-        dispatch(actions.loadDataError(String(fetchError)));
+    } catch (error) {
+        console.log(error);
+        dispatch(actions.loadDataError({
+            showModalWindow: true,
+            title: 'Ошибка загрузки данных!',
+            description: String(error)
+        }));
     }
 };
 
-export const saveData = (data: string, url = 'data/data.json') => async (dispatch: Function) => {
+export const saveDataToBase = (data: string, dataName: string) => async (dispatch: Function) => {
     dispatch(actions.onRequestSaveData());
-
+    const db = getDatabase();
     try {
-        const response = await fetch(`${url}`, {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json; charset=utf-8'
-            },
-            body: data
-        });
-        if (response && !response.ok) {
-            throwError(createErrorMessage(response));
-        }
-        dispatch(actions.saveDataSuccess());
-    } catch (saveError) {
-        dispatch(actions.saveDataError(String(saveError)));
+        await set(ref(db, dataName), data);
+        dispatch(actions.saveDataComplete());
+    } catch (error) {
+        dispatch(actions.saveDataComplete({
+            showModalWindow: true,
+            title: 'Ошибка сохранения данных!',
+            description: String(error)
+        }));
     }
 };

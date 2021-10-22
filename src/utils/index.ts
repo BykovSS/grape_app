@@ -1,36 +1,36 @@
 import {dataType, GuideType, RowDataType} from '../types';
 import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
-export const generateData = (x: number, y: number) => {
-    const data = [] as dataType[];
-    for (let j = 1; j <= y; j++) {
-        for (let i = 1; i <= x; i++) {
-            data.push({
-                id: i + '/' + j,
-                row: i,
-                x: i,
-                y: j,
-                sort: null,
-                year: null
-            });
-        }
-    }
+// export const generateData = (x: number, y: number) => {
+//     const data = [] as dataType[];
+//     for (let j = 1; j <= y; j++) {
+//         for (let i = 1; i <= x; i++) {
+//             data.push({
+//                 id: i + '/' + j,
+//                 row: i,
+//                 x: i,
+//                 y: j,
+//                 sort: null,
+//                 year: null
+//             });
+//         }
+//     }
+//
+//     return data;
+// };
 
-    return data;
-};
-
-export const generateGuide = () => [
-    {id: 'triangle', label: '', type: 'red'},
-    {id: 'square', label: '', type: 'red'},
-    {id: 'circle', label: '', type: 'red'},
-    {id: 'spade', label: '', type: 'white'},
-    {id: 'heart', label: '', type: 'white'},
-    {id: 'club', label: '', type: 'white'},
-    {id: 'diamond', label: '', type: 'white'},
-    {id: 'star_1', label: '', type: 'other'},
-    {id: 'ring', label: 'Свободное место', type: 'free'},
-    {id: 'hatching', label: 'Непригодно для посадки', type: 'hatching'},
-];
+// export const generateGuide = () => [
+//     {id: 'triangle', label: '', type: 'red'},
+//     {id: 'square', label: '', type: 'red'},
+//     {id: 'circle', label: '', type: 'red'},
+//     {id: 'spade', label: '', type: 'white'},
+//     {id: 'heart', label: '', type: 'white'},
+//     {id: 'club', label: '', type: 'white'},
+//     {id: 'diamond', label: '', type: 'white'},
+//     {id: 'star_1', label: '', type: 'other'},
+//     {id: 'ring', label: 'Свободное место', type: 'free'},
+//     {id: 'hatching', label: 'Непригодно для посадки', type: 'hatching'},
+// ];
 
 export const convertDataToSave = (data: dataType[]) => {
     return data ? data.map(elem => elem.row + '$' + elem.x + '$' + elem.y + '$' + elem.sort + '$' + elem.year) : [];
@@ -147,8 +147,6 @@ export const getRowFromId = (id: string) => {
 export const throwError = (error?: string) => {
     throw new Error(error);
 };
-
-export const createErrorMessage = (response: Response) => ';status: ' + response.status + '; statusText: ' + response.statusText + '; url: ' + response.url;
 
 export const getStarIdAndNum = (sort: string) => {
     let locSort = sort;

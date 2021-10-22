@@ -5,27 +5,23 @@ export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });
 
-export const loadDataSuccess = (fetchedData: {data: string[], guide: GuideType[]}) => ({
+export const loadDataSuccess = (fetchedData: {data: string, guide: string}) => ({
     type: actionTypes.FETCH_DATA_SUCCESS,
     fetchedData
 });
 
-export const loadDataError = (fetchError: string) => ({
+export const loadDataError = (errorWindowData: ErrorWindowDataType) => ({
     type: actionTypes.FETCH_DATA_FAILURE,
-    fetchError
+    errorWindowData
 });
 
 export const onRequestSaveData = () => ({
     type: actionTypes.SAVE_DATA_REQUEST
 });
 
-export const saveDataSuccess = () => ({
-    type: actionTypes.SAVE_DATA_SUCCESS
-});
-
-export const saveDataError = (saveError: string) => ({
-    type: actionTypes.SAVE_DATA_FAILURE,
-    saveError
+export const saveDataComplete = (errorWindowData?: ErrorWindowDataType) => ({
+    type: actionTypes.SAVE_DATA_COMPLETE,
+    errorWindowData
 });
 
 export const showErrorWindow = (errorWindowData: ErrorWindowDataType) => ({

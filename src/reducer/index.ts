@@ -22,8 +22,6 @@ const initialState = {
     isNeedClickLeft: false,
     selectedCells: [] as string[],
     currentCell: null as dataType,
-    fetchError: null as string,
-    saveError: null as string,
     errorWindowData: null as ErrorWindowDataType,
     guide: [] as GuideType[],
     isAuthorized: null as boolean,
@@ -38,24 +36,22 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.FETCH_DATA_SUCCESS: {
             const {fetchedData} = action;
             const {data, guide} = fetchedData || {};
-            const parsedData = parseDataFromFetch(data);
+            const parsedData = parseDataFromFetch(JSON.parse(data));
 
             return Object.assign({}, state, {
                 isFetching: false,
                 data: parsedData,
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
-                guide
+                guide: JSON.parse(guide)
             });
         }
         case actionTypes.FETCH_DATA_FAILURE:
-            return Object.assign({}, state, {isFetching: false, fetchError: action.fetchError});
+            return Object.assign({}, state, {isFetching: false, errorWindowData: action.errorWindowData});
         case actionTypes.SAVE_DATA_REQUEST:
             return Object.assign({}, state, {isSaving: true});
-        case actionTypes.SAVE_DATA_SUCCESS:
-            return Object.assign({}, state, {isSaving: false});
-        case actionTypes.SAVE_DATA_FAILURE:
-            return Object.assign({}, state, {isSaving: false, saveError: action.saveError});
+        case actionTypes.SAVE_DATA_COMPLETE:
+            return Object.assign({}, state, {isSaving: false, errorWindowData: action.errorWindowData});
         case actionTypes.SHOW_ERROR_WINDOW:
             return Object.assign({}, state, {errorWindowData: action.errorWindowData});
         case actionTypes.CHANGE_DATA:

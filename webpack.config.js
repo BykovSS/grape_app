@@ -12,7 +12,6 @@ module.exports = (env, argv) => {
 			'core-js/stable',
 			'regenerator-runtime/runtime',
 			'es6-promise',
-			'fetch-ie8',
 			'./src/index.tsx'
 		]},
 		output: {
@@ -42,8 +41,7 @@ module.exports = (env, argv) => {
 			}),
 			new CopyWebpackPlugin({
 				patterns: [
-					{from: path.join(__dirname, './src/assets/favicon'), to: 'img'},
-					{from: path.join(__dirname, './src/assets/static/data.json'), to: 'data'}
+					{from: path.join(__dirname, './src/assets/favicon'), to: 'img'}
 				]
 			}),
 			new MiniCssExtractPlugin()

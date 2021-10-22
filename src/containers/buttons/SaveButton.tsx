@@ -9,7 +9,7 @@ const SaveButton:React.FC = () => {
     const dispatch = useDispatch();
 
     const handleSave = React.useCallback(() => {
-        dispatch(api.saveData(JSON.stringify(convertDataToSave(data))));
+        dispatch(api.saveDataToBase(JSON.stringify(convertDataToSave(data)), 'data'));
     }, [dispatch, data]);
 
     return <button
