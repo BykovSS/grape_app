@@ -1,26 +1,26 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {HashRouter, Switch, Route} from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import firebaseConfig from './config/config';
 import {Provider} from 'react-redux';
 import {appStore} from './store';
 import App from './containers/App';
 import LoginPage from './containers/LoginPage';
-console.log('q1');
+console.log('w1');
 firebase.initializeApp(firebaseConfig);
-console.log('q2');
+console.log('w2');
 ReactDOM.render(<Provider store={appStore}>
-    <BrowserRouter>
+    <HashRouter>
         <Switch>
-            <Route exact path="grape_app/">
+            <Route exact path="/">
                 <App/>
             </Route>
-            <Route path='grape_app/login'>
+            <Route path='/login'>
                 <LoginPage/>
             </Route>
         </Switch>
-    </BrowserRouter>
+    </HashRouter>
 </Provider>, document.getElementById('app'));
 
 export const moduleHotAccept = (module: NodeModule) => {
