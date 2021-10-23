@@ -7,16 +7,16 @@ import {Provider} from 'react-redux';
 import {appStore} from './store';
 import App from './containers/App';
 import LoginPage from './containers/LoginPage';
-console.log('1');
+console.log('q1');
 firebase.initializeApp(firebaseConfig);
-console.log('2');
+console.log('q2');
 ReactDOM.render(<Provider store={appStore}>
     <BrowserRouter>
         <Switch>
-            <Route exact path="https://bykovss.github.io/grape_app/">
+            <Route exact path="grape_app/">
                 <App/>
             </Route>
-            <Route path='https://bykovss.github.io/grape_app/login'>
+            <Route path='grape_app/login'>
                 <LoginPage/>
             </Route>
         </Switch>
