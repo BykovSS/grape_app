@@ -7,9 +7,9 @@ import {Provider} from 'react-redux';
 import {appStore} from './store';
 import App from './containers/App';
 import LoginPage from './containers/LoginPage';
-
+console.log('1');
 firebase.initializeApp(firebaseConfig);
-
+console.log('2');
 ReactDOM.render(<Provider store={appStore}>
     <Router>
         <Switch>

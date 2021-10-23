@@ -6,7 +6,7 @@ import {App as AppComponent} from '../components/App';
 import '../assets/less/index.less';
 
 const App: React.FC = () => {
-
+    console.log('App container');
     const [showMap, changeShowMap] = React.useState<boolean>(true);
     const {isAuthorized} = useSelector((state: any) => state);
 
