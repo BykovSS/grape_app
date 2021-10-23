@@ -204,6 +204,8 @@ export const getErrorMessageByCode = (code: string) => {
         case 'auth/user-not-found': return 'Пользователь не найден!';
         case 'auth/invalid-email': return 'Введите корректный email!';
         case 'auth/user-disabled': return 'Пользователь заблокирован!';
+        case 'auth/internal-error': return 'Не указан пароль!';
+        case 'auth/wrong-password': return 'Указан неверный пароль!';
         default: return 'Неизвестная ошибка!';
     }
 };

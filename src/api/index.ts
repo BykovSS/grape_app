@@ -3,14 +3,15 @@ import {getAuth, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/
 import {getDatabase, ref, set, child, get} from 'firebase/database';
 import {getErrorMessageByCode, throwError} from '../utils';
 
-export const checkUserAuthorization = (failedCallback: Function) => (dispatch: Function) => {
+export const checkUserAuthorization = (callback: Function) => (dispatch: Function) => {
     const auth = getAuth();
-    console.log('tut');
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log(user);
             dispatch(actions.onChangeAuthStatus(true));
-        } else failedCallback();
+        } else {
+            dispatch(actions.onChangeAuthStatus(false));
+            if (callback) callback();
+        }
     });
 };
 
@@ -40,7 +41,6 @@ export const loadDataFromBase = () => async (dispatch: Function) => {
             throwError('Ошибка чтения базы данных!');
         }
     } catch (error) {
-        console.log(error);
         dispatch(actions.loadDataError({
             showModalWindow: true,
             title: 'Ошибка загрузки данных!',
