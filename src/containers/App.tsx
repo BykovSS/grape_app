@@ -13,7 +13,7 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const redirectToLoginPage = React.useCallback(() => history.push('/login'), [history]);
+    const redirectToLoginPage = React.useCallback(() => history.push('https://bykovss.github.io/grape_app/login'), [history]);
 
     React.useEffect(() => {
         if (isAuthorized) {

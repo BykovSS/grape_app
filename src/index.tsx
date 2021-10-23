@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import * as firebase from 'firebase/app';
 import firebaseConfig from './config/config';
 import {Provider} from 'react-redux';
@@ -11,16 +11,16 @@ console.log('1');
 firebase.initializeApp(firebaseConfig);
 console.log('2');
 ReactDOM.render(<Provider store={appStore}>
-    <Router>
+    <BrowserRouter>
         <Switch>
-            <Route exact path="/">
+            <Route exact path="https://bykovss.github.io/grape_app/">
                 <App/>
             </Route>
-            <Route path='/login'>
+            <Route path='https://bykovss.github.io/grape_app/login'>
                 <LoginPage/>
             </Route>
         </Switch>
-    </Router>
+    </BrowserRouter>
 </Provider>, document.getElementById('app'));
 
 export const moduleHotAccept = (module: NodeModule) => {

@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
 
     React.useEffect(() => {
         if (isAuthorized) {
-            history.push('/');
+            history.push('https://bykovss.github.io/grape_app/');
         }
     }, [isAuthorized, history]);
 
