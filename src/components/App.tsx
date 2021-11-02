@@ -3,6 +3,7 @@ import {Header} from './Header';
 import ModalWindow from '../containers/ModalWindow';
 import Field from '../containers/Field';
 import RowLabels from '../containers/RowLabels';
+import ColLabels from '../containers/ColLabels';
 import VerticalNavigateButtonGroup from '../containers/buttons/VerticalNavigateButtonGroup';
 import HorizontalNavigateButtonGroup from '../containers/buttons/HorizontalNavigateButtonsGroup';
 import AddLeftRowButton from '../containers/buttons/AddLeftRowButton';
@@ -34,6 +35,7 @@ export const App: React.FC<Props> = (props) => {
         {showMap ? <div className={'view_field'}>
             <Field />
             <RowLabels />
+            <ColLabels />
             <VerticalNavigateButtonGroup />
             <HorizontalNavigateButtonGroup />
             <AddLeftRowButton />

@@ -1,0 +1,39 @@
+.col_labels_field {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid purple;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 5px 0 0 5px;
+}
+
+.svg-col-labels {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: inherit;
+  box-sizing: border-box;
+}
+
+.svg-col-label {
+  position: absolute;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid purple;
+  color: purple;
+  font-weight: bold;
+  cursor: default;
+  box-sizing: border-box;
+  background-color: rgba(128, 0, 128, 0.15);
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  &:hover {
+	cursor: pointer;
+	background-color: rgba(128, 0, 128, 0.3);
+  }
+}

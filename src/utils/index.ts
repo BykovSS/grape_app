@@ -65,6 +65,20 @@ export const getRowsData = (data: dataType[]) => {
     return result;
 };
 
+export const getColsData = (data: dataType[]) => {
+    if (!data) {
+        return data;
+    }
+    const result = [] as RowDataType[];
+    data.forEach(elem => {
+        if (!result.reduce((res, item) => res || item.y === elem.y, false)) {
+            result.push({id: elem.y, y: elem.y});
+        }
+    });
+
+    return result;
+};
+
 export const getCellSize = (zoom: number) => zoom * CELL_SIZE;
 export const getMinCoord = (zoom: number, numCol: number, sizesWidth: number, otherWidth: number) => -numCol * getCellSize(zoom) + (sizesWidth - otherWidth);
 export const getNumCol = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.x > result ? item.x : result, 0) : 0;
@@ -142,6 +156,12 @@ export const getRowFromId = (id: string) => {
     const arr = id.split('/');
 
     return arr && arr.length > 0 ? arr[0] : '';
+};
+
+export const getColFromId = (id: string) => {
+    const arr = id.split('/');
+
+    return arr && arr.length > 0 ? arr[1] : '';
 };
 
 export const throwError = (error?: string) => {

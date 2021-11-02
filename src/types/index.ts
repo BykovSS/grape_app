@@ -9,8 +9,9 @@ export type dataType = {
 
 export type RowDataType = {
     id: string | number
-    row: number
-    x: number
+    row?: number
+    x?: number
+    y?: number
 }
 
 export type CoordinatesType = {
