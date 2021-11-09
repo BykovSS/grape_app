@@ -6,11 +6,12 @@ import {SortLine as SortLineComponent} from '../components/SortLine';
 type Props = {
     id: string;
     label: string
+    color?: string
     length?: number
 }
 
 const SortLine: React.FC<Props> = (props) => {
-    const {id, label, length} = props;
+    const {id, label, color, length} = props;
     const dispatch = useDispatch();
 
     const handleChangeSortLabel = React.useCallback((event: any) => {
@@ -28,6 +29,7 @@ const SortLine: React.FC<Props> = (props) => {
     return <SortLineComponent
         id={id}
         label={label}
+        color={color}
         length={length}
         handleChangeSortLabel={handleChangeSortLabel}
         handleClickAddButton={handleClickAddButton}

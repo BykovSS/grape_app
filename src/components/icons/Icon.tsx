@@ -29,6 +29,7 @@ export const Icon: React.FC<Props> = (props) => {
         case 'triangle':
             return <Triangle zoom={zoom} color={color}/>;
         case 'square':
+        case 'color':
             return <Square isMac={isMac} zoom={zoom} color={color}/>;
         case 'circle':
             return <Circle isMac={isMac} zoom={zoom} color={color}/>;

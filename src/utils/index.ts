@@ -18,15 +18,15 @@ import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constan
 //
 //     return data;
 // };
-
+//
 // export const generateGuide = () => [
 //     {id: 'triangle', label: '', type: 'red'},
 //     {id: 'square', label: '', type: 'red'},
 //     {id: 'circle', label: '', type: 'red'},
-//     {id: 'spade', label: '', type: 'white'},
-//     {id: 'heart', label: '', type: 'white'},
-//     {id: 'club', label: '', type: 'white'},
-//     {id: 'diamond', label: '', type: 'white'},
+//     {id: 'spades', label: '', type: 'white'},
+//     {id: 'hearts', label: '', type: 'white'},
+//     {id: 'clubs', label: '', type: 'white'},
+//     {id: 'diamonds', label: '', type: 'white'},
 //     {id: 'star_1', label: '', type: 'other'},
 //     {id: 'ring', label: 'Свободное место', type: 'free'},
 //     {id: 'hatching', label: 'Непригодно для посадки', type: 'hatching'},
