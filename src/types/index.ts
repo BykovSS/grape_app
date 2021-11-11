@@ -4,7 +4,7 @@ export type dataType = {
     x: number
     y:number
     sort: string
-    year: number
+    year: number | string
 }
 
 export type RowDataType = {

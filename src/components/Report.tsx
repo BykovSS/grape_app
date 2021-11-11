@@ -16,7 +16,8 @@ export const Report: React.FC = () => {
         const age = getAge(year);
         tableData.forEach(elem => {
             if (sort === elem.id) {
-                if (typeof age === 'number' && age <= 0) elem.a_1++;
+                if (age === null) elem.a_0++;
+                else if (typeof age === 'number' && age <= 0) elem.a_1++;
                 else if (age === 1) elem.a_2++;
                 else if (age === 2) elem.a_3++;
                 else elem.a_4++;
@@ -32,6 +33,7 @@ export const Report: React.FC = () => {
                     <th rowSpan={2} className={'report-th_icon'}/>
                     <th rowSpan={2} className={'report-th_sum'}>{'Всего'}</th>
                     <th colSpan={4}>{'из них (возраст):'}</th>
+                    <th rowSpan={2} className={'report-th_num'}>{'Выпад'}</th>
                 </tr>
                 <tr>
                     <th className={'report-th_num'}>{'1 год'}</th>
@@ -50,6 +52,7 @@ export const Report: React.FC = () => {
 					<td className={'report-number'}>{elem.a_2}</td>
 					<td className={'report-number'}>{elem.a_3}</td>
 					<td className={'report-number'}>{elem.a_4}</td>
+					<td className={'report-number'}>{elem.a_0}</td>
                 </tr>)}
                 <tr><td colSpan={8} className={'report-header'}>{'Белые сорта'}</td></tr>
                 {tableData && tableData.map((elem, i) => elem.type === 'white' && <tr key={i}>
@@ -60,6 +63,7 @@ export const Report: React.FC = () => {
 					<td className={'report-number'}>{elem.a_2}</td>
 					<td className={'report-number'}>{elem.a_3}</td>
 					<td className={'report-number'}>{elem.a_4}</td>
+					<td className={'report-number'}>{elem.a_0}</td>
 				</tr>)}
                 <tr><td colSpan={8} className={'report-header'}>{'Остальное'}</td></tr>
                 {tableData && tableData.map((elem, i) => elem.type === 'other' && <tr key={i}>
@@ -70,18 +74,19 @@ export const Report: React.FC = () => {
 					<td className={'report-number'}>{elem.a_2}</td>
 					<td className={'report-number'}>{elem.a_3}</td>
 					<td className={'report-number'}>{elem.a_4}</td>
+					<td className={'report-number'}>{elem.a_0}</td>
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'free' && <tr key={i}>
 					<td>{elem.label}</td>
 					<td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
-					<td/><td/><td/><td/>
+					<td/><td/><td/><td/><td/>
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <tr key={i}>
 					<td>{elem.label}</td>
 					<td className={'report-td_hatching'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
-					<td/><td/><td/><td/>
+					<td/><td/><td/><td/><td/>
 				</tr>)}
             </tbody>
             <tfoot>
@@ -106,6 +111,10 @@ export const Report: React.FC = () => {
                 <td className={'report-number'}>{tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_4;
+                }, 0)}</td>
+                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                    if (item.type === 'free' || item.type === 'hatching') return result;
+                    else return result + item.a_0;
                 }, 0)}</td>
             </tr>
             </tfoot>

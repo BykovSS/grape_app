@@ -83,20 +83,20 @@ export const Select: React.FC<Props> = (props) => {
             {value
                 ? type === SORT
                     ? <div className={'__select__icon'}><Icon sort={value as string} zoom={0.8}/></div>
-                    : value
+                    : value === 'absent' ? 'выпад' : value
                 : ''}
         </div>
         <div className={'__select__content'}>
-            {options && options.map((elem, i) => elem ? <React.Fragment key={i}>
-                <input id={'singleSelect_' + i} className={'__select__input'} type={'radio'} name={'singleSelect'} defaultChecked={elem === value}/>
+            {options && options.map((elem, i) => elem || elem === 0 ? <React.Fragment key={i}>
+                <input id={'singleSelect_' + i} className={'__select__input'} type={'radio'} name={'singleSelect'} defaultChecked={elem === 0 ? value === 'absent' : elem === value}/>
                 <label
                     htmlFor={'singleSelect_' + i}
                     className={`__select__label ${'__' + type + '__select__label'}`}
-                    onClick={onChange(elem)}
+                    onClick={onChange(elem === 0 ? 'absent' : elem)}
                 >
                     {type === SORT
                         ? <div className={'__select__icon'}><Icon sort={elem as string} zoom={0.8}/></div>
-                        : elem}
+                        : elem === 0 ? 'выпад' : elem}
                 </label>
             </React.Fragment> : null)}
         </div>

@@ -40,7 +40,7 @@ export const parseDataFromFetch = (data: string[]) => {
     return data ? data.map(elem => {
         const [row, x, y, sort, year] = elem.split('$');
 
-        return {id: x+'/'+y, row:Number(row), x:Number(x), y:Number(y), sort: sort === 'null' ? null : sort, year: Number(year)};
+        return {id: x+'/'+y, row:Number(row), x:Number(x), y:Number(y), sort: sort === 'null' ? null : sort, year: year === 'absent' || year === 'null' ? year : Number(year)};
     }) : [];
 };
 
@@ -189,17 +189,17 @@ export const getYearsArrray = () => {
     return yearsArray;
 };
 
-export const getAge = (year: number) => {
-    if (typeof year !== 'number' || isNaN(year)) {
+export const getAge = (year: number | string) => {
+    if (isNaN(year as number) || year === 'absent') {
         return null;
     }
     const currentYear = (new Date()).getFullYear();
     const currentMonth = (new Date()).getMonth();
 
-    return currentMonth > 3 ? currentYear - year : currentYear - year - 1;
+    return currentMonth > 3 ? currentYear - Number(year) : currentYear - Number(year) - 1;
 };
 
-export const getCellColor = (year: number) => {
+export const getCellColor = (year: number | string) => {
     const age = getAge(year);
     if (age === null) return 'black';
     switch (age) {
@@ -211,12 +211,12 @@ export const getCellColor = (year: number) => {
     }
 };
 
-export const getInitialTableData = (guide: GuideType[]): (GuideType & {a_1?: number, a_2?: number, a_3?: number, a_4?: number})[] => {
+export const getInitialTableData = (guide: GuideType[]): (GuideType & {a_0?: number, a_1?: number, a_2?: number, a_3?: number, a_4?: number})[] => {
     if (!guide) {
         return guide;
     }
 
-    return [...guide].map(elem => ({...elem, a_1: 0, a_2: 0, a_3: 0, a_4: 0}));
+    return [...guide].map(elem => ({...elem, a_0: 0, a_1: 0, a_2: 0, a_3: 0, a_4: 0}));
 };
 
 export const getErrorMessageByCode = (code: string) => {

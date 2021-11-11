@@ -110,10 +110,10 @@
 .__select__input {
   display: none;
 
-  &:checked + label {
+  &[checked] + label {
 	background-color: rgba(128,0,128,.15);
   }
-  &:disabled + label {
+  &[disabled] + label {
 	opacity: 0.6;
 	pointer-events: none;
   }
