@@ -2,9 +2,11 @@ import * as React from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
+import {Arrow} from '../../components/buttons/Arrow';
 import '../../assets/less/buttons.less';
 import {OTHER_WIDTH, X_LEFT_MAX} from '../../constants';
 import {getCellSize, getMinCoord} from '../../utils';
+import {DbArrow} from '../../components/buttons/DbArrow';
 
 const HorizontalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numCol, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);
@@ -41,14 +43,22 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
 
     return <ButtonsGroup
         className={'navigate_buttons horizontal_buttons'}
-        firstButtonClassName={'navigate_button horizontal_button horizontal_button__left'}
-        firstButtonDisable={currentAbscissa === X_LEFT_MAX}
-        handleClickFirstButton={handleClickLeft}
-        firstButtonLabel={<span>&#11013;</span>}
-        secondButtonClassName={'navigate_button horizontal_button horizontal_button__right'}
-        secondButtonDisable={currentAbscissa === x_left_min}
-        handleClickSecondButton={handleClickRight}
-        secondButtonLabel={<span>&#11013;</span>}
+        isButton_01
+        Button_01_ClassName={'navigate_button horizontal_button horizontal_button__left'}
+        Button_01_Disable={currentAbscissa === X_LEFT_MAX}
+        Button_01_Label={<DbArrow rotate={180} />}
+        Button_02_ClassName={'navigate_button horizontal_button horizontal_button__left'}
+        Button_02_Disable={currentAbscissa === X_LEFT_MAX}
+        handleClickButton_02={handleClickLeft}
+        Button_02_Label={<Arrow rotate={180}/>}
+        Button_03_ClassName={'navigate_button horizontal_button horizontal_button__right'}
+        Button_03_Disable={currentAbscissa === x_left_min}
+        handleClickButton_03={handleClickRight}
+        Button_03_Label={<Arrow />}
+        isButton_04
+        Button_04_ClassName={'navigate_button horizontal_button horizontal_button__most_right'}
+        Button_04_Disable={currentAbscissa === x_left_min}
+        Button_04_Label={<DbArrow />}
     />;
 };
 

@@ -5,6 +5,8 @@ import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
 import {OTHER_HEIGHT, Y_BOTTOM_MAX} from '../../constants';
 import {getMinCoord} from '../../utils';
+import {Arrow} from '../../components/buttons/Arrow';
+import {DbArrow} from '../../components/buttons/DbArrow';
 
 const VerticalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numRow, zoom} = useSelector((state: any) => state, shallowEqual);
@@ -26,14 +28,22 @@ const VerticalNavigateButtonGroup:React.FC = () => {
 
     return <ButtonsGroup
         className={'navigate_buttons vertical_buttons'}
-        firstButtonClassName={'navigate_button vertical_button vertical_button__top'}
-        firstButtonDisable={currentOrdinate === y_bottom_min}
-        handleClickFirstButton={handleClickTop}
-        firstButtonLabel={<span>&#11014;</span>}
-        secondButtonClassName={'navigate_button vertical_button vertical_button__bottom'}
-        secondButtonDisable={currentOrdinate === Y_BOTTOM_MAX}
-        handleClickSecondButton={handleClickBottom}
-        secondButtonLabel={<span>&#11015;</span>}
+        isButton_01
+        Button_01_ClassName={'navigate_button vertical_button vertical_button__top'}
+        Button_01_Disable={currentOrdinate === y_bottom_min}
+        Button_01_Label={<DbArrow rotate={-90} />}
+        Button_02_ClassName={'navigate_button vertical_button vertical_button__top'}
+        Button_02_Disable={currentOrdinate === y_bottom_min}
+        handleClickButton_02={handleClickTop}
+        Button_02_Label={<Arrow rotate={-90}/>}
+        Button_03_ClassName={'navigate_button vertical_button vertical_button__bottom'}
+        Button_03_Disable={currentOrdinate === Y_BOTTOM_MAX}
+        handleClickButton_03={handleClickBottom}
+        Button_03_Label={<Arrow rotate={90}/>}
+        isButton_04
+        Button_04_ClassName={'navigate_button vertical_button vertical_button__bottom'}
+        Button_04_Disable={currentOrdinate === Y_BOTTOM_MAX}
+        Button_04_Label={<DbArrow rotate={90}/>}
     />;
 };
 

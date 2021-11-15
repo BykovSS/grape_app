@@ -11,10 +11,13 @@ button {
   font-size: 14px;
   transition: all 0.1s ease-in;
   cursor: pointer;
+  & > svg {
+    fill: #fff;
+  }
   &:hover {
 	background: #571753;
   }
-  &:active {
+  &:active:not(:disabled) {
 	outline: none;
 	box-shadow: 0 0 0 4px rgba(128, 68, 128, .3);
   }
@@ -22,6 +25,9 @@ button {
 	color: #b3adad;
 	background: rgba(84, 75, 92, .6);
 	cursor: not-allowed;
+    & > svg {
+      fill: #b3adad;
+    }
   }
 }
 
@@ -59,6 +65,13 @@ button {
   font-size: 30px;
   line-height: 14px;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > svg {
+    height: inherit;
+    width: inherit;
+  }
 }
 
 .vertical_buttons {
@@ -82,9 +95,6 @@ button {
 .horizontal_button {
   width: @navigateButtonLength;
   height: @navigateButtonWidth;
-  &__right, &__right > span {
-	transform: rotate(180deg);
-  }
 }
 
 .add_button {
