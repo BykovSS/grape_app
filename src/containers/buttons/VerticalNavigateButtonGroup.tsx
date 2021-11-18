@@ -4,17 +4,23 @@ import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
 import {OTHER_HEIGHT, Y_BOTTOM_MAX} from '../../constants';
-import {getMinCoord} from '../../utils';
+import {getCellSize, getMinCoord} from '../../utils';
 import {Arrow} from '../../components/buttons/Arrow';
 import {DbArrow} from '../../components/buttons/DbArrow';
 
 const VerticalNavigateButtonGroup:React.FC = () => {
-    const {windowSizes, currentPosition, numRow, zoom} = useSelector((state: any) => state, shallowEqual);
+    const {windowSizes, currentPosition, numRow, mostTop, zoom} = useSelector((state: any) => state, shallowEqual);
     const {windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
+    const cell_size = getCellSize(zoom);
     const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, OTHER_HEIGHT);
 
     const dispatch = useDispatch();
+
+    const handleClickMostTop = React.useCallback(() => {
+        const newPosition = windowHeight - OTHER_HEIGHT - mostTop * cell_size;
+        dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: newPosition > Y_BOTTOM_MAX ? Y_BOTTOM_MAX : newPosition}));
+    }, [windowHeight, mostTop, cell_size, dispatch, currentAbscissa]);
 
     const handleClickTop = React.useCallback(() => {
         const newPosition = currentOrdinate - Math.ceil((windowHeight - OTHER_HEIGHT) * 0.7);
@@ -26,11 +32,16 @@ const VerticalNavigateButtonGroup:React.FC = () => {
         dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: newPosition > Y_BOTTOM_MAX ? Y_BOTTOM_MAX : newPosition}));
     }, [currentOrdinate, windowHeight, dispatch, currentAbscissa]);
 
+    const handleClickMostBottom = React.useCallback(() => {
+        dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: 0}));
+    }, [dispatch, currentAbscissa]);
+
     return <ButtonsGroup
         className={'navigate_buttons vertical_buttons'}
         isButton_01
         Button_01_ClassName={'navigate_button vertical_button vertical_button__top'}
         Button_01_Disable={currentOrdinate === y_bottom_min}
+        handleClickButton_01={handleClickMostTop}
         Button_01_Label={<DbArrow rotate={-90} />}
         Button_02_ClassName={'navigate_button vertical_button vertical_button__top'}
         Button_02_Disable={currentOrdinate === y_bottom_min}
@@ -43,6 +54,7 @@ const VerticalNavigateButtonGroup:React.FC = () => {
         isButton_04
         Button_04_ClassName={'navigate_button vertical_button vertical_button__bottom'}
         Button_04_Disable={currentOrdinate === Y_BOTTOM_MAX}
+        handleClickButton_04={handleClickMostBottom}
         Button_04_Label={<DbArrow rotate={90}/>}
     />;
 };

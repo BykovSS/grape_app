@@ -9,13 +9,17 @@ import {getCellSize, getMinCoord} from '../../utils';
 import {DbArrow} from '../../components/buttons/DbArrow';
 
 const HorizontalNavigateButtonGroup:React.FC = () => {
-    const {windowSizes, currentPosition, numCol, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);
+    const {windowSizes, currentPosition, numCol, mostRight, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);
     const {windowWidth} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
     const cell_size = getCellSize(zoom);
     const x_left_min = getMinCoord(zoom, numCol, windowWidth, OTHER_WIDTH);
 
     const dispatch = useDispatch();
+
+    const handleClickMostLeft = React.useCallback(() => {
+        dispatch(actions.changeCurrentPosition({currentAbscissa: 0, currentOrdinate}));
+    }, [dispatch, currentOrdinate]);
 
     const handleClickLeft = React.useCallback(() => {
         const newPosition = currentAbscissa + Math.ceil((windowWidth - OTHER_WIDTH) * 0.7);
@@ -26,6 +30,11 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
         const newPosition = currentAbscissa - Math.ceil((windowWidth - OTHER_WIDTH) * 0.7);
         dispatch(actions.changeCurrentPosition({currentAbscissa: newPosition < x_left_min ? x_left_min : newPosition, currentOrdinate}));
     }, [currentAbscissa, windowWidth, dispatch, x_left_min, currentOrdinate]);
+
+    const handleClickMostRight = React.useCallback(() => {
+        const newPosition = windowWidth - OTHER_WIDTH - mostRight * cell_size;
+        dispatch(actions.changeCurrentPosition({currentAbscissa: newPosition > X_LEFT_MAX ? X_LEFT_MAX : newPosition, currentOrdinate}));
+    }, [windowWidth, mostRight, cell_size, dispatch, currentOrdinate]);
 
     React.useEffect(() => {
         if (isNeedClickLeft && currentAbscissa + cell_size === X_LEFT_MAX) {
@@ -46,6 +55,7 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
         isButton_01
         Button_01_ClassName={'navigate_button horizontal_button horizontal_button__left'}
         Button_01_Disable={currentAbscissa === X_LEFT_MAX}
+        handleClickButton_01={handleClickMostLeft}
         Button_01_Label={<DbArrow rotate={180} />}
         Button_02_ClassName={'navigate_button horizontal_button horizontal_button__left'}
         Button_02_Disable={currentAbscissa === X_LEFT_MAX}
@@ -58,6 +68,7 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
         isButton_04
         Button_04_ClassName={'navigate_button horizontal_button horizontal_button__most_right'}
         Button_04_Disable={currentAbscissa === x_left_min}
+        handleClickButton_04={handleClickMostRight}
         Button_04_Label={<DbArrow />}
     />;
 };

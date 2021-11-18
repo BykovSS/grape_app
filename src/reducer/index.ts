@@ -1,11 +1,13 @@
 import {actionTypes} from '../constants/actionTypes';
 import {ActionType, dataType, GuideType, ErrorWindowDataType} from '../types';
-import {addLeftRow, addRightRow, getNumCol, getNumRow, parseDataFromFetch} from '../utils';
+import {addLeftRow, addRightRow, getMostRight, getMostTop, getNumCol, getNumRow, parseDataFromFetch} from '../utils';
 
 const initialState = {
     data: [] as dataType[],
     numCol: 0,
     numRow: 0,
+    mostRight: 0,
+    mostTop: 0,
     windowSizes: {
         windowWidth: 0,
         windowHeight: 0,
@@ -43,6 +45,8 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 data: parsedData,
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
+                mostRight: getMostRight(parsedData),
+                mostTop: getMostTop(parsedData),
                 guide: JSON.parse(guide)
             });
         }
@@ -55,7 +59,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.SHOW_ERROR_WINDOW:
             return Object.assign({}, state, {errorWindowData: action.errorWindowData});
         case actionTypes.CHANGE_DATA:
-            return Object.assign({}, state, {data: action.data, selectedCells: [], currentCell: null});
+            return Object.assign({}, state, {data: action.data, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)});
         case actionTypes.CLOSE_ERROR_WINDOW:
             return Object.assign({}, state, {errorWindowData: null});
         case actionTypes.CHANGE_WINDOW_SIZES:
@@ -69,7 +73,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.ADD_RIGHT_ROW:
             return Object.assign({}, state, {data: addRightRow(state.data), isNeedClickRight: true, numCol: state.numCol + 1});
         case actionTypes.ADD_LEFT_ROW:
-            return Object.assign({}, state, {data: addLeftRow(state.data), isNeedClickLeft: true, numCol: state.numCol + 1});
+            return Object.assign({}, state, {data: addLeftRow(state.data), isNeedClickLeft: true, numCol: state.numCol + 1, mostRight: state.mostRight + 1});
         case actionTypes.DISABLE_NEED_CLICKS:
             return Object.assign({}, state, {isNeedClickRight: false, isNeedClickLeft: false});
         case actionTypes.CHANGE_SELECTED_CELLS:

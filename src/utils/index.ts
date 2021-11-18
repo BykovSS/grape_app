@@ -83,6 +83,8 @@ export const getCellSize = (zoom: number) => zoom * CELL_SIZE;
 export const getMinCoord = (zoom: number, numCol: number, sizesWidth: number, otherWidth: number) => -numCol * getCellSize(zoom) + (sizesWidth - otherWidth);
 export const getNumCol = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.x > result ? item.x : result, 0) : 0;
 export const getNumRow = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.y > result ? item.y : result, 0) : 0;
+export const getMostRight = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.sort && item.year && item.x > result ? item.x : result, 0) : 0;
+export const getMostTop = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.sort && item.year && item.y > result ? item.y : result, 0) : 0;
 
 export const getVisibleData = (data: dataType[], zoom: number, currentAbscissa: number, currentOrdinate: number, windowWidth: number, windowHeight: number) => {
   const result = [] as dataType[];
