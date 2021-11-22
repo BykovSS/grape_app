@@ -86,6 +86,20 @@ export const getNumRow = (data: dataType[]) => data ? data.reduce((result: numbe
 export const getMostRight = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.sort && item.year && item.x > result ? item.x : result, 0) : 0;
 export const getMostTop = (data: dataType[]) => data ? data.reduce((result: number, item: dataType) => item.sort && item.year && item.y > result ? item.y : result, 0) : 0;
 
+export const getSelectedCoord = (first_x: string, first_y: string, x: string, y: string) => {
+  let min_x = Number(first_x);
+  let max_x = Number(first_x);
+  let min_y = Number(first_y);
+  let max_y = Number(first_y);
+
+  if (Number(x) < min_x) min_x = Number(x);
+  if (Number(x) > max_x) max_x = Number(x);
+  if (Number(y) < min_y) min_y = Number(y);
+  if (Number(y) > max_y) max_y = Number(y);
+
+  return {min_x, max_x, min_y, max_y};
+};
+
 export const getVisibleData = (data: dataType[], zoom: number, currentAbscissa: number, currentOrdinate: number, windowWidth: number, windowHeight: number) => {
   const result = [] as dataType[];
   if (!data) {

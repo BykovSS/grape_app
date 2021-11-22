@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../actions';
 import {Field as FieldComponent} from '../components/Field';
-import {getWindowSizes, getCellSize, getMinCoord, getVisibleData} from '../utils';
+import {getWindowSizes, getCellSize, getMinCoord, getVisibleData, getSelectedCoord} from '../utils';
 import {MIN_ZOOM, MAX_ZOOM, OTHER_WIDTH, OTHER_HEIGHT, X_LEFT_MAX, Y_BOTTOM_MAX} from '../constants';
 
 const Field: React.FC = () => {
@@ -123,9 +123,18 @@ const Field: React.FC = () => {
         return () => window.removeEventListener('wheel', handlerOnScrool, false);
     });
 
+    const locCells = React.useRef([]);
+
     const handleMouseDownMap = React.useCallback((event: MouseEvent) => {
-        const {clientX, clientY} = event || {};
+        const {clientX, clientY, ctrlKey: ctrlKeyMouseDown, target} = event || {};
+        let firstTarget = target;
+        while (!(firstTarget as HTMLElement).classList.contains('svg-cell')) {
+            firstTarget = (firstTarget as HTMLElement).parentElement;
+        }
+        const {x: first_x, y: first_y} = (firstTarget as HTMLElement).dataset || {};
+
         const map = document.querySelector('.svg_field');
+        let prevSelectedCells: string[] = [];
 
         const handleMouseMooveMap = (event: MouseEvent) => {
             map.classList.add('moved');
@@ -137,11 +146,56 @@ const Field: React.FC = () => {
             synchronizePosition(currentAbscissa + pageX - clientX, currentOrdinate - pageY + clientY);
         };
 
-        map.addEventListener('mousemove', handleMouseMooveMap, false);
+        const handleMouseSelectMap = (event: MouseEvent) => {
+            const {target} = event || {};
+
+            if (!(target as HTMLElement).classList.contains('svg_field')) {
+                locCells.current = [];
+                let locTarget = target;
+                while (!(locTarget as HTMLElement).classList.contains('svg-cell')) {
+                    locTarget = (locTarget as HTMLElement).parentElement;
+                }
+                const {x, y} = (locTarget as HTMLElement).dataset || {};
+                const {min_x, max_x, min_y, max_y} = getSelectedCoord(first_x, first_y, x, y);
+
+                for (let i=min_x; i<=max_x; i++) {
+                    for (let j=min_y; j<=max_y; j++) {
+                        const id = i+'/'+j;
+                        if (!locCells.current.includes(id)) {
+                            locCells.current.push(id);
+                            const element = document.querySelector(`.svg-cell[data-x="${i}"][data-y="${j}"]`);
+                            (element as HTMLElement).classList.add('selected');
+                        }
+                    }
+                }
+                prevSelectedCells.forEach(elem => {
+                    if (!locCells.current.includes(elem)) {
+                        const [x, y] = elem.split('/');
+                        const element = document.querySelector(`.svg-cell[data-x="${x}"][data-y="${y}"]`);
+                        (element as HTMLElement).classList.remove('selected');
+                    }
+                });
+                prevSelectedCells = locCells.current;
+            }
+        };
+
+        if (!ctrlKeyMouseDown) {
+            map.addEventListener('mousemove', handleMouseMooveMap, false);
+        } else {
+            map.addEventListener('mousemove', handleMouseSelectMap, false);
+        }
 
         document.addEventListener('mouseup', () => {
-            map.classList.remove('moved');
-            map.removeEventListener('mousemove', handleMouseMooveMap, false);
+            if (!ctrlKeyMouseDown) {
+                map.classList.remove('moved');
+                map.removeEventListener('mousemove', handleMouseMooveMap, false);
+            } else {
+                if (locCells.current && (locCells.current.length > 0)) {
+                    dispatch(actions.changeSelectedCells(locCells.current));
+                    locCells.current = [];
+                }
+                map.removeEventListener('mousemove', handleMouseSelectMap, false);
+            }
         }, false);
 
     }, [currentAbscissa, currentOrdinate, dispatch, synchronizePosition]);
