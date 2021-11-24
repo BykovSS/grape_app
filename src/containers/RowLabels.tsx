@@ -6,7 +6,10 @@ import '../assets/less/rows.less';
 import * as actions from '../actions';
 
 const RowLabels:React.FC = () => {
-    const {data, currentPosition, numCol, numRow, zoom, selectedCells} = useSelector((state: any) => state, shallowEqual);
+    const {data: allData, currentFieldValue, currentPosition, numCol, numRow, zoom, selectedCells} = useSelector((state: any) => state, shallowEqual);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
     const {currentAbscissa} = currentPosition || {};
 
     const rowsData = getRowsData(data);

@@ -7,7 +7,10 @@ import {Icon} from './icons/Icon';
 
 export const Report: React.FC = () => {
 
-    const {data, guide} = useSelector((state: any) => state);
+    const {data: allData, currentFieldValue, guide} = useSelector((state: any) => state);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
 
     const tableData = getInitialTableData(guide);
 

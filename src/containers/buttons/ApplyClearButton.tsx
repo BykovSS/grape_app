@@ -12,7 +12,10 @@ type Props = {
 const ApplyClearButton:React.FC<Props> = (props) => {
     const {type} = props;
 
-    const {data, currentCell, selectedCells} = useSelector((state: any) => state);
+    const {data: allData, currentFieldValue, currentCell, selectedCells} = useSelector((state: any) => state);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
     const disabled = !selectedCells || selectedCells && selectedCells.length === 0;
     const {sort=null, year=null} = type === APPLY ? currentCell || {} : {};
 

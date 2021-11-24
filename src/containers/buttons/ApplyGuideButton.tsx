@@ -8,7 +8,7 @@ const ApplyGuideButton:React.FC = () => {
     const dispatch = useDispatch();
 
     const handleSave = React.useCallback(() => {
-        dispatch(api.saveDataToBase(JSON.stringify(guide), 'guide'));
+        dispatch(api.saveDataToBase(guide, 'guide'));
     }, [dispatch, guide]);
 
     return <button

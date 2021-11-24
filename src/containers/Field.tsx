@@ -7,7 +7,10 @@ import {MIN_ZOOM, MAX_ZOOM, OTHER_WIDTH, OTHER_HEIGHT, X_LEFT_MAX, Y_BOTTOM_MAX}
 
 const Field: React.FC = () => {
 
-    const {data, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state);
+    const {data: allData, currentFieldValue, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
     const {windowWidth, windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
 

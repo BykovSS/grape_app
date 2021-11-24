@@ -1,4 +1,4 @@
-import {dataType, GuideType, RowDataType} from '../types';
+import {dataType, EntityType, RowDataType} from '../types';
 import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
 // export const generateData = (x: number, y: number) => {
@@ -227,7 +227,7 @@ export const getCellColor = (year: number | string) => {
     }
 };
 
-export const getInitialTableData = (guide: GuideType[]): (GuideType & {a_0?: number, a_1?: number, a_2?: number, a_3?: number, a_4?: number})[] => {
+export const getInitialTableData = (guide: EntityType[]): (EntityType & {a_0?: number, a_1?: number, a_2?: number, a_3?: number, a_4?: number})[] => {
     if (!guide) {
         return guide;
     }

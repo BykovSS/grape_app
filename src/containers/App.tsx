@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import * as actions from '../actions';
 import * as api from '../api';
 import {App as AppComponent} from '../components/App';
-import '../assets/less/index.less';
 import LoginPage from './LoginPage';
+import '../assets/less/index.less';
 
 const App: React.FC = () => {
     const [showMap, changeShowMap] = React.useState<boolean>(true);
     const [showLoginPageContent, changeShowLoginPageContent] = React.useState<boolean>(false);
-    const {isAuthorized} = useSelector((state: any) => state);
+    const {isAuthorized, currentFieldValue} = useSelector((state: any) => state);
 
     const onShowLoginPageContent = React.useCallback(() => {
         changeShowLoginPageContent(true);
@@ -18,11 +19,18 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         if (isAuthorized) {
-            dispatch(api.loadDataFromBase());
+            dispatch(api.loadDataFromBase('/dataInfo', actions.loadDataInfoSuccess));
+            dispatch(api.loadDataFromBase('/guide', actions.loadGuideSuccess));
         } else {
             dispatch(api.checkUserAuthorization(onShowLoginPageContent));
         }
     }, [isAuthorized, dispatch, onShowLoginPageContent]);
+
+    React.useEffect(() => {
+        if (isAuthorized && currentFieldValue) {
+            dispatch(api.loadDataFromBase('/data/' + currentFieldValue, actions.loadDataSuccess));
+        }
+    }, [isAuthorized, currentFieldValue, dispatch]);
 
     const handleChangeShowMap = React.useCallback(() => {
         changeShowMap(!showMap);

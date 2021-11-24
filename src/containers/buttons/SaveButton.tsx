@@ -5,12 +5,15 @@ import {convertDataToSave} from '../../utils';
 import '../../assets/less/buttons.less';
 
 const SaveButton:React.FC = () => {
-    const {data} = useSelector((state: any) => state);
+    const {data: allData, currentFieldValue} = useSelector((state: any) => state);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
     const dispatch = useDispatch();
 
     const handleSave = React.useCallback(() => {
-        dispatch(api.saveDataToBase(JSON.stringify(convertDataToSave(data)), 'data'));
-    }, [dispatch, data]);
+        dispatch(api.saveDataToBase(JSON.stringify(convertDataToSave(data)), '/data/' + currentFieldValue));
+    }, [dispatch, data, currentFieldValue]);
 
     return <button
         className={'save_button'}

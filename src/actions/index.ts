@@ -1,13 +1,23 @@
 import {actionTypes} from '../constants/actionTypes';
-import {dataType, ErrorWindowDataType, GuideType} from '../types';
+import {dataType, ErrorWindowDataType, EntityType} from '../types';
 
 export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });
 
-export const loadDataSuccess = (fetchedData: {data: string, guide: string}) => ({
+export const loadDataSuccess = (fetchedData: string) => ({
     type: actionTypes.FETCH_DATA_SUCCESS,
     fetchedData
+});
+
+export const loadDataInfoSuccess = (fetchedDataInfo: EntityType[]) => ({
+    type: actionTypes.FETCH_DATA_INFO_SUCCESS,
+    fetchedDataInfo
+});
+
+export const loadGuideSuccess = (guide: EntityType[]) => ({
+    type: actionTypes.FETCH_GUIDE_SUCCESS,
+    guide
 });
 
 export const loadDataError = (errorWindowData: ErrorWindowDataType) => ({
@@ -80,7 +90,7 @@ export const changeGuideLabel = (id: string, label: string) => ({
     id, label
 });
 
-export const addNewGuide = (guide: GuideType) => ({
+export const addNewGuide = (guide: EntityType) => ({
     type: actionTypes.ADD_NEW_GUIDE,
     guide
 });

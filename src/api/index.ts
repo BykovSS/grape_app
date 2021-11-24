@@ -30,13 +30,13 @@ export const onUserAuthorized = (login: string, password: string) => async (disp
     }
 };
 
-export const loadDataFromBase = () => async (dispatch: Function) => {
+export const loadDataFromBase = (path: string, successActionCreator: Function) => async (dispatch: Function) => {
     dispatch(actions.onRequestFetchData());
     const dbRef = ref(getDatabase());
     try {
-        const response = await get(child(dbRef, '/'));
+        const response = await get(child(dbRef, path));
         if (response.exists()) {
-            dispatch(actions.loadDataSuccess(response.val()));
+            dispatch(successActionCreator(response.val()));
         } else {
             throwError('Ошибка чтения базы данных!');
         }
@@ -49,7 +49,7 @@ export const loadDataFromBase = () => async (dispatch: Function) => {
     }
 };
 
-export const saveDataToBase = (data: string, dataName: string) => async (dispatch: Function) => {
+export const saveDataToBase = (data: any, dataName: string) => async (dispatch: Function) => {
     dispatch(actions.onRequestSaveData());
     const db = getDatabase();
     try {

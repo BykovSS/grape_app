@@ -1,6 +1,8 @@
 export const actionTypes = {
     FETCH_DATA_REQUEST: 'fetchDataRequest',
     FETCH_DATA_SUCCESS: 'fetchDataSuccess',
+    FETCH_DATA_INFO_SUCCESS: 'fetchDataInfoSuccess',
+    FETCH_GUIDE_SUCCESS: 'fetchGuideSuccess',
     FETCH_DATA_FAILURE: 'fetchDataFailure',
     SAVE_DATA_REQUEST: 'saveDataRequest',
     SAVE_DATA_COMPLETE: 'saveDataComplete',

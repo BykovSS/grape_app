@@ -1,9 +1,12 @@
 import {actionTypes} from '../constants/actionTypes';
-import {ActionType, dataType, GuideType, ErrorWindowDataType} from '../types';
+import {ActionType, dataType, EntityType, ErrorWindowDataType} from '../types';
 import {addLeftRow, addRightRow, getMostRight, getMostTop, getNumCol, getNumRow, parseDataFromFetch} from '../utils';
 
 const initialState = {
-    data: [] as dataType[],
+    dataInfo: [] as EntityType[],
+    currentFieldLabel: null as string,
+    currentFieldValue: null as string,
+    data: {} as {[key:string]: dataType[]},
     numCol: 0,
     numRow: 0,
     mostRight: 0,
@@ -25,7 +28,7 @@ const initialState = {
     selectedCells: [] as string[],
     currentCell: null as dataType,
     errorWindowData: null as ErrorWindowDataType,
-    guide: [] as GuideType[],
+    guide: [] as EntityType[],
     isAuthorized: null as boolean,
     login: '',
     password: ''
@@ -34,74 +37,79 @@ const initialState = {
 export const dataReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case actionTypes.FETCH_DATA_REQUEST:
-            return Object.assign({}, state, {isFetching: true});
+            return {...state, isFetching: true};
         case actionTypes.FETCH_DATA_SUCCESS: {
             const {fetchedData} = action;
-            const {data, guide} = fetchedData || {};
-            const parsedData = parseDataFromFetch(JSON.parse(data));
+            const parsedData = parseDataFromFetch(JSON.parse(fetchedData));
 
-            return Object.assign({}, state, {
+            return {...state,
                 isFetching: false,
-                data: parsedData,
+                data: {[state.currentFieldValue]: parsedData},
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
-                mostTop: getMostTop(parsedData),
-                guide: JSON.parse(guide)
-            });
+                mostTop: getMostTop(parsedData)
+            };
         }
+        case actionTypes.FETCH_DATA_INFO_SUCCESS: {
+            const {fetchedDataInfo} = action || {};
+            const firstField = fetchedDataInfo && fetchedDataInfo.length > 0 ? fetchedDataInfo[0] : {} as EntityType;
+            const {label=null, value=null} = firstField;
+
+            return {...state, isFetching: false, dataInfo: fetchedDataInfo, currentFieldLabel: label, currentFieldValue: value};
+        }
+        case actionTypes.FETCH_GUIDE_SUCCESS:
+            return {...state, isFetching: false, guide: action.guide};
         case actionTypes.FETCH_DATA_FAILURE:
-            return Object.assign({}, state, {isFetching: false, errorWindowData: action.errorWindowData});
+            return {...state, isFetching: false, errorWindowData: action.errorWindowData};
         case actionTypes.SAVE_DATA_REQUEST:
-            return Object.assign({}, state, {isSaving: true});
+            return {...state, isSaving: true};
         case actionTypes.SAVE_DATA_COMPLETE:
-            return Object.assign({}, state, {isSaving: false, errorWindowData: action.errorWindowData});
+            return {...state, isSaving: false, errorWindowData: action.errorWindowData};
         case actionTypes.SHOW_ERROR_WINDOW:
-            return Object.assign({}, state, {errorWindowData: action.errorWindowData});
+            return {...state, errorWindowData: action.errorWindowData};
         case actionTypes.CHANGE_DATA:
-            return Object.assign({}, state, {data: action.data, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)});
+            return {...state, data: {[state.currentFieldValue]: action.data}, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)};
         case actionTypes.CLOSE_ERROR_WINDOW:
-            return Object.assign({}, state, {errorWindowData: null});
+            return {...state, errorWindowData: null};
         case actionTypes.CHANGE_WINDOW_SIZES:
-            return Object.assign({}, state, {windowSizes: action.windowSizes});
+            return {...state, windowSizes: action.windowSizes};
         case actionTypes.CHANGE_CURRENT_POSITION:
-            return Object.assign({}, state, {currentPosition: action.currentPosition});
+            return {...state, currentPosition: action.currentPosition};
         case actionTypes.CHANGE_MOUSE_POSITION:
-            return Object.assign({}, state, {mouseInMap: action.mouseInMap});
+            return {...state, mouseInMap: action.mouseInMap};
         case actionTypes.CHANGE_ZOOM:
-            return Object.assign({}, state, {zoom: action.zoom});
+            return {...state, zoom: action.zoom};
         case actionTypes.ADD_RIGHT_ROW:
-            return Object.assign({}, state, {data: addRightRow(state.data), isNeedClickRight: true, numCol: state.numCol + 1});
+            return {...state, data: addRightRow(state.data[state.currentFieldValue]), isNeedClickRight: true, numCol: state.numCol + 1};
         case actionTypes.ADD_LEFT_ROW:
-            return Object.assign({}, state, {data: addLeftRow(state.data), isNeedClickLeft: true, numCol: state.numCol + 1, mostRight: state.mostRight + 1});
+            return {...state, data: addLeftRow(state.data[state.currentFieldValue]), isNeedClickLeft: true, numCol: state.numCol + 1, mostRight: state.mostRight + 1};
         case actionTypes.DISABLE_NEED_CLICKS:
-            return Object.assign({}, state, {isNeedClickRight: false, isNeedClickLeft: false});
+            return {...state, isNeedClickRight: false, isNeedClickLeft: false};
         case actionTypes.CHANGE_SELECTED_CELLS:
-            return Object.assign({}, state, {
-                selectedCells: action.selectedCells,
-                currentCell: action.selectedCells.length > 0 ? state.data.find(elem => elem.id === action.selectedCells[action.selectedCells.length - 1]) : null});
+            return {...state, selectedCells: action.selectedCells, currentCell: action.selectedCells.length > 0 ? state.data[state.currentFieldValue].find(elem => elem.id === action.selectedCells[action.selectedCells.length - 1]) : null};
         case actionTypes.CHANGE_GUIDE_LABEL:
-            return Object.assign({}, state, {guide: state.guide.map(elem => elem.id === action.id ? {...elem, label: action.label} : elem)});
+            return {...state, guide: state.guide.map(elem => elem.id === action.id ? {...elem, label: action.label} : elem)};
         case actionTypes.ADD_NEW_GUIDE: {
             const newGuide = state.guide;
             let count = 0;
             newGuide.forEach((elem, i) => {if (elem.id.indexOf('star_') !== -1) count = i;});
             newGuide.splice(count+1, 0, action.guide);
 
-            return Object.assign({}, state, {guide: newGuide});
+            return {...state, guide: newGuide};
         }
         case actionTypes.CHANGE_CURRENT_YEAR:
-            return Object.assign({}, state, {currentCell: state.currentCell ? {...state.currentCell, year: action.year} : {year: action.year}});
+            return {...state, currentCell: state.currentCell ? {...state.currentCell, year: action.year} : {year: action.year}};
         case actionTypes.CHANGE_CURRENT_SORT:
-            return Object.assign({}, state, {currentCell: state.currentCell ? {...state.currentCell, sort: action.sort} : {sort: action.sort}});
+            return {...state, currentCell: state.currentCell ? {...state.currentCell, sort: action.sort} : {sort: action.sort}};
         case actionTypes.REMOVE_GUIDE :
-            return Object.assign({}, state, {guide: state.guide.filter(elem => elem.id !== action.id)});
+            return {...state, guide: state.guide.filter(elem => elem.id !== action.id)};
         case actionTypes.CHANGE_AUTH_STATUS:
-            return Object.assign({}, state, {isAuthorized: action.status});
+            return {...state, isAuthorized: action.status};
         case actionTypes.CHANGE_LOGIN:
-            return Object.assign({}, state, {login: action.login});
+            return {...state, login: action.login};
         case actionTypes.CHANGE_PASSWORD:
-            return Object.assign({}, state, {password: action.password});
+            return {...state, password: action.password};
         default:
             return state;
     }

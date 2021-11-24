@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../actions';
 import {CurrentCell as CurrentCellComponent} from '../components/CurrentCell';
 import {getYearsArrray} from '../utils';
-import {GuideType} from '../types';
+import {EntityType} from '../types';
 
 const CurrentCell: React.FC = () => {
 
@@ -23,7 +23,7 @@ const CurrentCell: React.FC = () => {
     return <CurrentCellComponent
         currentCell={currentCell}
         yearsArray={yearsArray}
-        sortsArray={guide ? (guide as GuideType[]).map(elem => elem.id) : null}
+        sortsArray={guide ? (guide as EntityType[]).map(elem => elem.id) : null}
         disableSortSelect={!selectedCells || selectedCells && selectedCells.length === 0}
         handleChangeYear={handleChangeYear}
         handleChangeSort={handleChangeSort}

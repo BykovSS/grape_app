@@ -2,11 +2,11 @@ import * as React from 'react';
 import SortLine from '../containers/SortLine';
 import ApplyGuideButton from '../containers/buttons/ApplyGuideButton';
 import '../assets/less/guide.less';
-import {GuideType} from '../types';
+import {EntityType} from '../types';
 
 type Props = {
     isOpen: boolean
-    guide: GuideType[]
+    guide: EntityType[]
     handleClickIcon: () => void
 }
 

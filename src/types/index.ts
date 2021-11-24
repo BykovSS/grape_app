@@ -26,7 +26,8 @@ export type CoordinatesType = {
 export type ActionType = {
     type: string
     data?: dataType[]
-    fetchedData?: {data: string, guide: string}
+    fetchedDataInfo?: EntityType[]
+    fetchedData?: string
     windowSizes?: CoordinatesType
     currentPosition?: CoordinatesType
     mouseInMap?: boolean
@@ -34,7 +35,7 @@ export type ActionType = {
     selectedCells?: string[]
     id?: string
     label?: string
-    guide?: GuideType
+    guide?: EntityType
     year?: number
     sort?: string
     status?: boolean
@@ -43,10 +44,11 @@ export type ActionType = {
     errorWindowData?: ErrorWindowDataType
 };
 
-export type GuideType = {
+export type EntityType = {
     id: string
     label: string
-    type: string
+    type?: string
+    value?: string
 }
 
 export type ErrorWindowDataType = {

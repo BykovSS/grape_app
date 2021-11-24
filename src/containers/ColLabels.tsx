@@ -6,7 +6,10 @@ import '../assets/less/rows.less';
 import * as actions from '../actions';
 
 const ColLabels:React.FC = () => {
-    const {data, currentPosition, windowSizes, numCol, numRow, zoom, selectedCells} = useSelector((state: any) => state, shallowEqual);
+    const {data: allData, currentFieldValue, currentPosition, windowSizes, numCol, numRow, zoom, selectedCells} = useSelector((state: any) => state, shallowEqual);
+    const data = React.useMemo(() => {
+        return allData && currentFieldValue ? allData[currentFieldValue] : [];
+    }, [allData, currentFieldValue]);
     const {currentOrdinate} = currentPosition || {};
     const {windowHeight} = windowSizes || {};
 
