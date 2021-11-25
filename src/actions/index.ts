@@ -124,3 +124,8 @@ export const onChangePassword = (password: string) => ({
     type: actionTypes.CHANGE_PASSWORD,
     password
 });
+
+export const changeFieldLabel = (value: string, label: string) => ({
+    type: actionTypes.CHANGE_FIELD_LABEL,
+    value, label
+});

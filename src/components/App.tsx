@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Header} from './Header';
 import ModalWindow from '../containers/ModalWindow';
+import FieldHeader from '../containers/FieldHeader';
 import Field from '../containers/Field';
 import RowLabels from '../containers/RowLabels';
 import ColLabels from '../containers/ColLabels';
@@ -33,6 +34,7 @@ export const App: React.FC<Props> = (props) => {
             handleChangeShowMap={handleChangeShowMap}
         />
         {showMap ? <div className={'view_field'}>
+            <FieldHeader />
             <Field />
             <RowLabels />
             <ColLabels />

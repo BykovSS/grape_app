@@ -49,12 +49,13 @@ export const loadDataFromBase = (path: string, successActionCreator: Function) =
     }
 };
 
-export const saveDataToBase = (data: any, dataName: string) => async (dispatch: Function) => {
+export const saveDataToBase = (data: any, dataName: string, successCallback?: Function) => async (dispatch: Function) => {
     dispatch(actions.onRequestSaveData());
     const db = getDatabase();
     try {
         await set(ref(db, dataName), data);
         dispatch(actions.saveDataComplete());
+        if (successCallback) successCallback();
     } catch (error) {
         dispatch(actions.saveDataComplete({
             showModalWindow: true,

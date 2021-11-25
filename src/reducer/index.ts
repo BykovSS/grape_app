@@ -110,6 +110,10 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return {...state, login: action.login};
         case actionTypes.CHANGE_PASSWORD:
             return {...state, password: action.password};
+        case actionTypes.CHANGE_FIELD_LABEL: {
+
+            return {...state, currentFieldLabel: action.label, dataInfo: state.dataInfo ? state.dataInfo.map(e => e.value === action.value ? {...e, label: action.label} : e) : []};
+        }
         default:
             return state;
     }

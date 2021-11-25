@@ -4,9 +4,48 @@
   font-size: 20px;
   margin: 0;
   text-align: center;
-  line-height: @headerLineHeight;
+  line-height: @mainHeaderLineHeight;
   &-wrap {
     padding: @headerPadding 0;
     position: relative;
+  }
+}
+.field_header {
+  &-wrap {
+    position: absolute;
+    left: @mainPaddingLeft;
+    right: @mainPaddingRight;
+    top: 0;
+    min-height: @fieldHeaderHeight;
+  }
+  &__test {
+    font-size: 18px;
+    line-height: @fieldHeaderLineHeight;
+    text-align: center;
+    margin: 0;
+    padding: @headerPadding 0;
+  }
+  &__input {
+    &-wrap {
+      padding: 4px 0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      & input {
+        padding: 0 3px;
+        font-size: 16px;
+        border-radius: 5px 0 0 5px;
+        border: 1px solid purple;
+        outline: none;
+        flex-basis: 100%;
+        &:focus-visible {
+          border: 2px solid purple;
+        }
+      }
+      & button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
   }
 }

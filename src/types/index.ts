@@ -35,6 +35,7 @@ export type ActionType = {
     selectedCells?: string[]
     id?: string
     label?: string
+    value?: string
     guide?: EntityType
     year?: number
     sort?: string

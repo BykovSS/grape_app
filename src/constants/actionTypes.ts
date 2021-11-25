@@ -24,5 +24,6 @@ export const actionTypes = {
     REMOVE_GUIDE: 'removeGuide',
     CHANGE_AUTH_STATUS: 'changeAuthStatus',
     CHANGE_LOGIN: 'changeLogin',
-    CHANGE_PASSWORD: 'changePassword'
+    CHANGE_PASSWORD: 'changePassword',
+    CHANGE_FIELD_LABEL: 'changeFieldLabel',
 };
