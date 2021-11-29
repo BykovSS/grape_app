@@ -43,6 +43,7 @@ export type ActionType = {
     login?: string
     password?: string
     errorWindowData?: ErrorWindowDataType
+    info?: EntityType
 };
 
 export type EntityType = {

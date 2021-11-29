@@ -5,8 +5,8 @@ import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
 import {OTHER_HEIGHT, Y_BOTTOM_MAX} from '../../constants';
 import {getCellSize, getMinCoord} from '../../utils';
-import {Arrow} from '../../components/buttons/Arrow';
-import {DbArrow} from '../../components/buttons/DbArrow';
+import {Arrow} from '../../components/icons/Arrow';
+import {DbArrow} from '../../components/icons/DbArrow';
 
 const VerticalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numRow, mostTop, zoom} = useSelector((state: any) => state, shallowEqual);

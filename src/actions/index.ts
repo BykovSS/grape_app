@@ -129,3 +129,8 @@ export const changeFieldLabel = (value: string, label: string) => ({
     type: actionTypes.CHANGE_FIELD_LABEL,
     value, label
 });
+
+export const addNewField = (info: {id: string, label: string, value: string}) => ({
+    type: actionTypes.ADD_NEW_FIELD,
+    info
+});

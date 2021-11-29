@@ -1,24 +1,24 @@
 import {dataType, EntityType, RowDataType} from '../types';
 import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
-// export const generateData = (x: number, y: number) => {
-//     const data = [] as dataType[];
-//     for (let j = 1; j <= y; j++) {
-//         for (let i = 1; i <= x; i++) {
-//             data.push({
-//                 id: i + '/' + j,
-//                 row: i,
-//                 x: i,
-//                 y: j,
-//                 sort: null,
-//                 year: null
-//             });
-//         }
-//     }
-//
-//     return data;
-// };
-//
+export const generateData = (x: number, y: number) => {
+    const data = [] as dataType[];
+    for (let j = 1; j <= y; j++) {
+        for (let i = 1; i <= x; i++) {
+            data.push({
+                id: i + '/' + j,
+                row: i,
+                x: i,
+                y: j,
+                sort: null,
+                year: null
+            });
+        }
+    }
+
+    return data;
+};
+
 // export const generateGuide = () => [
 //     {id: 'triangle', label: '', type: 'red'},
 //     {id: 'square', label: '', type: 'red'},

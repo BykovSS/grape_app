@@ -17,6 +17,7 @@ import Guide from '../containers/Guide';
 import {Preloader} from './Preloader';
 import '../assets/less/index.less';
 import {MAP, REPORT} from '../constants';
+import AddAndRemoveButtonGroup from '../containers/buttons/AddAndRemoveFieldButtonsGroup';
 
 type Props = {
     showMap: boolean
@@ -35,6 +36,7 @@ export const App: React.FC<Props> = (props) => {
         />
         {showMap ? <div className={'view_field'}>
             <FieldHeader />
+            <AddAndRemoveButtonGroup />
             <Field />
             <RowLabels />
             <ColLabels />

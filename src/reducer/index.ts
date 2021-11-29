@@ -1,6 +1,14 @@
 import {actionTypes} from '../constants/actionTypes';
 import {ActionType, dataType, EntityType, ErrorWindowDataType} from '../types';
-import {addLeftRow, addRightRow, getMostRight, getMostTop, getNumCol, getNumRow, parseDataFromFetch} from '../utils';
+import {
+    addLeftRow,
+    addRightRow,
+    getMostRight,
+    getMostTop,
+    getNumCol,
+    getNumRow,
+    parseDataFromFetch
+} from '../utils';
 
 const initialState = {
     dataInfo: [] as EntityType[],
@@ -44,7 +52,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
 
             return {...state,
                 isFetching: false,
-                data: {[state.currentFieldValue]: parsedData},
+                data: {...state.data, [state.currentFieldValue]: parsedData},
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
@@ -52,7 +60,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             };
         }
         case actionTypes.FETCH_DATA_INFO_SUCCESS: {
-            const {fetchedDataInfo} = action || {};
+            const {fetchedDataInfo} = action;
             const firstField = fetchedDataInfo && fetchedDataInfo.length > 0 ? fetchedDataInfo[0] : {} as EntityType;
             const {label=null, value=null} = firstField;
 
@@ -69,7 +77,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.SHOW_ERROR_WINDOW:
             return {...state, errorWindowData: action.errorWindowData};
         case actionTypes.CHANGE_DATA:
-            return {...state, data: {[state.currentFieldValue]: action.data}, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)};
+            return {...state, data: {...state.data, [state.currentFieldValue]: action.data}, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)};
         case actionTypes.CLOSE_ERROR_WINDOW:
             return {...state, errorWindowData: null};
         case actionTypes.CHANGE_WINDOW_SIZES:
@@ -81,9 +89,9 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.CHANGE_ZOOM:
             return {...state, zoom: action.zoom};
         case actionTypes.ADD_RIGHT_ROW:
-            return {...state, data: addRightRow(state.data[state.currentFieldValue]), isNeedClickRight: true, numCol: state.numCol + 1};
+            return {...state, data: {...state.data, [state.currentFieldValue]: addRightRow(state.data[state.currentFieldValue])}, isNeedClickRight: true, numCol: state.numCol + 1};
         case actionTypes.ADD_LEFT_ROW:
-            return {...state, data: addLeftRow(state.data[state.currentFieldValue]), isNeedClickLeft: true, numCol: state.numCol + 1, mostRight: state.mostRight + 1};
+            return {...state, data: {...state.data, [state.currentFieldValue]: addLeftRow(state.data[state.currentFieldValue])}, isNeedClickLeft: true, numCol: state.numCol + 1, mostRight: state.mostRight + 1};
         case actionTypes.DISABLE_NEED_CLICKS:
             return {...state, isNeedClickRight: false, isNeedClickLeft: false};
         case actionTypes.CHANGE_SELECTED_CELLS:
@@ -110,9 +118,18 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return {...state, login: action.login};
         case actionTypes.CHANGE_PASSWORD:
             return {...state, password: action.password};
-        case actionTypes.CHANGE_FIELD_LABEL: {
-
+        case actionTypes.CHANGE_FIELD_LABEL:
             return {...state, currentFieldLabel: action.label, dataInfo: state.dataInfo ? state.dataInfo.map(e => e.value === action.value ? {...e, label: action.label} : e) : []};
+        case actionTypes.ADD_NEW_FIELD: {
+            const {info = {}} = action;
+            const {dataInfo} = state;
+
+            return {
+                ...state,
+                dataInfo: dataInfo ? [...dataInfo, {...info}] : [],
+                currentFieldLabel: (info as EntityType).label,
+                currentFieldValue: (info as EntityType).value
+            };
         }
         default:
             return state;

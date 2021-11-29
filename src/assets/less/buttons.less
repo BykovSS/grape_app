@@ -147,3 +147,25 @@ button {
 .enter_button {
   height: @navigateButtonWidth;
 }
+
+.add-and-remove_buttons {
+  display: flex;
+  min-height: 40px;
+  position: absolute;
+  top: 0;
+  left: calc(100vw - @mainPaddingRight + 20px);
+}
+
+.add-and-remove_button {
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  height: @navigateButtonWidth;
+  & > svg {
+    height: calc(@navigateButtonWidth - 10px);
+  }
+}
+
+.add-field_button {
+  margin-right: 15px;
+}

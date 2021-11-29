@@ -2,11 +2,11 @@ import * as React from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
-import {Arrow} from '../../components/buttons/Arrow';
+import {Arrow} from '../../components/icons/Arrow';
 import '../../assets/less/buttons.less';
 import {OTHER_WIDTH, X_LEFT_MAX} from '../../constants';
 import {getCellSize, getMinCoord} from '../../utils';
-import {DbArrow} from '../../components/buttons/DbArrow';
+import {DbArrow} from '../../components/icons/DbArrow';
 
 const HorizontalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numCol, mostRight, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);

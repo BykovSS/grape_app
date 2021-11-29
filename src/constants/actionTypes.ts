@@ -26,4 +26,5 @@ export const actionTypes = {
     CHANGE_LOGIN: 'changeLogin',
     CHANGE_PASSWORD: 'changePassword',
     CHANGE_FIELD_LABEL: 'changeFieldLabel',
+    ADD_NEW_FIELD: 'addNewField'
 };
