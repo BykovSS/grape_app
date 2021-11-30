@@ -39,6 +39,24 @@ export const showErrorWindow = (errorWindowData: ErrorWindowDataType) => ({
     errorWindowData
 });
 
+export const onRequestAddData = () => ({
+    type: actionTypes.ADD_DATA_REQUEST
+});
+
+export const addDataComplete = (errorWindowData?: ErrorWindowDataType) => ({
+    type: actionTypes.ADD_DATA_COMPLETE,
+    errorWindowData
+});
+
+export const onRequestRemoveData = () => ({
+    type: actionTypes.REMOVE_DATA_REQUEST
+});
+
+export const removeDataComplete = (errorWindowData?: ErrorWindowDataType) => ({
+    type: actionTypes.REMOVE_DATA_COMPLETE,
+    errorWindowData
+});
+
 export const changeData = (data: dataType[]) => ({
     type: actionTypes.CHANGE_DATA,
     data
@@ -133,4 +151,9 @@ export const changeFieldLabel = (value: string, label: string) => ({
 export const addNewField = (info: {id: string, label: string, value: string}) => ({
     type: actionTypes.ADD_NEW_FIELD,
     info
+});
+
+export const removeField = (index: number, value: string) => ({
+    type: actionTypes.REMOVE_FIELD,
+    index, value
 });

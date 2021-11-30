@@ -1,6 +1,6 @@
 import * as actions from '../actions';
 import {getAuth, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
-import {getDatabase, ref, set, child, get} from 'firebase/database';
+import {getDatabase, ref, set, child, get, remove} from 'firebase/database';
 import {getErrorMessageByCode, throwError} from '../utils';
 
 export const checkUserAuthorization = (callback: Function) => (dispatch: Function) => {
@@ -60,6 +60,38 @@ export const saveDataToBase = (data: any, dataName: string, successCallback?: an
         dispatch(actions.saveDataComplete({
             showModalWindow: true,
             title: 'Ошибка сохранения данных!',
+            description: String(error)
+        }));
+    }
+};
+
+export const addDataToBase = (data: any, dataName: string, successCallback?: any) => async (dispatch: Function) => {
+    dispatch(actions.onRequestAddData());
+    const db = getDatabase();
+    try {
+        await set(ref(db, dataName), data);
+        dispatch(actions.addDataComplete());
+        if (successCallback) successCallback();
+    } catch (error) {
+        dispatch(actions.addDataComplete({
+            showModalWindow: true,
+            title: 'Ошибка добавления данных!',
+            description: String(error)
+        }));
+    }
+};
+
+export const removeDataFromBase = (dataName: string, successCallback?: any) => async (dispatch: Function) => {
+    dispatch(actions.onRequestRemoveData());
+    const db = getDatabase();
+    try {
+        await remove(ref(db, dataName));
+        dispatch(actions.removeDataComplete());
+        if (successCallback) successCallback();
+    } catch (error) {
+        dispatch(actions.removeDataComplete({
+            showModalWindow: true,
+            title: 'Ошибка удаления данных!',
             description: String(error)
         }));
     }

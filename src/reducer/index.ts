@@ -29,6 +29,8 @@ const initialState = {
     },
     isFetching: false,
     isSaving: false,
+    isAdding: false,
+    isRemoving: false,
     mouseInMap: false,
     zoom: 1,
     isNeedClickRight: false,
@@ -74,6 +76,10 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return {...state, isSaving: true};
         case actionTypes.SAVE_DATA_COMPLETE:
             return {...state, isSaving: false, errorWindowData: action.errorWindowData};
+        case actionTypes.ADD_DATA_REQUEST:
+            return {...state, isAdding: true};
+        case actionTypes.ADD_DATA_COMPLETE:
+            return {...state, isAdding: false, errorWindowData: action.errorWindowData};
         case actionTypes.SHOW_ERROR_WINDOW:
             return {...state, errorWindowData: action.errorWindowData};
         case actionTypes.CHANGE_DATA:
@@ -129,6 +135,24 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 dataInfo: dataInfo ? [...dataInfo, {...info}] : [],
                 currentFieldLabel: (info as EntityType).label,
                 currentFieldValue: (info as EntityType).value
+            };
+        }
+        case actionTypes.REMOVE_FIELD: {
+            const {index, value} = action;
+            const {dataInfo, data} = state;
+            const cloneData = Object.assign({}, {...data});
+            delete cloneData[value];
+            let currentIndex = index === 0 ? 1 : index - 1;
+            while (!dataInfo[currentIndex]) {
+                currentIndex = index === 0 ? currentIndex + 1 : currentIndex === 0 || currentIndex > index ? index + 1 : currentIndex - 1;
+            }
+
+            return {
+                ...state,
+                dataInfo: dataInfo ? dataInfo.filter(e => e.value !== value) : [],
+                currentFieldLabel: dataInfo[currentIndex].label,
+                currentFieldValue: dataInfo[currentIndex].value,
+                data: cloneData
             };
         }
         default:

@@ -6,6 +6,10 @@ export const actionTypes = {
     FETCH_DATA_FAILURE: 'fetchDataFailure',
     SAVE_DATA_REQUEST: 'saveDataRequest',
     SAVE_DATA_COMPLETE: 'saveDataComplete',
+    ADD_DATA_REQUEST: 'addDataRequest',
+    ADD_DATA_COMPLETE: 'addDataComplete',
+    REMOVE_DATA_REQUEST: 'removeDataRequest',
+    REMOVE_DATA_COMPLETE: 'removeDataComplete',
     CHANGE_DATA: 'changeData',
     CHANGE_WINDOW_SIZES: 'changeWindowSizes',
     CHANGE_CURRENT_POSITION: 'changeCurrentPosition',
@@ -26,5 +30,6 @@ export const actionTypes = {
     CHANGE_LOGIN: 'changeLogin',
     CHANGE_PASSWORD: 'changePassword',
     CHANGE_FIELD_LABEL: 'changeFieldLabel',
-    ADD_NEW_FIELD: 'addNewField'
+    ADD_NEW_FIELD: 'addNewField',
+    REMOVE_FIELD: 'removeField'
 };

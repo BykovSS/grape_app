@@ -7,27 +7,42 @@ import {RemoveField} from '../../components/icons/RemoveField';
 import '../../assets/less/buttons.less';
 import * as api from '../../api';
 import {convertDataToSave, generateData} from '../../utils';
+import {EntityType} from '../../types';
 
 const AddAndRemoveButtonGroup:React.FC = () => {
-    const {dataInfo=[]} = useSelector((state: any) => state, shallowEqual);
+    const {dataInfo=[], currentFieldValue} = useSelector((state: any) => state, shallowEqual);
+    let index = 0;
+    (dataInfo as EntityType[]).forEach((e, i) => {if (e.value === currentFieldValue) index = i;});
 
     const dispatch = useDispatch();
 
-    const onSuccessSaveNewData = React.useCallback((info: {id: string, label: string, value: string}) => {
+    const onSuccessAddNewData = React.useCallback((info: {id: string, label: string, value: string}) => {
         dispatch(actions.addNewField(info));
     }, [dispatch]);
 
-    const onSaveNewData = React.useCallback((info: {id: string, label: string, value: string}) => {
+    const onAddNewData = React.useCallback((info: {id: string, label: string, value: string}) => {
         const {value} = info || {};
-        dispatch(api.saveDataToBase(JSON.stringify(convertDataToSave(generateData(200, 300))),'/data/' + value, onSuccessSaveNewData(info)));
-    }, [dispatch, onSuccessSaveNewData]);
+        dispatch(api.addDataToBase(JSON.stringify(convertDataToSave(generateData(200, 300))), '/data/' + value, onSuccessAddNewData(info)));
+    }, [dispatch, onSuccessAddNewData]);
 
     const handleClickAddFieldButton = React.useCallback(() => {
         const id = String(Date.now());
         const label = 'Заголовок участка id' + id;
         const value = 'data_' + id;
-        dispatch(api.saveDataToBase({id, label, value}, `/dataInfo/${dataInfo.length}`, onSaveNewData({id, label, value})));
-    }, [dispatch, dataInfo.length, onSaveNewData]);
+        dispatch(api.addDataToBase({id, label, value}, `/dataInfo/${dataInfo.length}`, onAddNewData({id, label, value})));
+    }, [dispatch, dataInfo.length, onAddNewData]);
+
+    const onSuccessRemoveData = React.useCallback(() => {
+        dispatch(actions.removeField(index, currentFieldValue));
+    }, [dispatch, index, currentFieldValue]);
+
+    const onRemoveData = React.useCallback(() => {
+        dispatch(api.removeDataFromBase('/data/' + currentFieldValue, onSuccessRemoveData));
+    }, [dispatch, currentFieldValue, onSuccessRemoveData]);
+
+    const handleClickRemoveFieldButton = React.useCallback(() => {
+        dispatch(api.removeDataFromBase('/dataInfo/' + index, onRemoveData));
+    }, [dispatch, index, onRemoveData]);
 
     return <ButtonsGroup
         className={'add-and-remove_buttons'}
@@ -40,7 +55,7 @@ const AddAndRemoveButtonGroup:React.FC = () => {
         Button_03_ClassName={'add-and-remove_button remove-field_button'}
         Button_03_Title={'Удалить участок'}
         Button_03_Disable={dataInfo && dataInfo.length <= 1}
-        handleClickButton_03={() => console.log('remove button clicked')}
+        handleClickButton_03={handleClickRemoveFieldButton}
         Button_03_Label={<RemoveField />}
         isButton_04={false}
     />;
