@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useDispatch} from 'react-redux';
 import * as actions from '../../actions';
+import {AddRightColumn} from '../../components/icons/AddRightColumn';
 import '../../assets/less/buttons.less';
 
 const AddRightRowButton:React.FC = () => {
@@ -12,8 +13,9 @@ const AddRightRowButton:React.FC = () => {
 
   return <button
       className={'add_button add_button__right'}
+      title={'Добавить ряд справа'}
       onClick={handleAddRightRow}
-  >Добавить ряд справа</button>;
+  ><AddRightColumn/></button>;
 };
 
 export default AddRightRowButton;

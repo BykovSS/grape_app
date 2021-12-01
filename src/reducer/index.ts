@@ -86,6 +86,8 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             return {...state, data: {...state.data, [state.currentFieldValue]: action.data}, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)};
         case actionTypes.CLOSE_ERROR_WINDOW:
             return {...state, errorWindowData: null};
+        case actionTypes.SHOW_CONFIRM_WINDOW:
+            return {...state, errorWindowData: action.confirmWindowData};
         case actionTypes.CHANGE_WINDOW_SIZES:
             return {...state, windowSizes: action.windowSizes};
         case actionTypes.CHANGE_CURRENT_POSITION:
@@ -155,6 +157,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 data: cloneData
             };
         }
+
         default:
             return state;
     }

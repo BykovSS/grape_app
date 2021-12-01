@@ -5,11 +5,13 @@ type Props = {
     visible: boolean
     title: string
     description: string
+    needConfirm: boolean
+    handleClickConfirm: () => void
     handleCloseModalWindow: () => void
 }
 
 export const ModalWindow:React.FC<Props> = (props) => {
-    const {visible, title, description, handleCloseModalWindow} = props;
+    const {visible, title, description, needConfirm, handleClickConfirm, handleCloseModalWindow} = props;
     const descriptionArr = description ? description.split(';') : [];
 
     return visible ? <div className={'modal_window-wrap'}>
@@ -19,10 +21,14 @@ export const ModalWindow:React.FC<Props> = (props) => {
                 {descriptionArr.map((elem, i) => <span key={i}>{elem}</span>)}
             </div>
             <div className={'modal_window-buttons'}>
+                {needConfirm && <button
+					className={'modal_window-button'}
+					onClick={handleClickConfirm}
+				>Удалить</button>}
                 <button
                     className={'modal_window-button'}
                     onClick={handleCloseModalWindow}
-                >ОК</button>
+                >{needConfirm ? 'Отмена' : 'ОК'}</button>
             </div>
         </div>
     </div> : null;

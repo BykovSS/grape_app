@@ -17,10 +17,12 @@ const ZoomButtonGroup:React.FC<Props> = (props) => {
         className={'zoom_buttons'}
         isButton_01={false}
         Button_02_ClassName={'zoom_button zoom_button__inc'}
+        Button_02_Title={'Увеличить'}
         Button_02_Disable={zoom === MAX_ZOOM}
         handleClickButton_02={increaseZoom}
         Button_02_Label={'+'}
         Button_03_ClassName={'zoom_button zoom_button__dec'}
+        Button_03_Title={'Уменьшить'}
         Button_03_Disable={zoom === MIN_ZOOM}
         handleClickButton_03={decreaseZoom}
         Button_03_Label={'-'}

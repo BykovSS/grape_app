@@ -157,3 +157,8 @@ export const removeField = (index: number, value: string) => ({
     type: actionTypes.REMOVE_FIELD,
     index, value
 });
+
+export const showCorfirmWindow = (confirmWindowData?: ErrorWindowDataType) => ({
+    type: actionTypes.SHOW_CONFIRM_WINDOW,
+    confirmWindowData
+});

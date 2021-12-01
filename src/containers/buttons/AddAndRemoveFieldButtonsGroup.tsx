@@ -32,17 +32,27 @@ const AddAndRemoveButtonGroup:React.FC = () => {
         dispatch(api.addDataToBase({id, label, value}, `/dataInfo/${dataInfo.length}`, onAddNewData({id, label, value})));
     }, [dispatch, dataInfo.length, onAddNewData]);
 
-    const onSuccessRemoveData = React.useCallback(() => {
+    const onSuccessRemoveData = React.useCallback((callback?: Function) => () => {
         dispatch(actions.removeField(index, currentFieldValue));
+        if (callback) callback();
     }, [dispatch, index, currentFieldValue]);
 
-    const onRemoveData = React.useCallback(() => {
-        dispatch(api.removeDataFromBase('/data/' + currentFieldValue, onSuccessRemoveData));
+    const onRemoveData = React.useCallback((callback?: Function) => () => {
+        dispatch(api.removeDataFromBase('/data/' + currentFieldValue, onSuccessRemoveData(callback)));
     }, [dispatch, currentFieldValue, onSuccessRemoveData]);
 
-    const handleClickRemoveFieldButton = React.useCallback(() => {
-        dispatch(api.removeDataFromBase('/dataInfo/' + index, onRemoveData));
+    const handleClickConfirmRemoveFieldButton = React.useCallback((callback?: Function) => () => {
+        dispatch(api.removeDataFromBase('/dataInfo/' + index, onRemoveData(callback)));
     }, [dispatch, index, onRemoveData]);
+
+    const handleClickRemoveFieldButton = React.useCallback(() => {
+        dispatch(actions.showCorfirmWindow({
+            showModalWindow: true,
+            title: 'Подтвердите удаление!',
+            description: 'Вы действительно хотите удалить данный участок?',
+            handleClickConfirm: handleClickConfirmRemoveFieldButton
+        }));
+    }, [dispatch, handleClickConfirmRemoveFieldButton]);
 
     return <ButtonsGroup
         className={'add-and-remove_buttons'}

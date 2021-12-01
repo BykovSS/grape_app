@@ -31,5 +31,6 @@ export const actionTypes = {
     CHANGE_PASSWORD: 'changePassword',
     CHANGE_FIELD_LABEL: 'changeFieldLabel',
     ADD_NEW_FIELD: 'addNewField',
-    REMOVE_FIELD: 'removeField'
+    REMOVE_FIELD: 'removeField',
+    SHOW_CONFIRM_WINDOW: 'showConfirmWindow'
 };

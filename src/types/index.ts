@@ -43,6 +43,7 @@ export type ActionType = {
     login?: string
     password?: string
     errorWindowData?: ErrorWindowDataType
+    confirmWindowData?: ErrorWindowDataType
     info?: EntityType
     index?: number
 };
@@ -58,4 +59,5 @@ export type ErrorWindowDataType = {
     showModalWindow?: boolean
     title?: string
     description?: string
+    handleClickConfirm?: Function
 }

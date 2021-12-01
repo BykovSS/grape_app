@@ -10,6 +10,7 @@ const App: React.FC = () => {
     const [showMap, changeShowMap] = React.useState<boolean>(true);
     const [showLoginPageContent, changeShowLoginPageContent] = React.useState<boolean>(false);
     const {isAuthorized, currentFieldValue} = useSelector((state: any) => state);
+    const currentData = useSelector((state: any) => currentFieldValue ? state.data[currentFieldValue] : null);
 
     const onShowLoginPageContent = React.useCallback(() => {
         changeShowLoginPageContent(true);
@@ -27,10 +28,10 @@ const App: React.FC = () => {
     }, [isAuthorized, dispatch, onShowLoginPageContent]);
 
     React.useEffect(() => {
-        if (isAuthorized && currentFieldValue) {
+        if (isAuthorized && currentFieldValue && (!currentData || currentData && currentData.length === 0)) {
             dispatch(api.loadDataFromBase('/data/' + currentFieldValue, actions.loadDataSuccess));
         }
-    }, [isAuthorized, currentFieldValue, dispatch]);
+    }, [isAuthorized, currentFieldValue, currentData, dispatch]);
 
     const handleChangeShowMap = React.useCallback(() => {
         changeShowMap(!showMap);
