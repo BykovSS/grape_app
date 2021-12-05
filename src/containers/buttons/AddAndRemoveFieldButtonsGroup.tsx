@@ -59,7 +59,7 @@ const AddAndRemoveButtonGroup:React.FC = () => {
         isButton_01={false}
         Button_02_ClassName={'add-and-remove_button add-field_button'}
         Button_02_Title={'Добавить участок'}
-        Button_02_Disable={dataInfo && dataInfo.length >= 5}
+        Button_02_Disable={dataInfo && dataInfo.length >= 30}
         handleClickButton_02={handleClickAddFieldButton}
         Button_02_Label={<AddField/>}
         Button_03_ClassName={'add-and-remove_button remove-field_button'}

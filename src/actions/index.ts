@@ -162,3 +162,8 @@ export const showCorfirmWindow = (confirmWindowData?: ErrorWindowDataType) => ({
     type: actionTypes.SHOW_CONFIRM_WINDOW,
     confirmWindowData
 });
+
+export const toField = (newCurrentIndex: number) => ({
+    type: actionTypes.TO_FIELD,
+    newCurrentIndex
+});

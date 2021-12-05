@@ -245,3 +245,14 @@ export const getErrorMessageByCode = (code: string) => {
         default: return 'Неизвестная ошибка!';
     }
 };
+
+export const getCurrentIndex = (dataInfo: EntityType[], currentFieldValue: string) => {
+    if (!dataInfo || dataInfo && dataInfo.length === 0 || !currentFieldValue) {
+        return null;
+    }
+
+    let currentIndex: number = null;
+    dataInfo.forEach((e: EntityType, i: number) => {if (e.value === currentFieldValue) currentIndex = i;});
+
+    return currentIndex;
+};

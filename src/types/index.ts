@@ -46,6 +46,7 @@ export type ActionType = {
     confirmWindowData?: ErrorWindowDataType
     info?: EntityType
     index?: number
+    newCurrentIndex?: number
 };
 
 export type EntityType = {

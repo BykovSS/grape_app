@@ -13,10 +13,12 @@
 .field_header {
   &-wrap {
     position: absolute;
-    left: @mainPaddingLeft;
-    right: @mainPaddingRight;
+    left: calc(@mainPaddingLeft - 25px);
+    right: calc(@mainPaddingRight);
     top: 0;
     min-height: @fieldHeaderHeight;
+    display: flex;
+    align-items: flex-start;
   }
   &__test {
     font-size: 18px;
@@ -24,10 +26,12 @@
     text-align: center;
     margin: 0;
     padding: @headerPadding 0;
+    flex-basis: 100%;
   }
   &__input {
     &-wrap {
       padding: 4px 0;
+      flex-basis: 100%;
       display: flex;
       justify-content: space-between;
       flex-wrap: nowrap;

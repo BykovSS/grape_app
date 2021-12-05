@@ -32,5 +32,6 @@ export const actionTypes = {
     CHANGE_FIELD_LABEL: 'changeFieldLabel',
     ADD_NEW_FIELD: 'addNewField',
     REMOVE_FIELD: 'removeField',
-    SHOW_CONFIRM_WINDOW: 'showConfirmWindow'
+    SHOW_CONFIRM_WINDOW: 'showConfirmWindow',
+    TO_FIELD: 'toField',
 };

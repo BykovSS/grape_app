@@ -1,4 +1,6 @@
 import * as React from 'react';
+import ToLeftFieldButton from '../containers/buttons/ToLeftFieldButton';
+import ToRightFieldButton from '../containers/buttons/ToRightFieldButton';
 import '../assets/less/header.less';
 
 type Props = {
@@ -13,6 +15,7 @@ export const FieldHeader:React.FC<Props> = (props) => {
     const {title, showText, handleChangeShowText, handleChangeFieldLabel, handleClickApply} = props;
 
     return <div className={'field_header-wrap'}>
+        <ToLeftFieldButton/>
         {showText
             ? <h2 className={'field_header__test'} onClick={handleChangeShowText}>{title}</h2>
             : <div className={'field_header__input-wrap'}>
@@ -20,5 +23,6 @@ export const FieldHeader:React.FC<Props> = (props) => {
                 <button onClick={handleClickApply}>OK</button>
             </div>
         }
+        <ToRightFieldButton/>
     </div>;
 };

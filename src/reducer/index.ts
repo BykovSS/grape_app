@@ -157,7 +157,12 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 data: cloneData
             };
         }
+        case actionTypes.TO_FIELD: {
+            const {newCurrentIndex} = action;
+            const {dataInfo} = state;
 
+            return {...state, currentFieldLabel: dataInfo[newCurrentIndex].label, currentFieldValue: dataInfo[newCurrentIndex].value};
+        }
         default:
             return state;
     }
