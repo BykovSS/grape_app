@@ -12,7 +12,7 @@ import AddRightRowButton from '../containers/buttons/AddRightRowButton';
 import SaveButton from '../containers/buttons/SaveButton';
 import DeselectButton from '../containers/buttons/DeselectButton';
 import CurrentCell from '../containers/CurrentCell';
-import {Report} from './Report';
+import Report from '../containers/Report';
 import Guide from '../containers/Guide';
 import {Preloader} from './Preloader';
 import '../assets/less/index.less';

@@ -6,15 +6,16 @@ import '../assets/less/header.less';
 type Props = {
     title: string
     showText: boolean
+    inReport?: boolean
     handleChangeShowText: () => void
     handleChangeFieldLabel: (event: any) => void
     handleClickApply: () => void
 }
 
 export const FieldHeader:React.FC<Props> = (props) => {
-    const {title, showText, handleChangeShowText, handleChangeFieldLabel, handleClickApply} = props;
+    const {title, showText, inReport, handleChangeShowText, handleChangeFieldLabel, handleClickApply} = props;
 
-    return <div className={'field_header-wrap'}>
+    return <div className={`field_header-wrap${inReport ? ' report_header' : ''}`}>
         <ToLeftFieldButton/>
         {showText
             ? <h2 className={'field_header__test'} onClick={handleChangeShowText}>{title}</h2>

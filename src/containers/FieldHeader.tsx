@@ -1,10 +1,15 @@
 import * as React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import * as actions from '../actions';
-import {FieldHeader as SortLineFieldHeader} from '../components/FieldHeader';
+import {FieldHeader as FieldHeaderComponent} from '../components/FieldHeader';
 import * as api from '../api';
 
-const FieldHeader: React.FC = () => {
+type Props = {
+    inReport?: boolean
+}
+
+const FieldHeader: React.FC<Props> = (props) => {
+    const {inReport} = props;
     const [showText, changeShowText] = React.useState<boolean>(true);
     const {dataInfo, currentFieldValue, currentFieldLabel} = useSelector((state: any) => state);
 
@@ -22,9 +27,10 @@ const FieldHeader: React.FC = () => {
         dispatch(api.saveDataToBase(dataInfo, '/dataInfo', handleChangeShowText));
     }, [dispatch, dataInfo, handleChangeShowText]);
 
-    return <SortLineFieldHeader
+    return <FieldHeaderComponent
         title={currentFieldLabel}
         showText={showText}
+        inReport={inReport}
         handleChangeShowText={handleChangeShowText}
         handleChangeFieldLabel={handleChangeFieldLabel}
         handleClickApply={handleClickApply}

@@ -1,34 +1,19 @@
 import * as React from 'react';
-import {useSelector} from 'react-redux';
-import {getAge, getInitialTableData} from '../utils';
 import '../assets/less/report.less';
-import {dataType} from '../types';
+import {EntityType} from '../types';
 import {Icon} from './icons/Icon';
+import FieldHeader from '../containers/FieldHeader';
 
-export const Report: React.FC = () => {
+type Props = {
+    tableData: (EntityType & {a_0?: number, a_1?: number, a_2?: number, a_3?: number, a_4?: number})[]
+}
 
-    const {data: allData, currentFieldValue, guide} = useSelector((state: any) => state);
-    const data = React.useMemo(() => {
-        return allData && currentFieldValue ? allData[currentFieldValue] : [];
-    }, [allData, currentFieldValue]);
+export const Report: React.FC<Props> = (props) => {
 
-    const tableData = getInitialTableData(guide);
-
-    data.forEach((item: dataType) => {
-        const {sort, year} = item;
-        const age = getAge(year);
-        tableData.forEach(elem => {
-            if (sort === elem.id) {
-                if (age === null) elem.a_0++;
-                else if (typeof age === 'number' && age <= 0) elem.a_1++;
-                else if (age === 1) elem.a_2++;
-                else if (age === 2) elem.a_3++;
-                else elem.a_4++;
-            }
-        });
-    });
+    const {tableData} = props;
 
     return <div className={'report'}>
+        <FieldHeader inReport/>
         <table>
             <thead>
                 <tr>

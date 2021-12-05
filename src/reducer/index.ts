@@ -161,7 +161,14 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             const {newCurrentIndex} = action;
             const {dataInfo} = state;
 
-            return {...state, currentFieldLabel: dataInfo[newCurrentIndex].label, currentFieldValue: dataInfo[newCurrentIndex].value};
+            return {
+                ...state,
+                currentFieldLabel: dataInfo[newCurrentIndex].label,
+                currentFieldValue: dataInfo[newCurrentIndex].value,
+                currentPosition: {currentAbscissa: 0, currentOrdinate: 0},
+                selectedCells: [],
+                currentCell: null
+            };
         }
         default:
             return state;
