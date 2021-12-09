@@ -1,19 +1,23 @@
 import * as React from 'react';
-import '../assets/less/report.less';
-import {EntityType} from '../types';
 import {Icon} from './icons/Icon';
 import FieldHeader from '../containers/FieldHeader';
+import {EntityType} from '../types';
+import '../assets/less/report.less';
+import '../assets/less/buttons.less';
 
 type Props = {
     tableData: (EntityType & {a_0?: number, a_1?: number, a_2?: number, a_3?: number, a_4?: number})[]
+    isGeneral: boolean
+    fieldCount: number
+    handleChangeGeneral: () => void
 }
 
 export const Report: React.FC<Props> = (props) => {
 
-    const {tableData} = props;
+    const {tableData, isGeneral, fieldCount, handleChangeGeneral} = props;
 
     return <div className={'report'}>
-        <FieldHeader inReport/>
+        <FieldHeader inReport isGeneral={isGeneral} fieldCount={fieldCount}/>
         <table>
             <thead>
                 <tr>
@@ -80,32 +84,33 @@ export const Report: React.FC<Props> = (props) => {
             <tfoot>
             <tr className={'report-total'}>
                 <td colSpan={2}>{'Итого '}<span>(без свободных и непригодных мест)</span></td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_1 + item.a_2 + item.a_3 + item.a_4;
                 }, 0)}</td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_1;
                 }, 0)}</td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_2;
                 }, 0)}</td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_3;
                 }, 0)}</td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_4;
                 }, 0)}</td>
-                <td className={'report-number'}>{tableData.reduce((result, item) => {
+                <td className={'report-number'}>{tableData && tableData.reduce((result, item) => {
                     if (item.type === 'free' || item.type === 'hatching') return result;
                     else return result + item.a_0;
                 }, 0)}</td>
             </tr>
             </tfoot>
         </table>
+        <button className={'change-report'} onClick={handleChangeGeneral}>{isGeneral ? 'Отчет по частку' : 'Общий отчет'}</button>
     </div>;
 };

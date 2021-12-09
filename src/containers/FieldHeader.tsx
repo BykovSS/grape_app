@@ -6,10 +6,12 @@ import * as api from '../api';
 
 type Props = {
     inReport?: boolean
+    isGeneral?: boolean
+    fieldCount?: number
 }
 
 const FieldHeader: React.FC<Props> = (props) => {
-    const {inReport} = props;
+    const {inReport, isGeneral, fieldCount} = props;
     const [showText, changeShowText] = React.useState<boolean>(true);
     const {dataInfo, currentFieldValue, currentFieldLabel} = useSelector((state: any) => state);
 
@@ -31,6 +33,8 @@ const FieldHeader: React.FC<Props> = (props) => {
         title={currentFieldLabel}
         showText={showText}
         inReport={inReport}
+        isGeneral={isGeneral}
+        fieldCount={fieldCount}
         handleChangeShowText={handleChangeShowText}
         handleChangeFieldLabel={handleChangeFieldLabel}
         handleClickApply={handleClickApply}

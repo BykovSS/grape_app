@@ -235,6 +235,34 @@ export const getInitialTableData = (guide: EntityType[]): (EntityType & {a_0?: n
     return [...guide].map(elem => ({...elem, a_0: 0, a_1: 0, a_2: 0, a_3: 0, a_4: 0}));
 };
 
+export const getTableData = (isGeneral: boolean, data: {[key:string]:dataType[]}, guide: EntityType[], dataInfoLength: number, currentFieldValue: string) => {
+    if (!data || isGeneral && Object.keys(data).length !== dataInfoLength) {
+        return null;
+    }
+
+    const tableData = getInitialTableData(guide);
+
+    Object.keys(data) && Object.keys(data).forEach(e => {
+        if (isGeneral || currentFieldValue === e) {
+            data[e].forEach((item: dataType) => {
+                const {sort, year} = item;
+                const age = getAge(year);
+                tableData.forEach(elem => {
+                    if (sort === elem.id) {
+                        if (age === null) elem.a_0++;
+                        else if (typeof age === 'number' && age <= 0) elem.a_1++;
+                        else if (age === 1) elem.a_2++;
+                        else if (age === 2) elem.a_3++;
+                        else elem.a_4++;
+                    }
+                });
+            });
+        }
+    });
+
+    return tableData;
+};
+
 export const getErrorMessageByCode = (code: string) => {
     switch (code) {
         case 'auth/user-not-found': return 'Пользователь не найден!';

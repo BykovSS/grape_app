@@ -47,6 +47,7 @@ export type ActionType = {
     info?: EntityType
     index?: number
     newCurrentIndex?: number
+    fieldValue?: string
 };
 
 export type EntityType = {

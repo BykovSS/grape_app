@@ -29,7 +29,7 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         if (isAuthorized && currentFieldValue && (!currentData || currentData && currentData.length === 0)) {
-            dispatch(api.loadDataFromBase('/data/' + currentFieldValue, actions.loadDataSuccess));
+            dispatch(api.loadDataFromBase('/data/' + currentFieldValue, actions.loadDataSuccess, currentFieldValue));
         }
     }, [isAuthorized, currentFieldValue, currentData, dispatch]);
 

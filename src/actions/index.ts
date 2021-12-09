@@ -5,9 +5,9 @@ export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });
 
-export const loadDataSuccess = (fetchedData: string) => ({
+export const loadDataSuccess = (fetchedData: string, fieldValue: string) => ({
     type: actionTypes.FETCH_DATA_SUCCESS,
-    fetchedData
+    fetchedData, fieldValue
 });
 
 export const loadDataInfoSuccess = (fetchedDataInfo: EntityType[]) => ({

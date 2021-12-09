@@ -49,12 +49,12 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.FETCH_DATA_REQUEST:
             return {...state, isFetching: true};
         case actionTypes.FETCH_DATA_SUCCESS: {
-            const {fetchedData} = action;
+            const {fetchedData, fieldValue} = action;
             const parsedData = parseDataFromFetch(JSON.parse(fetchedData));
 
             return {...state,
                 isFetching: false,
-                data: {...state.data, [state.currentFieldValue]: parsedData},
+                data: {...state.data, [fieldValue]: parsedData},
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
