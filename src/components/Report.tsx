@@ -40,7 +40,7 @@ export const Report: React.FC<Props> = (props) => {
                 <tr><td colSpan={8} className={'report-header'}>{'Красные сорта'}</td></tr>
                 {tableData && tableData.map((elem, i) => elem.type === 'red' && <tr key={i}>
 					<td>{elem.label}</td>
-                    <td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
+                    <td className={'report-sort_icon-wrap'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td className={'report-number'}>{elem.a_1}</td>
 					<td className={'report-number'}>{elem.a_2}</td>
@@ -51,7 +51,7 @@ export const Report: React.FC<Props> = (props) => {
                 <tr><td colSpan={8} className={'report-header'}>{'Белые сорта'}</td></tr>
                 {tableData && tableData.map((elem, i) => elem.type === 'white' && <tr key={i}>
 					<td>{elem.label}</td>
-					<td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
+					<td className={'report-sort_icon-wrap'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td className={'report-number'}>{elem.a_1}</td>
 					<td className={'report-number'}>{elem.a_2}</td>
@@ -62,7 +62,7 @@ export const Report: React.FC<Props> = (props) => {
                 <tr><td colSpan={8} className={'report-header'}>{'Остальное'}</td></tr>
                 {tableData && tableData.map((elem, i) => elem.type === 'other' && <tr key={i}>
 					<td>{elem.label}</td>
-					<td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
+					<td className={'report-sort_icon-wrap'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td className={'report-number'}>{elem.a_1}</td>
 					<td className={'report-number'}>{elem.a_2}</td>
@@ -72,12 +72,12 @@ export const Report: React.FC<Props> = (props) => {
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'free' && <tr key={i}>
 					<td>{elem.label}</td>
-					<td><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
+					<td className={'report-sort_icon-wrap'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/><td/>
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <tr key={i}>
-					<td>{elem.label}</td>
+					<td className={'report-sort_icon-wrap'}>{elem.label}</td>
 					<td className={'report-td_hatching'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/><td/>

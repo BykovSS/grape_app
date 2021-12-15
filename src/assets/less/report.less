@@ -53,6 +53,9 @@
     width: 17px;
     height: 17px;
 	margin: 0 auto;
+	.mobile-icon {
+	  padding: 0;
+	}
   }
   &-number {
     text-align: center;
@@ -62,6 +65,31 @@
 	font-weight: bold;
 	& span {
 	  font-size: 14px;
+	}
+  }
+}
+
+@media (max-width: 1024px) {
+  .report {
+	table td.report-sort_icon-wrap {
+	  padding: 0;
+
+	  .report-sort_icon {
+		width: 44px;
+		height: 26px;
+		.mobile-icon {
+		  width: 18px;
+		  height: 18px;
+		  &__hearts, &__clubs, &__star {
+			width: 22px;
+			height: 22px;
+		  }
+		  &__diamonds {
+			width: 24px;
+			height: 24px;
+		  }
+		}
+	  }
 	}
   }
 }

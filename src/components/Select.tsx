@@ -80,7 +80,7 @@ export const Select: React.FC<Props> = (props) => {
             className={`__select__title ${'__' + type + '__select__title'}${disable ? ' disable' : ''}`}
             data-default={value ? value : 'none'}
         >
-            {value
+            {value && value !== 'null'
                 ? type === SORT
                     ? <div className={'__select__icon'}><Icon sort={value as string} zoom={0.8}/></div>
                     : value === 'absent' ? 'выпад' : value
