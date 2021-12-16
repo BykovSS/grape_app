@@ -131,7 +131,7 @@ const Field: React.FC = () => {
     const handleMouseDownMap = React.useCallback((event: MouseEvent) => {
         const {clientX, clientY, ctrlKey: ctrlKeyMouseDown, target} = event || {};
         let firstTarget = target;
-        while (!(firstTarget as HTMLElement).classList.contains('svg-cell')) {
+        while (firstTarget && (firstTarget as HTMLElement).classList && !(firstTarget as HTMLElement).classList.contains('svg-cell')) {
             firstTarget = (firstTarget as HTMLElement).parentElement;
         }
         const {x: first_x, y: first_y} = (firstTarget as HTMLElement).dataset || {};
