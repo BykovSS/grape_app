@@ -29,7 +29,7 @@ const AddAndRemoveButtonGroup:React.FC = () => {
         const id = String(Date.now());
         const label = 'Заголовок участка id' + id;
         const value = 'data_' + id;
-        dispatch(api.addDataToBase({id, label, value}, `/dataInfo/${dataInfo.length}`, onAddNewData({id, label, value})));
+        dispatch(api.addDataToBase([...dataInfo, {id, label, value}], '/dataInfo/', onAddNewData({id, label, value})));
     }, [dispatch, dataInfo.length, onAddNewData]);
 
     const onSuccessRemoveData = React.useCallback((callback?: Function) => () => {

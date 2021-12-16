@@ -30,13 +30,13 @@ export const onUserAuthorized = (login: string, password: string) => async (disp
     }
 };
 
-export const loadDataFromBase = (path: string, successActionCreator: Function, fieldValue?: string) => async (dispatch: Function) => {
+export const loadDataFromBase = (path: string, successActionCreator: Function, fieldValue?: string, isGeneral?: boolean) => async (dispatch: Function) => {
     dispatch(actions.onRequestFetchData());
     const dbRef = ref(getDatabase());
     try {
         const response = await get(child(dbRef, path));
         if (response.exists()) {
-            dispatch(successActionCreator(response.val(), fieldValue));
+            dispatch(successActionCreator(response.val(), fieldValue, isGeneral));
         } else {
             throwError('Ошибка чтения базы данных!');
         }

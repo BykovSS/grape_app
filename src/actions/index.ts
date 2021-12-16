@@ -1,13 +1,17 @@
 import {actionTypes} from '../constants/actionTypes';
 import {dataType, ErrorWindowDataType, EntityType} from '../types';
 
+export const changeMobil = () => ({
+    type: actionTypes.CHANGE_MOBIL
+});
+
 export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });
 
-export const loadDataSuccess = (fetchedData: string, fieldValue: string) => ({
+export const loadDataSuccess = (fetchedData: string, fieldValue: string, isGeneral?: boolean) => ({
     type: actionTypes.FETCH_DATA_SUCCESS,
-    fetchedData, fieldValue
+    fetchedData, fieldValue, isGeneral
 });
 
 export const loadDataInfoSuccess = (fetchedDataInfo: EntityType[]) => ({

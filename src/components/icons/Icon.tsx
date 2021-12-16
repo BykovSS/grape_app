@@ -24,9 +24,7 @@ export const Icon: React.FC<Props> = (props) => {
     const {sort, zoom=1, color='black', forPDF} = props;
     const {appVersion} = window.navigator;
     const isMac = appVersion.indexOf('Mac OS') !== -1;
-    const {windowSizes} = useSelector((state: any) => state, shallowEqual);
-    const {windowWidth} = windowSizes || {};
-    const isMobil = windowWidth && windowWidth < 1024;
+    const {isMobil} = useSelector((state: any) => state, shallowEqual);
 
     const {locSort, starNum} = getStarIdAndNum(sort);
 

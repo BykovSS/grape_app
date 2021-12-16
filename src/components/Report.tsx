@@ -10,13 +10,14 @@ type Props = {
     isGeneral: boolean
     fieldCount: number
     title: string
+    isMobil: boolean
     handleChangeGeneral: () => void
     handleSaveToPdf: () => void
 }
 
 export const Report: React.FC<Props> = (props) => {
 
-    const {tableData, isGeneral, fieldCount, title, handleChangeGeneral, handleSaveToPdf} = props;
+    const {tableData, isGeneral, fieldCount, title, isMobil, handleChangeGeneral, handleSaveToPdf} = props;
 
     return <div className={'report'}>
         <FieldHeader inReport isGeneral={isGeneral} fieldCount={fieldCount}/>
@@ -115,7 +116,7 @@ export const Report: React.FC<Props> = (props) => {
         </table>
         <div className={'footer-buttons'}>
             <button className={'change-report'} onClick={handleChangeGeneral}>{isGeneral ? 'Отчет по частку' : 'Общий отчет'}</button>
-            <button className={'save-to-pdf'} onClick={handleSaveToPdf}>{'Сохранить в pdf'}</button>
+            {!isMobil && <button className={'save-to-pdf'} onClick={handleSaveToPdf}>{'Сохранить в pdf'}</button>}
         </div>
         <div style={{display:'none'}}>
             <div id={'pdfContent'} style={{fontFamily:'GothamPro'}}>

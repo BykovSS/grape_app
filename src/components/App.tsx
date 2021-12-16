@@ -18,7 +18,6 @@ import {Preloader} from './Preloader';
 import '../assets/less/index.less';
 import {MAP, OTHER_HEIGHT, REPORT} from '../constants';
 import AddAndRemoveButtonGroup from '../containers/buttons/AddAndRemoveFieldButtonsGroup';
-import {MobilHeight} from './MobilHeight';
 
 type Props = {
     showMap: boolean
@@ -42,7 +41,6 @@ export const App: React.FC<Props> = (props) => {
             <Field />
             <RowLabels />
             <ColLabels />
-            <MobilHeight />
             <VerticalNavigateButtonGroup />
             <HorizontalNavigateButtonGroup />
             <AddLeftRowButton />

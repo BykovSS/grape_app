@@ -7,14 +7,15 @@ import {EntityType} from '../types';
 type Props = {
     isOpen: boolean
     guide: EntityType[]
+    heightStyle: number
     handleClickIcon: () => void
 }
 
 export const Guide: React.FC<Props> = (props) => {
 
-    const {isOpen, guide, handleClickIcon} = props;
+    const {isOpen, guide, heightStyle, handleClickIcon} = props;
 
-    return <div className={`guide ${isOpen ? 'opened' : 'closed'}`}>
+    return <div style={{height: heightStyle ? heightStyle + 'px' : 'auto'}} className={`guide ${isOpen ? 'opened' : 'closed'}`}>
         <h2 className={'guide-header'}>Обозначения</h2>
         <div className={'guide-content'}>
             <div className={'guide-data_wrap'}>

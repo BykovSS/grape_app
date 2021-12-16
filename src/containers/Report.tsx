@@ -9,7 +9,7 @@ import {jsPDF} from 'jspdf';
 
 const Report:React.FC = () => {
     const [isGeneral, changeGeneral] = React.useState<boolean>(false);
-    const {currentFieldLabel, currentFieldValue, isAuthorized, guide, dataInfo, data} = useSelector((state: any) => state);
+    const {isMobil, currentFieldLabel, currentFieldValue, isAuthorized, guide, dataInfo, data} = useSelector((state: any) => state);
     const dataInfoLength = dataInfo ? dataInfo.length : 0;
 
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Report:React.FC = () => {
             dataInfo.forEach((e: EntityType) => {
                 const value = e.value;
                 if (value && !data[value]) {
-                    dispatch(api.loadDataFromBase('/data/' + value, actions.loadDataSuccess, value));
+                    dispatch(api.loadDataFromBase('/data/' + value, actions.loadDataSuccess, value, isGeneral));
                 }
             });
         }
@@ -49,6 +49,7 @@ const Report:React.FC = () => {
         isGeneral={isGeneral}
         fieldCount={dataInfoLength}
         title={currentFieldLabel}
+        isMobil={isMobil}
         handleChangeGeneral={handleChangeGeneral}
         handleSaveToPdf={handleSaveToPdf}
     />;

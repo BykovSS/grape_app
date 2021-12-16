@@ -11,6 +11,7 @@ import {
 } from '../utils';
 
 const initialState = {
+    isMobil: false,
     dataInfo: [] as EntityType[],
     currentFieldLabel: null as string,
     currentFieldValue: null as string,
@@ -46,15 +47,17 @@ const initialState = {
 
 export const dataReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
+        case actionTypes.CHANGE_MOBIL:
+            return {...state, isMobil: true};
         case actionTypes.FETCH_DATA_REQUEST:
             return {...state, isFetching: true};
         case actionTypes.FETCH_DATA_SUCCESS: {
-            const {fetchedData, fieldValue} = action;
+            const {fetchedData, fieldValue, isGeneral} = action;
             const parsedData = parseDataFromFetch(JSON.parse(fetchedData));
 
             return {...state,
                 isFetching: false,
-                data: {...state.data, [fieldValue]: parsedData},
+                data: isGeneral || state.dataInfo && state.dataInfo.length <= 7 ? {...state.data, [fieldValue]: parsedData} : {[fieldValue]: parsedData},
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
@@ -66,7 +69,12 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             const firstField = fetchedDataInfo && fetchedDataInfo.length > 0 ? fetchedDataInfo[0] : {} as EntityType;
             const {label=null, value=null} = firstField;
 
-            return {...state, isFetching: false, dataInfo: fetchedDataInfo, currentFieldLabel: label, currentFieldValue: value};
+            return {...state,
+                isFetching: false,
+                dataInfo: fetchedDataInfo ? fetchedDataInfo.filter(e => e) : [],
+                currentFieldLabel: label,
+                currentFieldValue: value
+            };
         }
         case actionTypes.FETCH_GUIDE_SUCCESS:
             return {...state, isFetching: false, guide: action.guide};

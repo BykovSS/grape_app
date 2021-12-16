@@ -48,6 +48,7 @@ export type ActionType = {
     index?: number
     newCurrentIndex?: number
     fieldValue?: string
+    isGeneral?: boolean
 };
 
 export type EntityType = {
