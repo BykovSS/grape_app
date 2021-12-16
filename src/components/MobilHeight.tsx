@@ -7,6 +7,7 @@ export const MobilHeight: React.FC = () => {
     const {windowWidth, windowHeight} = windowSizes || {};
 
     return <div style={{position: 'absolute', bottom: '150px', right: '120px'}}>
-        {windowWidth + 'x' + windowHeight}
+        <div>{windowWidth + 'x' + windowHeight}</div>
+
     </div>;
 };

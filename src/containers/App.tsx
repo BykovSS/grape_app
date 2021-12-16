@@ -9,8 +9,9 @@ import '../assets/less/index.less';
 const App: React.FC = () => {
     const [showMap, changeShowMap] = React.useState<boolean>(true);
     const [showLoginPageContent, changeShowLoginPageContent] = React.useState<boolean>(false);
-    const {isAuthorized, currentFieldValue} = useSelector((state: any) => state);
+    const {isAuthorized, currentFieldValue, windowSizes} = useSelector((state: any) => state);
     const currentData = useSelector((state: any) => currentFieldValue ? state.data[currentFieldValue] : null);
+    const {windowHeight} = windowSizes || {};
 
     const onShowLoginPageContent = React.useCallback(() => {
         changeShowLoginPageContent(true);
@@ -39,6 +40,7 @@ const App: React.FC = () => {
 
     return isAuthorized ? <AppComponent
         showMap={showMap}
+        windowHeight={windowHeight}
         handleChangeShowMap={handleChangeShowMap}
     /> : <LoginPage
         showLoginPageContent={showLoginPageContent}

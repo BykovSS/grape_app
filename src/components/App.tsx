@@ -16,18 +16,19 @@ import Report from '../containers/Report';
 import Guide from '../containers/Guide';
 import {Preloader} from './Preloader';
 import '../assets/less/index.less';
-import {MAP, REPORT} from '../constants';
+import {MAP, OTHER_HEIGHT, REPORT} from '../constants';
 import AddAndRemoveButtonGroup from '../containers/buttons/AddAndRemoveFieldButtonsGroup';
 import {MobilHeight} from './MobilHeight';
 
 type Props = {
     showMap: boolean
+    windowHeight: number
     handleChangeShowMap: () => void
 }
 
 export const App: React.FC<Props> = (props) => {
 
-    const {showMap, handleChangeShowMap} = props;
+    const {showMap, windowHeight, handleChangeShowMap} = props;
 
     return <div className={'app_workspase'}>
         <Header
@@ -35,7 +36,7 @@ export const App: React.FC<Props> = (props) => {
             buttonType={showMap ? MAP : REPORT}
             handleChangeShowMap={handleChangeShowMap}
         />
-        {showMap ? <div className={'view_field'}>
+        {showMap ? <div style={{height: String(windowHeight - OTHER_HEIGHT) + 'px'}} className={'view_field'}>
             <FieldHeader />
             <AddAndRemoveButtonGroup />
             <Field />
