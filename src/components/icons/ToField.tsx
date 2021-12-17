@@ -1,14 +1,9 @@
 import * as React from 'react';
 import '../../assets/less/buttons.less';
 
-type Props = {
-    needRotate?: boolean
-}
+export const ToField: React.FC = () => {
 
-export const ToField: React.FC<Props> = (props) => {
-    const {needRotate} = props;
-
-    return <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297" transform={needRotate ? 'rotate(180)' : ''}>
+    return <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
     <g>
         <polygon points="33,66 0,66 66,148 0,231 33,231 99,148 	"/>
         <polygon points="83,66 50,66 116,148 50,231 83,231 149,148 	"/>

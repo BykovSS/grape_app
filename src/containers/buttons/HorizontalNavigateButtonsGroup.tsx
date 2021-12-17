@@ -53,16 +53,16 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
     return <ButtonsGroup
         className={'navigate_buttons horizontal_buttons'}
         isButton_01
-        Button_01_ClassName={'navigate_button horizontal_button horizontal_button__left'}
+        Button_01_ClassName={'navigate_button horizontal_button horizontal_button__most-left'}
         Button_01_Title={'До конца влево'}
         Button_01_Disable={currentAbscissa === X_LEFT_MAX}
         handleClickButton_01={handleClickMostLeft}
-        Button_01_Label={<DbArrow rotate={180} />}
+        Button_01_Label={<DbArrow/>}
         Button_02_ClassName={'navigate_button horizontal_button horizontal_button__left'}
         Button_02_Title={'Влево'}
         Button_02_Disable={currentAbscissa === X_LEFT_MAX}
         handleClickButton_02={handleClickLeft}
-        Button_02_Label={<Arrow rotate={180}/>}
+        Button_02_Label={<Arrow/>}
         Button_03_ClassName={'navigate_button horizontal_button horizontal_button__right'}
         Button_03_Title={'Вправо'}
         Button_03_Disable={currentAbscissa === x_left_min}

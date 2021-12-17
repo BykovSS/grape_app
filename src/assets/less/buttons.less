@@ -84,6 +84,16 @@ button {
 .vertical_button {
   width: @navigateButtonWidth;
   height: @navigateButtonLength;
+  &__most-top svg, &__top svg {
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+  &__most-bottom svg, &__bottom svg  {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
 }
 
 .horizontal_buttons {
@@ -95,6 +105,11 @@ button {
 .horizontal_button {
   width: @navigateButtonLength;
   height: @navigateButtonWidth;
+  &__most-left svg, &__left svg {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
 }
 
 .add_button {
@@ -192,6 +207,11 @@ button {
   }
   &__left {
     margin-right: 15px;
+    & > svg {
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
   }
   &__right {
     margin-left: 15px;

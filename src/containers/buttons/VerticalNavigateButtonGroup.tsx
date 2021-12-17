@@ -39,27 +39,27 @@ const VerticalNavigateButtonGroup:React.FC = () => {
     return <ButtonsGroup
         className={'navigate_buttons vertical_buttons'}
         isButton_01
-        Button_01_ClassName={'navigate_button vertical_button vertical_button__top'}
+        Button_01_ClassName={'navigate_button vertical_button vertical_button__most-top'}
         Button_01_Title={'До конца вверх'}
         Button_01_Disable={currentOrdinate === y_bottom_min}
         handleClickButton_01={handleClickMostTop}
-        Button_01_Label={<DbArrow rotate={-90} />}
+        Button_01_Label={<DbArrow/>}
         Button_02_ClassName={'navigate_button vertical_button vertical_button__top'}
         Button_02_Title={'Вверх'}
         Button_02_Disable={currentOrdinate === y_bottom_min}
         handleClickButton_02={handleClickTop}
-        Button_02_Label={<Arrow rotate={-90}/>}
+        Button_02_Label={<Arrow/>}
         Button_03_ClassName={'navigate_button vertical_button vertical_button__bottom'}
         Button_03_Title={'Вниз'}
         Button_03_Disable={currentOrdinate === Y_BOTTOM_MAX}
         handleClickButton_03={handleClickBottom}
-        Button_03_Label={<Arrow rotate={90}/>}
+        Button_03_Label={<Arrow/>}
         isButton_04
-        Button_04_ClassName={'navigate_button vertical_button vertical_button__bottom'}
+        Button_04_ClassName={'navigate_button vertical_button vertical_button__most-bottom'}
         Button_04_Title={'До конца вниз'}
         Button_04_Disable={currentOrdinate === Y_BOTTOM_MAX}
         handleClickButton_04={handleClickMostBottom}
-        Button_04_Label={<DbArrow rotate={90}/>}
+        Button_04_Label={<DbArrow/>}
     />;
 };
 

@@ -19,7 +19,7 @@ const ToLeftFieldButton:React.FC = () => {
         title={'К предыдущему участку'}
         disabled={currentIndex === 0}
         onClick={handleToField}
-    ><ToField needRotate/></button>;
+    ><ToField/></button>;
 };
 
 export default ToLeftFieldButton;
