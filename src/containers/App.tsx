@@ -12,7 +12,7 @@ const App: React.FC = () => {
     const [showLoginPageContent, changeShowLoginPageContent] = React.useState<boolean>(false);
     const {isAuthorized, currentFieldValue, windowSizes, dataInfo} = useSelector((state: any) => state);
     const currentData = useSelector((state: any) => currentFieldValue ? state.data[currentFieldValue] : null);
-    const {windowHeight/*, windowWidth*/} = windowSizes || {};
+    const {windowHeight, windowWidth} = windowSizes || {};
     const dataInfoLength = dataInfo ? dataInfo.length : 0;
 
     const onShowLoginPageContent = React.useCallback(() => {
@@ -23,17 +23,10 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         const md = new MobileDetect(window.navigator.userAgent);
-        if (md.mobile()) {
+        if (md.mobile() || /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(window.navigator.userAgent) || windowWidth > 0 && windowWidth < 1024) {
             dispatch(actions.changeMobil());
         }
-        // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent) || windowWidth > 0 && windowWidth < 1024) {
-        //     dispatch(actions.showCorfirmWindow({
-        //         showModalWindow: true,
-        //         title: 'Значение window.navigator.userAgent',
-        //         description: window.navigator.userAgent
-        //     }));
-        // }
-    }, [dispatch/*, windowWidth*/]);
+    }, [dispatch, windowWidth]);
 
     React.useEffect(() => {
         if (isAuthorized) {
