@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {getCellSize} from '../../utils';
 
 type Props = {
     zoom?: number
@@ -11,11 +12,19 @@ type Props = {
 export const Square: React.FC<Props> = (props) => {
 
     const {zoom=1, color='black', isMac=false, forPDF, isMobil} = props;
+    const cell_size = getCellSize(zoom);
 
     return forPDF
         ? <img src={'../img/square.png'} style={{width: '20px', height: '20px'}} alt={''}/>
         : isMobil
-            ? <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492" style={{padding: `${5*zoom}px`}} className={' mobile-icon mobile-icon__square'}>
+            ? <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492"
+                   style={{
+                       padding: `${5*zoom}px`,
+                       width: cell_size - 1,
+                       height: cell_size - 1
+                   }}
+                   className={'mobile-icon mobile-icon__square'}
+            >
                 <path style={{fill:`${color}`}} d="M0,0h492v492H0V0z"/>
             </svg>
             : <div
