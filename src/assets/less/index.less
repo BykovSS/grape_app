@@ -36,3 +36,10 @@ svg {
   position: relative;
   padding: @mainPaddingTop @mainPaddingRight @mainPaddingBottom @mainPaddingLeft;
 }
+
+@media only screen and (max-width: 1024px) and (orientation: landscape) and (min-aspect-ratio: 39/20) {
+  .view_field {
+    position: relative;
+    padding: @mob_mainPaddingTop @mob_mainPaddingRight @mob_mainPaddingBottom @mob_mainPaddingLeft;
+  }
+}

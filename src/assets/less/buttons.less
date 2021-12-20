@@ -177,7 +177,7 @@ button {
 
 .add-and-remove_buttons {
   display: flex;
-  min-height: 40px;
+  min-height: @navigateButtonWidth;
   position: absolute;
   top: 0;
   left: calc(100vw - @mainPaddingRight + 20px);
@@ -201,7 +201,7 @@ button {
   display: flex;
   align-items: center;
   padding: 0 10px;
-  height: 40px;
+  height: @navigateButtonWidth;
   & > svg {
     height: 35px;
   }
@@ -228,4 +228,141 @@ button {
 .save-to-pdf {
   height: @navigateButtonWidth;
   margin-left: 20px;
+}
+
+@media only screen and (max-width: 1024px) and (orientation: landscape) and (min-aspect-ratio: 39/20) {
+  button {
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .zoom_buttons {
+    left: 18px;
+    top: 10px;
+  }
+
+  .zoom_button {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    &__dec {
+      margin-top: 5px;
+      padding-bottom: 3px;
+    }
+  }
+
+  .vertical_buttons {
+    bottom: auto;
+    top: 80px;
+    left: 15px;
+    height: @mob_navigateButtonsGroupLength;
+  }
+
+  .vertical_button {
+    width: @mob_navigateButtonWidth;
+    height: @mob_navigateButtonLength;
+  }
+
+  .horizontal_buttons {
+    bottom: 15px;
+    left: calc(@mob_mainPaddingLeft + (100vw - @mob_otherWidth)/2 - @mob_navigateButtonsGroupLength/2);
+    width: @mob_navigateButtonsGroupLength;
+  }
+
+  .horizontal_button {
+    width: @mob_navigateButtonLength;
+    height: @mob_navigateButtonWidth;
+  }
+
+  .add_button {
+    height: @mob_navigateButtonWidth;
+    bottom: 15px;
+    padding: 4px 7px;
+    &__left {
+      left: @mob_mainPaddingLeft;
+    }
+    &__right {
+      right: @mob_mainPaddingRight;
+    }
+    & > svg {
+      height: 22px;
+    }
+  }
+
+  .deselect_button {
+    position: absolute;
+    bottom: 15px;
+    right: calc(@mob_mainPaddingRight/2 - @mob_rightButtonWidth/2);
+    height: @mob_navigateButtonWidth;
+    width: @mob_rightButtonWidth;
+  }
+
+  .save_button {
+    bottom: calc(27px + @mob_navigateButtonWidth);
+    right: calc(@mob_mainPaddingRight/2 - @mob_rightButtonWidth/2);
+    height: @mob_navigateButtonWidth;
+    width: @mob_rightButtonWidth;
+  }
+  .apply_button {
+    height: @mob_navigateButtonWidth;
+    width: @mob_rightButtonWidth;
+    bottom: 15px;
+    left: calc(50% - @mob_rightButtonWidth/2);
+  }
+
+  .apply-clear_button {
+    height: @mob_navigateButtonWidth;
+    width: @mob_rightButtonWidth;
+  }
+
+  .map-report_button {
+    height: @mob_navigateButtonWidth;
+  }
+
+  .enter_button {
+    height: @mob_navigateButtonWidth;
+  }
+
+  .add-and-remove_buttons {
+    min-height: @mob_navigateButtonWidth;
+    left: calc(100vw - @mob_mainPaddingRight + 20px);
+  }
+
+  .add-and-remove_button {
+    padding: 5px;
+    height: @mob_navigateButtonWidth;
+    & > svg {
+      height: calc(@mob_navigateButtonWidth - 10px);
+    }
+  }
+
+  .add-field_button {
+    margin-right: 12px;
+  }
+
+  .to-field_button {
+    padding: 0 7px;
+    height: @mob_navigateButtonWidth;
+    & > svg {
+      height: 25px;
+    }
+    &__left {
+      margin-right: 12px;
+    }
+    &__right {
+      margin-left: 12px;
+    }
+  }
+
+  .footer-buttons {
+    margin-top: 15px;
+  }
+  .change-report {
+    height: @mob_navigateButtonWidth;
+  }
+
+  .save-to-pdf {
+    display: none;
+  }
 }

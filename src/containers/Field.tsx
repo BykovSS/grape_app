@@ -2,8 +2,8 @@ import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../actions';
 import {Field as FieldComponent} from '../components/Field';
-import {getWindowSizes, getCellSize, getMinCoord, getVisibleData, getSelectedCoord} from '../utils';
-import {MIN_ZOOM, MAX_ZOOM, OTHER_WIDTH, OTHER_HEIGHT, X_LEFT_MAX, Y_BOTTOM_MAX} from '../constants';
+import {getWindowSizes, getCellSize, getMinCoord, getVisibleData, getSelectedCoord, getOtherValue} from '../utils';
+import {MIN_ZOOM, MAX_ZOOM, X_LEFT_MAX, Y_BOTTOM_MAX} from '../constants';
 
 const Field: React.FC = () => {
 
@@ -13,6 +13,7 @@ const Field: React.FC = () => {
     }, [allData, currentFieldValue]);
     const {windowWidth, windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
+    const {otherWidth, otherHeight} = getOtherValue(windowWidth, windowHeight);
 
     const dispatch = useDispatch();
 
@@ -52,15 +53,15 @@ const Field: React.FC = () => {
     }, [handleMouseMoove]);
 
     const cell_size = getCellSize(zoom);
-    const x_left_min = getMinCoord(zoom, numCol, windowWidth, OTHER_WIDTH);
-    const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, OTHER_HEIGHT);
+    const x_left_min = getMinCoord(zoom, numCol, windowWidth, otherWidth);
+    const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, otherHeight);
 
     const visibleData = getVisibleData(data, zoom, currentAbscissa, currentOrdinate, windowWidth, windowHeight);
 
     const synchronizePosition = React.useCallback((newX: number, newY: number, zoom?: number) => {
         let locX = newX, locY = newY;
-        const loc_x_left_min = zoom ? getMinCoord(zoom, numCol, windowWidth, OTHER_WIDTH) : x_left_min;
-        const loc_y_bottom_min = zoom ? getMinCoord(zoom, numRow, windowHeight, OTHER_HEIGHT) : y_bottom_min;
+        const loc_x_left_min = zoom ? getMinCoord(zoom, numCol, windowWidth, otherWidth) : x_left_min;
+        const loc_y_bottom_min = zoom ? getMinCoord(zoom, numRow, windowHeight, otherHeight) : y_bottom_min;
 
         if (newX < loc_x_left_min) {
             locX = loc_x_left_min;
@@ -75,7 +76,7 @@ const Field: React.FC = () => {
         if (locX !== newX || locY !== newY) {
             dispatch(actions.changeCurrentPosition({currentAbscissa: locX, currentOrdinate: locY}));
         }
-    }, [numCol, windowWidth, x_left_min, numRow, windowHeight, y_bottom_min, dispatch]);
+    }, [numCol, windowWidth, otherWidth, x_left_min, numRow, windowHeight, otherHeight, y_bottom_min, dispatch]);
 
     const increaseZoom = React.useCallback((deltaLeft?: number, deltaBottom?: number) => {
         const locDeltaLeft = deltaLeft && typeof deltaLeft === 'number' ? deltaLeft : 0;

@@ -2,7 +2,6 @@ import * as React from 'react';
 import {ColLabel} from './ColLabel';
 import {getCellSize} from '../utils';
 import {RowDataType} from '../types';
-import {OTHER_HEIGHT} from '../constants';
 import '../assets/less/cols.less';
 
 type Props = {
@@ -10,12 +9,13 @@ type Props = {
     numRow: number
     currentOrdinate: number
     windowHeight: number
+    otherHeight: number
     colsData: RowDataType[]
     handleClickColLabel: (colLabel: string) => () => void
 }
 
 export const ColLabels:React.FC<Props> = (props) => {
-    const {zoom, numRow, currentOrdinate, windowHeight, colsData, handleClickColLabel} = props;
+    const {zoom, numRow, currentOrdinate, windowHeight, otherHeight, colsData, handleClickColLabel} = props;
     const cell_size = getCellSize(zoom);
 
     return <div
@@ -23,7 +23,7 @@ export const ColLabels:React.FC<Props> = (props) => {
         style={{
             width: 25*zoom,
             left: -25*zoom,
-            top: -25*zoom - (windowHeight - OTHER_HEIGHT)
+            top: -25*zoom - (windowHeight - otherHeight)
         }}
     >
         <div

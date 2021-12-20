@@ -10,14 +10,13 @@ type Props = {
     isGeneral: boolean
     fieldCount: number
     title: string
-    isMobil: boolean
     handleChangeGeneral: () => void
     handleSaveToPdf: () => void
 }
 
 export const Report: React.FC<Props> = (props) => {
 
-    const {tableData, isGeneral, fieldCount, title, isMobil, handleChangeGeneral, handleSaveToPdf} = props;
+    const {tableData, isGeneral, fieldCount, title, handleChangeGeneral, handleSaveToPdf} = props;
 
     return <div className={'report'}>
         <FieldHeader inReport isGeneral={isGeneral} fieldCount={fieldCount}/>
@@ -78,7 +77,7 @@ export const Report: React.FC<Props> = (props) => {
 					<td/><td/><td/><td/><td/>
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <tr key={i}>
-					<td className={'report-sort_icon-wrap'}>{elem.label}</td>
+					<td>{elem.label}</td>
 					<td className={'report-td_hatching'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
 					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/><td/>
@@ -116,7 +115,7 @@ export const Report: React.FC<Props> = (props) => {
         </table>
         <div className={'footer-buttons'}>
             <button className={'change-report'} onClick={handleChangeGeneral}>{isGeneral ? 'Отчет по частку' : 'Общий отчет'}</button>
-            {!isMobil && <button className={'save-to-pdf'} onClick={handleSaveToPdf}>{'Сохранить в pdf'}</button>}
+            <button className={'save-to-pdf'} onClick={handleSaveToPdf}>{'Сохранить в pdf'}</button>
         </div>
         <div style={{display:'none'}}>
             <div id={'pdfContent'} style={{fontFamily:'GothamPro'}}>

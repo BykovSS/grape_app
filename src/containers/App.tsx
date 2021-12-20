@@ -6,6 +6,7 @@ import {App as AppComponent} from '../components/App';
 import LoginPage from './LoginPage';
 import * as MobileDetect from 'mobile-detect';
 import '../assets/less/index.less';
+import {getOtherValue} from '../utils';
 
 const App: React.FC = () => {
     const [showMap, changeShowMap] = React.useState<boolean>(true);
@@ -14,6 +15,7 @@ const App: React.FC = () => {
     const currentData = useSelector((state: any) => currentFieldValue ? state.data[currentFieldValue] : null);
     const {windowHeight, windowWidth} = windowSizes || {};
     const dataInfoLength = dataInfo ? dataInfo.length : 0;
+    const {otherHeight} = getOtherValue(windowWidth, windowHeight);
 
     const onShowLoginPageContent = React.useCallback(() => {
         changeShowLoginPageContent(true);
@@ -50,6 +52,7 @@ const App: React.FC = () => {
     return isAuthorized ? <AppComponent
         showMap={showMap}
         windowHeight={windowHeight}
+        otherHeight={otherHeight}
         handleChangeShowMap={handleChangeShowMap}
     /> : <LoginPage
         showLoginPageContent={showLoginPageContent}

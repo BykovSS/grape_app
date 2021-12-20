@@ -1,5 +1,5 @@
 import {dataType, EntityType, RowDataType} from '../types';
-import {CELL_SIZE, KOEF, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
+import {CELL_SIZE, KOEF, MOB_OTHER_HEIGHT, MOB_OTHER_WIDTH, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
 
 export const generateData = (x: number, y: number) => {
     const data = [] as dataType[];
@@ -107,12 +107,13 @@ export const getVisibleData = (data: dataType[], zoom: number, currentAbscissa: 
   }
 
   const cell_size = getCellSize(zoom);
+  const {otherWidth, otherHeight} = getOtherValue(windowWidth, windowHeight);
 
   data.forEach(elem => {
-      if (elem.x >= Math.abs(Math.floor(currentAbscissa/cell_size)) - Math.floor(KOEF*(windowWidth - OTHER_WIDTH)/cell_size)
-          && elem.x <= Math.abs(Math.floor((currentAbscissa - windowWidth + OTHER_WIDTH)/cell_size)) + Math.floor(KOEF*(windowWidth - OTHER_WIDTH)/cell_size)
-          && elem.y >= Math.abs(Math.floor(currentOrdinate/cell_size)) - Math.floor(2*KOEF*(windowHeight - OTHER_HEIGHT)/cell_size)
-          && elem.y <= Math.abs(Math.floor((currentOrdinate - windowHeight + OTHER_HEIGHT)/cell_size)) + Math.floor(2*KOEF*(windowHeight - OTHER_HEIGHT)/cell_size) ) {
+      if (elem.x >= Math.abs(Math.floor(currentAbscissa/cell_size)) - Math.floor(KOEF*(windowWidth - otherWidth)/cell_size)
+          && elem.x <= Math.abs(Math.floor((currentAbscissa - windowWidth + otherWidth)/cell_size)) + Math.floor(KOEF*(windowWidth - otherWidth)/cell_size)
+          && elem.y >= Math.abs(Math.floor(currentOrdinate/cell_size)) - Math.floor(2*KOEF*(windowHeight - otherHeight)/cell_size)
+          && elem.y <= Math.abs(Math.floor((currentOrdinate - windowHeight + otherHeight)/cell_size)) + Math.floor(2*KOEF*(windowHeight - otherHeight)/cell_size) ) {
           result.push(elem);
       }
   });
@@ -283,4 +284,12 @@ export const getCurrentIndex = (dataInfo: EntityType[], currentFieldValue: strin
     dataInfo.forEach((e: EntityType, i: number) => {if (e.value === currentFieldValue) currentIndex = i;});
 
     return currentIndex;
+};
+
+export const getOtherValue = (width: number, height: number) => {
+    if (!width || !height) {
+        return {otherWidth: OTHER_WIDTH, otherHeight: OTHER_HEIGHT};
+    }
+
+    return width < 1024 && width/height > 1.95 ? {otherWidth: MOB_OTHER_WIDTH, otherHeight: MOB_OTHER_HEIGHT} : {otherWidth: OTHER_WIDTH, otherHeight: OTHER_HEIGHT};
 };

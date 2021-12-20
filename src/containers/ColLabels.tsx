@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ColLabels as ColLabelsComponent} from '../components/ColLabels';
 import {useSelector, shallowEqual, useDispatch} from 'react-redux';
-import {getColsData, getColFromId} from '../utils';
+import {getColsData, getColFromId, getOtherValue} from '../utils';
 import '../assets/less/rows.less';
 import * as actions from '../actions';
 
@@ -11,7 +11,8 @@ const ColLabels:React.FC = () => {
         return allData && currentFieldValue ? allData[currentFieldValue] : [];
     }, [allData, currentFieldValue]);
     const {currentOrdinate} = currentPosition || {};
-    const {windowHeight} = windowSizes || {};
+    const {windowWidth, windowHeight} = windowSizes || {};
+    const {otherHeight} = getOtherValue(windowWidth, windowHeight);
 
     const colsData = getColsData(data);
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const ColLabels:React.FC = () => {
         numRow={numRow}
         currentOrdinate={currentOrdinate}
         windowHeight={windowHeight}
+        otherHeight={otherHeight}
         colsData={colsData}
         handleClickColLabel={handleClickColLabel}
     />;

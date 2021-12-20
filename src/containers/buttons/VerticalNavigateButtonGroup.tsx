@@ -3,34 +3,35 @@ import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import '../../assets/less/buttons.less';
-import {OTHER_HEIGHT, Y_BOTTOM_MAX} from '../../constants';
-import {getCellSize, getMinCoord} from '../../utils';
+import {Y_BOTTOM_MAX} from '../../constants';
+import {getCellSize, getMinCoord, getOtherValue} from '../../utils';
 import {Arrow} from '../../components/icons/Arrow';
 import {DbArrow} from '../../components/icons/DbArrow';
 
 const VerticalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numRow, mostTop, zoom} = useSelector((state: any) => state, shallowEqual);
-    const {windowHeight} = windowSizes || {};
+    const {windowWidth, windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
     const cell_size = getCellSize(zoom);
-    const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, OTHER_HEIGHT);
+    const {otherHeight} = getOtherValue(windowWidth, windowHeight);
+    const y_bottom_min = getMinCoord(zoom, numRow, windowHeight, otherHeight);
 
     const dispatch = useDispatch();
 
     const handleClickMostTop = React.useCallback(() => {
-        const newPosition = windowHeight - OTHER_HEIGHT - mostTop * cell_size;
+        const newPosition = windowHeight - otherHeight - mostTop * cell_size;
         dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: newPosition > Y_BOTTOM_MAX ? Y_BOTTOM_MAX : newPosition}));
-    }, [windowHeight, mostTop, cell_size, dispatch, currentAbscissa]);
+    }, [windowHeight, otherHeight, mostTop, cell_size, dispatch, currentAbscissa]);
 
     const handleClickTop = React.useCallback(() => {
-        const newPosition = currentOrdinate - Math.ceil((windowHeight - OTHER_HEIGHT) * 0.7);
+        const newPosition = currentOrdinate - Math.ceil((windowHeight - otherHeight) * 0.7);
         dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: newPosition < y_bottom_min ? y_bottom_min : newPosition}));
-    }, [currentOrdinate, windowHeight, dispatch, currentAbscissa, y_bottom_min]);
+    }, [currentOrdinate, windowHeight, otherHeight, dispatch, currentAbscissa, y_bottom_min]);
 
     const handleClickBottom = React.useCallback(() => {
-        const newPosition = currentOrdinate + Math.ceil((windowHeight - OTHER_HEIGHT) * 0.7);
+        const newPosition = currentOrdinate + Math.ceil((windowHeight - otherHeight) * 0.7);
         dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: newPosition > Y_BOTTOM_MAX ? Y_BOTTOM_MAX : newPosition}));
-    }, [currentOrdinate, windowHeight, dispatch, currentAbscissa]);
+    }, [currentOrdinate, windowHeight, otherHeight, dispatch, currentAbscissa]);
 
     const handleClickMostBottom = React.useCallback(() => {
         dispatch(actions.changeCurrentPosition({currentAbscissa, currentOrdinate: 0}));

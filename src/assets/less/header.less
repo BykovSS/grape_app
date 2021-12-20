@@ -58,3 +58,31 @@
   position: static;
   margin-bottom: 5px;
 }
+
+@media only screen and (max-width: 1024px) and (orientation: landscape) and (min-aspect-ratio: 39/20) {
+  .main_header {
+    font-size: 16px;
+    line-height: @mainHeaderLineHeight;
+    &-wrap {
+      padding: @mob_headerPadding 0;
+    }
+  }
+  .field_header {
+    &-wrap {
+      left: calc(@mob_mainPaddingLeft - 25px);
+      right: calc(@mob_mainPaddingRight);
+      min-height: @mob_fieldHeaderHeight;
+    }
+    &__test {
+      font-size: 15px;
+      line-height: @fieldHeaderLineHeight;
+      padding: @mob_headerPadding 0;
+    }
+    &__input {
+      &-wrap input {
+          font-size: 14px;
+          border-radius: 3px 0 0 3px;
+      }
+    }
+  }
+}

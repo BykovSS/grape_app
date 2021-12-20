@@ -9,7 +9,7 @@ import {jsPDF} from 'jspdf';
 
 const Report:React.FC = () => {
     const [isGeneral, changeGeneral] = React.useState<boolean>(false);
-    const {isMobil, currentFieldLabel, currentFieldValue, isAuthorized, guide, dataInfo, data} = useSelector((state: any) => state);
+    const {currentFieldLabel, currentFieldValue, isAuthorized, guide, dataInfo, data} = useSelector((state: any) => state);
     const dataInfoLength = dataInfo ? dataInfo.length : 0;
 
     const dispatch = useDispatch();
@@ -49,7 +49,6 @@ const Report:React.FC = () => {
         isGeneral={isGeneral}
         fieldCount={dataInfoLength}
         title={currentFieldLabel}
-        isMobil={isMobil}
         handleChangeGeneral={handleChangeGeneral}
         handleSaveToPdf={handleSaveToPdf}
     />;

@@ -4,16 +4,17 @@ import * as actions from '../../actions';
 import {ButtonsGroup} from '../../components/buttons/ButtonsGroup';
 import {Arrow} from '../../components/icons/Arrow';
 import '../../assets/less/buttons.less';
-import {OTHER_WIDTH, X_LEFT_MAX} from '../../constants';
-import {getCellSize, getMinCoord} from '../../utils';
+import {X_LEFT_MAX} from '../../constants';
+import {getCellSize, getMinCoord, getOtherValue} from '../../utils';
 import {DbArrow} from '../../components/icons/DbArrow';
 
 const HorizontalNavigateButtonGroup:React.FC = () => {
     const {windowSizes, currentPosition, numCol, mostRight, zoom, isNeedClickRight, isNeedClickLeft} = useSelector((state: any) => state, shallowEqual);
-    const {windowWidth} = windowSizes || {};
+    const {windowWidth, windowHeight} = windowSizes || {};
     const {currentAbscissa, currentOrdinate} = currentPosition || {};
     const cell_size = getCellSize(zoom);
-    const x_left_min = getMinCoord(zoom, numCol, windowWidth, OTHER_WIDTH);
+    const {otherWidth} = getOtherValue(windowWidth, windowHeight);
+    const x_left_min = getMinCoord(zoom, numCol, windowWidth, otherWidth);
 
     const dispatch = useDispatch();
 
@@ -22,19 +23,19 @@ const HorizontalNavigateButtonGroup:React.FC = () => {
     }, [dispatch, currentOrdinate]);
 
     const handleClickLeft = React.useCallback(() => {
-        const newPosition = currentAbscissa + Math.ceil((windowWidth - OTHER_WIDTH) * 0.7);
+        const newPosition = currentAbscissa + Math.ceil((windowWidth - otherWidth) * 0.7);
         dispatch(actions.changeCurrentPosition({currentAbscissa: newPosition > X_LEFT_MAX ? X_LEFT_MAX : newPosition, currentOrdinate}));
-    }, [currentAbscissa, windowWidth, dispatch, currentOrdinate]);
+    }, [currentAbscissa, windowWidth, otherWidth, dispatch, currentOrdinate]);
 
     const handleClickRight = React.useCallback(() => {
-        const newPosition = currentAbscissa - Math.ceil((windowWidth - OTHER_WIDTH) * 0.7);
+        const newPosition = currentAbscissa - Math.ceil((windowWidth - otherWidth) * 0.7);
         dispatch(actions.changeCurrentPosition({currentAbscissa: newPosition < x_left_min ? x_left_min : newPosition, currentOrdinate}));
-    }, [currentAbscissa, windowWidth, dispatch, x_left_min, currentOrdinate]);
+    }, [currentAbscissa, windowWidth, otherWidth, dispatch, x_left_min, currentOrdinate]);
 
     const handleClickMostRight = React.useCallback(() => {
-        const newPosition = windowWidth - OTHER_WIDTH - mostRight * cell_size;
+        const newPosition = windowWidth - otherWidth - mostRight * cell_size;
         dispatch(actions.changeCurrentPosition({currentAbscissa: newPosition > X_LEFT_MAX ? X_LEFT_MAX : newPosition, currentOrdinate}));
-    }, [windowWidth, mostRight, cell_size, dispatch, currentOrdinate]);
+    }, [windowWidth, otherWidth, mostRight, cell_size, dispatch, currentOrdinate]);
 
     React.useEffect(() => {
         if (isNeedClickLeft && currentAbscissa + cell_size === X_LEFT_MAX) {
