@@ -5,6 +5,11 @@ export const changeMobil = () => ({
     type: actionTypes.CHANGE_MOBIL
 });
 
+export const changeShiftKey = (isShiftKey: boolean) => ({
+    type: actionTypes.CHANGE_SHIFT_KEY,
+    isShiftKey
+});
+
 export const onRequestFetchData = () => ({
     type: actionTypes.FETCH_DATA_REQUEST
 });

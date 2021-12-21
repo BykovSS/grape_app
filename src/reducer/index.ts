@@ -12,6 +12,7 @@ import {
 
 const initialState = {
     isMobil: false,
+    shiftKey: false,
     dataInfo: [] as EntityType[],
     currentFieldLabel: null as string,
     currentFieldValue: null as string,
@@ -49,6 +50,8 @@ export const dataReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case actionTypes.CHANGE_MOBIL:
             return {...state, isMobil: true};
+        case actionTypes.CHANGE_SHIFT_KEY:
+            return {...state, shiftKey: action.isShiftKey};
         case actionTypes.FETCH_DATA_REQUEST:
             return {...state, isFetching: true};
         case actionTypes.FETCH_DATA_SUCCESS: {

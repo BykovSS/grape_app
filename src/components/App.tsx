@@ -10,6 +10,7 @@ import HorizontalNavigateButtonGroup from '../containers/buttons/HorizontalNavig
 import AddLeftRowButton from '../containers/buttons/AddLeftRowButton';
 import AddRightRowButton from '../containers/buttons/AddRightRowButton';
 import SaveButton from '../containers/buttons/SaveButton';
+import ShiftButton from '../containers/buttons/ShiftButton';
 import DeselectButton from '../containers/buttons/DeselectButton';
 import CurrentCell from '../containers/CurrentCell';
 import Report from '../containers/Report';
@@ -43,6 +44,7 @@ export const App: React.FC<Props> = (props) => {
             <RowLabels />
             <ColLabels />
             <VerticalNavigateButtonGroup />
+            <ShiftButton />
             <HorizontalNavigateButtonGroup />
             <AddLeftRowButton />
             <AddRightRowButton />

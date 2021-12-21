@@ -1,5 +1,6 @@
 export const actionTypes = {
     CHANGE_MOBIL: 'changeMobil',
+    CHANGE_SHIFT_KEY: 'changeShiftKey',
     FETCH_DATA_REQUEST: 'fetchDataRequest',
     FETCH_DATA_SUCCESS: 'fetchDataSuccess',
     FETCH_DATA_INFO_SUCCESS: 'fetchDataInfoSuccess',

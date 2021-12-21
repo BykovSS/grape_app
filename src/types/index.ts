@@ -49,6 +49,7 @@ export type ActionType = {
     newCurrentIndex?: number
     fieldValue?: string
     isGeneral?: boolean
+    isShiftKey?: boolean
 };
 
 export type EntityType = {

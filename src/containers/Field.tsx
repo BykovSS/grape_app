@@ -2,12 +2,20 @@ import * as React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../actions';
 import {Field as FieldComponent} from '../components/Field';
-import {getWindowSizes, getCellSize, getMinCoord, getVisibleData, getSelectedCoord, getOtherValue} from '../utils';
+import {
+    getWindowSizes,
+    getCellSize,
+    getMinCoord,
+    getVisibleData,
+    getSelectedCoord,
+    getOtherValue,
+    getTouchLocTarget
+} from '../utils';
 import {MIN_ZOOM, MAX_ZOOM, X_LEFT_MAX, Y_BOTTOM_MAX} from '../constants';
 
 const Field: React.FC = () => {
 
-    const {data: allData, currentFieldValue, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state);
+    const {shiftKey: stateShiftKey, data: allData, currentFieldValue, windowSizes, currentPosition, numCol, numRow, mouseInMap, zoom, selectedCells} = useSelector((state: any) => state);
     const data = React.useMemo(() => {
         return allData && currentFieldValue ? allData[currentFieldValue] : [];
     }, [allData, currentFieldValue]);
@@ -129,8 +137,20 @@ const Field: React.FC = () => {
 
     const locCells = React.useRef([]);
 
-    const handleMouseDownMap = React.useCallback((event: MouseEvent) => {
-        const {clientX, clientY, ctrlKey: ctrlKeyMouseDown, target} = event || {};
+    const handleDownMap = React.useCallback((event: MouseEvent | TouchEvent) => {
+        let eventObj;
+        let shiftKey = stateShiftKey;
+        if (event && (event as TouchEvent).changedTouches) {
+            const {changedTouches} = (event as TouchEvent);
+            eventObj = changedTouches[0];
+        } else {
+            eventObj = (event as MouseEvent);
+            shiftKey = eventObj.shiftKey;
+        }
+        const {clientX, clientY, target} = eventObj || {};
+
+        let deltaX = 0;
+        let deltaY = 0;
         let firstTarget = target;
         while (firstTarget && (firstTarget as HTMLElement).classList && !(firstTarget as HTMLElement).classList.contains('svg-cell')) {
             firstTarget = (firstTarget as HTMLElement).parentElement;
@@ -140,24 +160,46 @@ const Field: React.FC = () => {
         const map = document.querySelector('.svg_field');
         let prevSelectedCells: string[] = [];
 
-        const handleMouseMooveMap = (event: MouseEvent) => {
+        const handleMooveMap = (event: MouseEvent | TouchEvent) => {
             map.classList.add('moved');
-            const {pageX, pageY} = event || {};
-            dispatch(actions.changeCurrentPosition({
-                currentAbscissa: currentAbscissa + pageX - clientX,
-                currentOrdinate: currentOrdinate - pageY + clientY
-            }));
-            synchronizePosition(currentAbscissa + pageX - clientX, currentOrdinate - pageY + clientY);
+            let eventObj;
+            if (event && (event as TouchEvent).changedTouches) {
+                const {changedTouches} = (event as TouchEvent);
+                eventObj = changedTouches[0];
+            } else {
+                eventObj = (event as MouseEvent);
+            }
+            const {pageX, pageY} = eventObj || {};
+            deltaX = pageX - clientX;
+            deltaY = - pageY + clientY;
+            // dispatch(actions.changeCurrentPosition({
+            //     currentAbscissa: currentAbscissa + deltaX,
+            //     currentOrdinate: currentOrdinate + deltaY
+            // }));
+            // synchronizePosition(currentAbscissa + deltaX, currentOrdinate + deltaY);
+            event.preventDefault();
         };
 
-        const handleMouseSelectMap = (event: MouseEvent) => {
-            const {target} = event || {};
+        const handleSelectMap = (event: MouseEvent | TouchEvent) => {
+            let eventObj;
+            let isTouch = false;
+            if (event && (event as TouchEvent).changedTouches) {
+                const {changedTouches} = (event as TouchEvent);
+                eventObj = changedTouches[0];
+                isTouch = true;
+            } else {
+                eventObj = (event as MouseEvent);
+            }
+            const {target, pageX, pageY} = eventObj || {};
 
             if (!(target as HTMLElement).classList.contains('svg_field')) {
                 locCells.current = [];
                 let locTarget = target;
                 while (!(locTarget as HTMLElement).classList.contains('svg-cell')) {
                     locTarget = (locTarget as HTMLElement).parentElement;
+                }
+                if (isTouch) {
+                    locTarget = getTouchLocTarget(first_x, first_y, pageX - clientX, - pageY + clientY, cell_size, numCol, numRow);
                 }
                 const {x, y} = (locTarget as HTMLElement).dataset || {};
                 const {min_x, max_x, min_y, max_y} = getSelectedCoord(first_x, first_y, x, y);
@@ -181,36 +223,57 @@ const Field: React.FC = () => {
                 });
                 prevSelectedCells = locCells.current;
             }
+            event.preventDefault();
         };
 
-        if (!ctrlKeyMouseDown) {
-            map.addEventListener('mousemove', handleMouseMooveMap, false);
+        let isDispatched = false;
+
+        if (!shiftKey) {
+            map.addEventListener('mousemove', handleMooveMap, false);
+            map.addEventListener('touchmove', handleMooveMap, false);
         } else {
-            map.addEventListener('mousemove', handleMouseSelectMap, false);
+            map.addEventListener('mousemove', handleSelectMap, false);
+            map.addEventListener('touchmove', handleSelectMap, false);
         }
 
-        document.addEventListener('mouseup', () => {
-            if (!ctrlKeyMouseDown) {
-                map.classList.remove('moved');
-                map.removeEventListener('mousemove', handleMouseMooveMap, false);
+        const handleUpMap = () => {
+            if (!shiftKey) {
+                if (!isDispatched) {
+                    map.classList.remove('moved');
+                    dispatch(actions.changeCurrentPosition({
+                        currentAbscissa: currentAbscissa + deltaX,
+                        currentOrdinate: currentOrdinate + deltaY
+                    }));
+                    synchronizePosition(currentAbscissa + deltaX, currentOrdinate + deltaY);
+                    isDispatched = true;
+                }
+                map.removeEventListener('mousemove', handleMooveMap, false);
+                map.removeEventListener('touchmove', handleMooveMap, false);
             } else {
                 if (locCells.current && (locCells.current.length > 0)) {
                     dispatch(actions.changeSelectedCells(locCells.current));
                     locCells.current = [];
                 }
-                map.removeEventListener('mousemove', handleMouseSelectMap, false);
+                map.removeEventListener('mousemove', handleSelectMap, false);
+                map.removeEventListener('touchmove', handleSelectMap, false);
             }
-        }, false);
+        };
 
-    }, [currentAbscissa, currentOrdinate, dispatch, synchronizePosition]);
+        document.addEventListener('mouseup', handleUpMap, false);
+        document.addEventListener('touchend', handleUpMap, false);
+    }, [stateShiftKey, currentAbscissa, currentOrdinate, cell_size, numCol, numRow, dispatch, synchronizePosition]);
 
     React.useEffect(() => {
         const map = document.querySelector('.svg_field');
 
-        map.addEventListener('mousedown', handleMouseDownMap, false);
+        map.addEventListener('mousedown', handleDownMap, false);
+        map.addEventListener('touchstart', handleDownMap, false);
         map.addEventListener('dragstart', () => false, false);
 
-        return () => map.removeEventListener('mousedown', handleMouseDownMap, false);
+        return () => {
+            map.removeEventListener('mousedown', handleDownMap, false);
+            map.removeEventListener('touchstart', handleDownMap, false);
+        };
     });
 
     const handleClickCell = React.useCallback((id: string) => () => {

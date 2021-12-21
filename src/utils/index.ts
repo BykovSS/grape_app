@@ -100,6 +100,18 @@ export const getSelectedCoord = (first_x: string, first_y: string, x: string, y:
   return {min_x, max_x, min_y, max_y};
 };
 
+export const getTouchLocTarget = (first_x: string, first_y: string, deltaX: number, deltaY: number, cell_size: number, numCol: number, numRow: number) => {
+    const countX = Math.floor(deltaX/cell_size) + (deltaX % cell_size > 2/3 * cell_size ? 1 : 0);
+    const countY = Math.floor(deltaY/cell_size) + (deltaY % cell_size > 2/3 * cell_size ? 1 : 0);
+    const x = Number(first_x) + countX;
+    const y = Number(first_y) + countY;
+
+    return {dataset: {
+        x: x < 1 ? 1 : x > numCol ? numCol : x,
+        y: y < 1 ? 1 : y > numRow ? numRow : y
+    }} as unknown as HTMLElement;
+};
+
 export const getVisibleData = (data: dataType[], zoom: number, currentAbscissa: number, currentOrdinate: number, windowWidth: number, windowHeight: number) => {
   const result = [] as dataType[];
   if (!data) {
