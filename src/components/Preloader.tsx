@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import '../assets/less/preloader.less';
 
 export const Preloader:React.FC = () => {
-    const {isFetching, isSaving, isAdding, isRemoving} = useSelector((state: any) => state);
+    const {isFetching, isSaving, isSilent, isAdding, isRemoving} = useSelector((state: any) => state);
     const visible = isFetching || isSaving || isAdding || isRemoving;
     const description = isFetching
         ? 'Идет загрузка данных!'
@@ -15,7 +15,7 @@ export const Preloader:React.FC = () => {
 					? 'Идет удаление данных!'
 					: '';
 
-    return visible && <div className={'preloader-wrap'}>
+    return visible && !isSilent && <div className={'preloader-wrap'}>
 		<div className={'preloader'}>
 			<div className={'preloader-title'}>{'Подождите...'}</div>
 			<div className={'preloader-description'}>{description}</div>

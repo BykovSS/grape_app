@@ -42,8 +42,8 @@ const AddAndRemoveButtonGroup:React.FC = () => {
     }, [dispatch, currentFieldValue, onSuccessRemoveData]);
 
     const handleClickConfirmRemoveFieldButton = React.useCallback((callback?: Function) => () => {
-        dispatch(api.removeDataFromBase('/dataInfo/' + index, onRemoveData(callback)));
-    }, [dispatch, index, onRemoveData]);
+        dispatch(api.saveDataToBase(dataInfo.filter((e: any, i: number) => i !== index), '/dataInfo/', onRemoveData(callback), true));
+    }, [dispatch, dataInfo, index, onRemoveData]);
 
     const handleClickRemoveFieldButton = React.useCallback(() => {
         dispatch(actions.showCorfirmWindow({

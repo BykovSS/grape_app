@@ -1,5 +1,5 @@
 import {actionTypes} from '../constants/actionTypes';
-import {ActionType, dataType, EntityType, ErrorWindowDataType} from '../types';
+import {ActionType, dataType, EntityType, ErrorWindowDataType, LogType} from '../types';
 import {
     addLeftRow,
     addRightRow,
@@ -9,6 +9,7 @@ import {
     getNumRow,
     parseDataFromFetch
 } from '../utils';
+import {FIELD_LIST_LENGTH, LOGS_LENGTH} from '../constants';
 
 const initialState = {
     isMobil: false,
@@ -31,6 +32,7 @@ const initialState = {
     },
     isFetching: false,
     isSaving: false,
+    isSilent: false,
     isAdding: false,
     isRemoving: false,
     mouseInMap: false,
@@ -43,7 +45,10 @@ const initialState = {
     guide: [] as EntityType[],
     isAuthorized: null as boolean,
     login: '',
-    password: ''
+    password: '',
+    logOrder: 0,
+    logs: [] as LogType[],
+    logFieldList: [] as string[]
 };
 
 export const dataReducer = (state = initialState, action: ActionType) => {
@@ -60,7 +65,9 @@ export const dataReducer = (state = initialState, action: ActionType) => {
 
             return {...state,
                 isFetching: false,
-                data: isGeneral || state.dataInfo && state.dataInfo.length <= 7 ? {...state.data, [fieldValue]: parsedData} : {[fieldValue]: parsedData},
+                data: isGeneral || state.dataInfo && state.dataInfo.length <= FIELD_LIST_LENGTH
+                    ? {...state.data, [fieldValue]: parsedData}
+                    : {[fieldValue]: parsedData},
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
@@ -84,9 +91,9 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.FETCH_DATA_FAILURE:
             return {...state, isFetching: false, errorWindowData: action.errorWindowData};
         case actionTypes.SAVE_DATA_REQUEST:
-            return {...state, isSaving: true};
+            return {...state, isSaving: true, isSilent: Boolean(action.isSilent)};
         case actionTypes.SAVE_DATA_COMPLETE:
-            return {...state, isSaving: false, errorWindowData: action.errorWindowData};
+            return {...state, isSaving: false, isSilent: false, errorWindowData: action.errorWindowData};
         case actionTypes.ADD_DATA_REQUEST:
             return {...state, isAdding: true};
         case actionTypes.ADD_DATA_COMPLETE:
@@ -94,7 +101,17 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.SHOW_ERROR_WINDOW:
             return {...state, errorWindowData: action.errorWindowData};
         case actionTypes.CHANGE_DATA:
-            return {...state, data: {...state.data, [state.currentFieldValue]: action.data}, selectedCells: [], currentCell: null, mostRight: getMostRight(action.data), mostTop: getMostTop(action.data)};
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    [state.currentFieldValue]: action.data
+                },
+                selectedCells: [],
+                currentCell: null,
+                mostRight: getMostRight(action.data),
+                mostTop: getMostTop(action.data)
+            };
         case actionTypes.CLOSE_ERROR_WINDOW:
             return {...state, errorWindowData: null};
         case actionTypes.SHOW_CONFIRM_WINDOW:
@@ -179,6 +196,54 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 currentPosition: {currentAbscissa: 0, currentOrdinate: 0},
                 selectedCells: [],
                 currentCell: null
+            };
+        }
+        case actionTypes.ADD_LOG_EVENT: {
+            const {logEvent, fieldValue} = action || {};
+            const {logOrder, logs, logFieldList, data} = state || {};
+            let newLogOrder = logOrder < LOGS_LENGTH ? logOrder + 1 : logOrder;
+            const isLastOrder = Boolean(logs) && logs.length === LOGS_LENGTH && logOrder === LOGS_LENGTH;
+            let newLogs: LogType[] = logs;
+            const firstFieldId = logs && logs.length > 0 ? logs[0].fieldId : '';
+            let newLogFieldList: string[] = logFieldList;
+            const newData = Object.assign({}, {...data});
+
+            if (isLastOrder) {
+                newLogs = newLogs.splice(1, logOrder - 1);
+                newLogFieldList = [...newLogs, logEvent].reduce((r, e) => r || e.fieldId === firstFieldId, false)
+                    ? newLogFieldList.includes(fieldValue) ? newLogFieldList : [...newLogFieldList, fieldValue]
+                    : newLogFieldList.filter((e: string) => e !== firstFieldId).includes(fieldValue)
+                        ? newLogFieldList.filter((e: string) => e !== firstFieldId)
+                        : [...newLogFieldList.filter((e: string) => e !== firstFieldId), fieldValue];
+            } else {
+                newLogs = newLogs.splice(0, logOrder);
+                newLogFieldList = newLogFieldList.includes(fieldValue) ? newLogFieldList : [...newLogFieldList, fieldValue];
+            }
+            newLogs = [...newLogs, logEvent];
+
+            if (newLogFieldList && newLogFieldList.length > 3) {
+                let oldestLogsField = '';
+                let isFind = false;
+                newLogs.forEach((e, i) => {
+                    if (!isFind) {
+                        const {fieldId} = e;
+                        isFind = !newLogs.map((item, j) => j > i ? item.fieldId : null).includes(fieldId);
+                        oldestLogsField = isFind ? fieldId : oldestLogsField;
+                    }
+                });
+
+                newLogFieldList = newLogFieldList.filter(e => e !== oldestLogsField);
+                newLogs = newLogs.filter(e => e.fieldId !== oldestLogsField);
+                newLogOrder = newLogs.length;
+                delete newData[oldestLogsField];
+            }
+
+            return {
+                ...state,
+                logOrder: newLogOrder,
+                logs: newLogs,
+                logFieldList: newLogFieldList,
+                data: newData
             };
         }
         default:

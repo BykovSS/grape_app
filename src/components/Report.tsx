@@ -73,13 +73,13 @@ export const Report: React.FC<Props> = (props) => {
                 {tableData && tableData.map((elem, i) => elem.type === 'free' && <tr key={i}>
 					<td>{elem.label}</td>
 					<td className={'report-sort_icon-wrap'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
-					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
+					<td className={'report-number'}>{elem.a_0 + elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/><td/>
 				</tr>)}
                 {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <tr key={i}>
 					<td>{elem.label}</td>
 					<td className={'report-td_hatching'}><div className={'report-sort_icon'}><Icon sort={elem.id}/></div></td>
-					<td className={'report-number'}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
+					<td className={'report-number'}>{elem.a_0 + elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</td>
 					<td/><td/><td/><td/><td/>
 				</tr>)}
             </tbody>
@@ -174,7 +174,7 @@ export const Report: React.FC<Props> = (props) => {
                     {tableData && tableData.map((elem, i) => elem.type === 'free' && <div key={i} style={{borderBottom: '1px solid #ddd', display: 'flex'}}>
 						<div style={{width: '323px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}>{elem.label}</div>
 						<div style={{width: '51px', height: '23px', borderRight: '1px solid #ddd', padding: '4px'}}><div style={{textAlign: 'center'}}><Icon sort={elem.id} forPDF/></div></div>
-						<div style={{width: '102px', height: '21px', borderRight: '1px solid #ddd', padding: '5px', textAlign: 'center'}}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</div>
+						<div style={{width: '102px', height: '21px', borderRight: '1px solid #ddd', padding: '5px', textAlign: 'center'}}>{elem.a_0 + elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</div>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>
@@ -184,7 +184,7 @@ export const Report: React.FC<Props> = (props) => {
                     {tableData && tableData.map((elem, i) => elem.type === 'hatching' && <div key={i} style={{borderBottom: '1px solid #ddd', display: 'flex'}}>
 						<div style={{width: '323px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}>{elem.label}</div>
 						<div style={{width: '49px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}><div style={{textAlign: 'center'}}><Icon sort={elem.id} forPDF/></div></div>
-						<div style={{width: '102px', height: '21px', borderRight: '1px solid #ddd', padding: '5px', textAlign: 'center'}}>{elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</div>
+						<div style={{width: '102px', height: '21px', borderRight: '1px solid #ddd', padding: '5px', textAlign: 'center'}}>{elem.a_0 + elem.a_1 + elem.a_2 + elem.a_3 + elem.a_4}</div>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>
 						<div style={{width: '92px', height: '21px', borderRight: '1px solid #ddd', padding: '5px'}}/>

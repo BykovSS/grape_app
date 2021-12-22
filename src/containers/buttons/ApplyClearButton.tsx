@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../actions';
 import '../../assets/less/buttons.less';
 import {dataType} from '../../types';
-import {APPLY, CLEAR} from '../../constants';
+import {APPLY, CLEAR, SORT_WITH_YEAR, SORT_WITHOUT_YEAR} from '../../constants';
 
 type Props = {
     type: string
@@ -22,8 +22,36 @@ const ApplyClearButton:React.FC<Props> = (props) => {
     const dispatch = useDispatch();
 
     const handleClick = React.useCallback(() => {
-        dispatch(actions.changeData(data.map((elem: dataType) => selectedCells.includes(elem.id) ? {...elem, sort, year} : elem)));
-    }, [dispatch, data, selectedCells, sort, year]);
+        dispatch(actions.changeData(data.map((e: dataType) => selectedCells.includes(e.id)
+            ? {
+                ...e,
+                sort,
+                year: SORT_WITHOUT_YEAR.includes(sort)
+                    ? null
+                    : SORT_WITH_YEAR.includes(sort) && year !== 'absent' && (!year || isNaN(year) || year === 'null')
+                        ? 'absent'
+                        : year
+            }
+            : e))
+        );
+        const selectedCellsData = data.filter((e: dataType) => selectedCells.includes(e.id));
+        dispatch(actions.addLogEvent({
+            id: 'log_' + Date.now(),
+            fieldId: currentFieldValue,
+            prevData: selectedCellsData,
+            currentData: selectedCellsData.map((e: dataType) => (
+                {
+                    ...e,
+                    sort,
+                    year: SORT_WITHOUT_YEAR.includes(sort)
+                        ? null
+                        : SORT_WITH_YEAR.includes(sort) && year !== 'absent' && (!year || isNaN(year) || year === 'null')
+                            ? 'absent'
+                            : year
+                })
+            )
+        }, currentFieldValue));
+    }, [dispatch, data, selectedCells, sort, year, currentFieldValue]);
 
     return <button
         className={'apply-clear_button'}

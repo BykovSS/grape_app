@@ -1,5 +1,13 @@
 import {dataType, EntityType, RowDataType} from '../types';
-import {CELL_SIZE, KOEF, MOB_OTHER_HEIGHT, MOB_OTHER_WIDTH, OTHER_HEIGHT, OTHER_WIDTH, START_YEAR} from '../constants';
+import {
+    CELL_SIZE,
+    KOEF,
+    MOB_OTHER_HEIGHT,
+    MOB_OTHER_WIDTH,
+    OTHER_HEIGHT,
+    OTHER_WIDTH,
+    START_YEAR
+} from '../constants';
 
 export const generateData = (x: number, y: number) => {
     const data = [] as dataType[];

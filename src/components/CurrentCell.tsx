@@ -3,7 +3,7 @@ import {Select} from './Select';
 import '../assets/less/current.less';
 import {dataType} from '../types';
 import ApplyClearButton from '../containers/buttons/ApplyClearButton';
-import {APPLY, CLEAR, SORT, YEAR} from '../constants';
+import {APPLY, CLEAR, SORT, SORT_WITHOUT_YEAR, YEAR} from '../constants';
 
 type Props = {
     currentCell: dataType
@@ -36,7 +36,7 @@ export const CurrentCell: React.FC<Props> = (props) => {
                 type={YEAR}
                 value={year}
                 options={yearsArray}
-                disable={!sort || sort === 'ring' || sort === 'hatching'}
+                disable={!sort || SORT_WITHOUT_YEAR.includes(sort)}
                 onChange={handleChangeYear}
             />
         </div>

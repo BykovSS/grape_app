@@ -1,5 +1,5 @@
 import {actionTypes} from '../constants/actionTypes';
-import {dataType, ErrorWindowDataType, EntityType} from '../types';
+import {dataType, ErrorWindowDataType, EntityType, LogType} from '../types';
 
 export const changeMobil = () => ({
     type: actionTypes.CHANGE_MOBIL
@@ -34,8 +34,9 @@ export const loadDataError = (errorWindowData: ErrorWindowDataType) => ({
     errorWindowData
 });
 
-export const onRequestSaveData = () => ({
-    type: actionTypes.SAVE_DATA_REQUEST
+export const onRequestSaveData = (isSilent?: boolean) => ({
+    type: actionTypes.SAVE_DATA_REQUEST,
+    isSilent
 });
 
 export const saveDataComplete = (errorWindowData?: ErrorWindowDataType) => ({
@@ -69,6 +70,11 @@ export const removeDataComplete = (errorWindowData?: ErrorWindowDataType) => ({
 export const changeData = (data: dataType[]) => ({
     type: actionTypes.CHANGE_DATA,
     data
+});
+
+export const addLogEvent = (logEvent: LogType, fieldValue: string) => ({
+    type: actionTypes.ADD_LOG_EVENT,
+    logEvent, fieldValue
 });
 
 export const closeErrorWindow = () => ({

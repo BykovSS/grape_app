@@ -50,6 +50,8 @@ export type ActionType = {
     fieldValue?: string
     isGeneral?: boolean
     isShiftKey?: boolean
+    logEvent?: LogType,
+    isSilent?: boolean
 };
 
 export type EntityType = {
@@ -64,4 +66,11 @@ export type ErrorWindowDataType = {
     title?: string
     description?: string
     handleClickConfirm?: Function
+}
+
+export type LogType = {
+    id?: string,
+    fieldId?: string,
+    prevData?: dataType[],
+    currentData?: dataType[]
 }

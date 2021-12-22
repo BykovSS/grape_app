@@ -83,7 +83,7 @@ export const Select: React.FC<Props> = (props) => {
             {value && value !== 'null'
                 ? type === SORT
                     ? <div className={'__select__icon'}><Icon sort={value as string} zoom={0.8}/></div>
-                    : value === 'absent' ? 'выпад' : value
+                    : value === 'absent' ? 'выпад' : disable ? null : value
                 : ''}
         </div>
         <div className={'__select__content'}>

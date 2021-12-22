@@ -13,6 +13,7 @@ export const actionTypes = {
     REMOVE_DATA_REQUEST: 'removeDataRequest',
     REMOVE_DATA_COMPLETE: 'removeDataComplete',
     CHANGE_DATA: 'changeData',
+    ADD_LOG_EVENT: 'addLogEvent',
     CHANGE_WINDOW_SIZES: 'changeWindowSizes',
     CHANGE_CURRENT_POSITION: 'changeCurrentPosition',
     CHANGE_MOUSE_POSITION: 'changeMousePosition',
