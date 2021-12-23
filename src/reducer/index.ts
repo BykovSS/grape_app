@@ -62,12 +62,18 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         case actionTypes.FETCH_DATA_SUCCESS: {
             const {fetchedData, fieldValue, isGeneral} = action;
             const parsedData = parseDataFromFetch(JSON.parse(fetchedData));
+            let newData: {[key:string]: dataType[]} = {};
+            if (isGeneral || state.dataInfo && state.dataInfo.length <= FIELD_LIST_LENGTH) {
+                newData = {...state.data, [fieldValue]: parsedData};
+            } else {
+                let otherData: {[key:string]: dataType[]} = {};
+                state.logFieldList && state.logFieldList.forEach(e => otherData = state.data && state.data[e] ? {...otherData, [e]: state.data[e]} : {...otherData});
+                newData = {...otherData, [fieldValue]: parsedData};
+            }
 
             return {...state,
                 isFetching: false,
-                data: isGeneral || state.dataInfo && state.dataInfo.length <= FIELD_LIST_LENGTH
-                    ? {...state.data, [fieldValue]: parsedData}
-                    : {[fieldValue]: parsedData},
+                data: newData,
                 numCol: getNumCol(parsedData),
                 numRow: getNumRow(parsedData),
                 mostRight: getMostRight(parsedData),
@@ -169,7 +175,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
         }
         case actionTypes.REMOVE_FIELD: {
             const {index, value} = action;
-            const {dataInfo, data} = state;
+            const {dataInfo, data, logOrder, logs, logFieldList} = state;
             const cloneData = Object.assign({}, {...data});
             delete cloneData[value];
             let currentIndex = index === 0 ? 1 : index - 1;
@@ -177,12 +183,30 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 currentIndex = index === 0 ? currentIndex + 1 : currentIndex === 0 || currentIndex > index ? index + 1 : currentIndex - 1;
             }
 
+            let newLogOrder = logOrder === 0 ? 0 : logOrder - 1;
+            let currentLogFieldId = logs && logs.length > 0 && logs[newLogOrder] ? logs[newLogOrder].fieldId : null;
+            let currentId = logs && logs.length > 0 && logs[newLogOrder] ? logs[newLogOrder].id : null;
+            if (currentLogFieldId && value && currentLogFieldId === value) {
+                while(currentLogFieldId === value && newLogOrder !== 0) {
+                    newLogOrder = newLogOrder - 1;
+                    currentLogFieldId = logs && logs.length > 0 && logs[newLogOrder] ? logs[newLogOrder].fieldId : null;
+                    currentId = logs && logs.length > 0 && logs[newLogOrder] ? logs[newLogOrder].id : null;
+                }
+            }
+
+            const newLogs = logs ? logs.filter(e => e.fieldId !== value) : [];
+            const newLogFieldList = logFieldList ? logFieldList.filter(e => e !== value) : [];
+            newLogs && newLogs.forEach((e, i) => newLogOrder = e.id === currentId ? i : newLogOrder);
+
             return {
                 ...state,
                 dataInfo: dataInfo ? dataInfo.filter(e => e.value !== value) : [],
                 currentFieldLabel: dataInfo[currentIndex].label,
                 currentFieldValue: dataInfo[currentIndex].value,
-                data: cloneData
+                data: cloneData,
+                logOrder: newLogOrder + 1,
+                logs: newLogs,
+                logFieldList: newLogFieldList,
             };
         }
         case actionTypes.TO_FIELD: {
@@ -221,7 +245,7 @@ export const dataReducer = (state = initialState, action: ActionType) => {
             }
             newLogs = [...newLogs, logEvent];
 
-            if (newLogFieldList && newLogFieldList.length > 3) {
+            if (newLogFieldList && newLogFieldList.length > FIELD_LIST_LENGTH) {
                 let oldestLogsField = '';
                 let isFind = false;
                 newLogs.forEach((e, i) => {

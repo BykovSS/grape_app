@@ -1,6 +1,8 @@
 import * as React from 'react';
 import MapReportButton from '../containers/buttons/MapReportButton';
+import UndoAndReturnUndoButtons from '../containers/buttons/UndoAndReturnUndoButtons';
 import '../assets/less/header.less';
+import {MAP} from '../constants';
 
 type Props = {
     title: string
@@ -16,6 +18,7 @@ export const Header:React.FC<Props> = (props) => {
             type={buttonType}
             handleChangeShowMap={handleChangeShowMap}
         />
+        <UndoAndReturnUndoButtons hide={buttonType !== MAP} />
         <h1 className={'main_header'}>{title}</h1>
     </div>;
 };

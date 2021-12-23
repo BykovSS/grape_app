@@ -230,6 +230,33 @@ button {
   margin-left: 20px;
 }
 
+.undo-and-return-undo_buttons {
+  display: flex;
+  min-height: @navigateButtonWidth;
+  position: absolute;
+  top: 5px;
+  left: 105px;
+}
+
+.undo-and-return-undo_button {
+  padding: 9px;
+  display: flex;
+  align-items: center;
+  height: @navigateButtonWidth;
+  & > svg {
+    height: calc(@navigateButtonWidth - 14px);
+  }
+}
+
+.return-undo_button {
+  margin-left: 15px;
+  & > svg {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+
 @media only screen and (max-width: 1024px) and (orientation: landscape) and (min-aspect-ratio: 39/20) {
   button {
     border-radius: 3px;
@@ -360,6 +387,24 @@ button {
   }
   .change-report {
     height: @mob_navigateButtonWidth;
+  }
+
+  .undo-and-return-undo_buttons {
+    min-height: @mob_navigateButtonWidth;
+    top: 5px;
+    left: 86px;
+  }
+
+  .undo-and-return-undo_button {
+    padding: 7px;
+    height: @mob_navigateButtonWidth;
+    & > svg {
+      height: calc(@mob_navigateButtonWidth - 14px);
+    }
+  }
+
+  .return-undo_button {
+    margin-left: 12px;
   }
 }
 
