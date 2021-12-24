@@ -37,4 +37,6 @@ export const actionTypes = {
     REMOVE_FIELD: 'removeField',
     SHOW_CONFIRM_WINDOW: 'showConfirmWindow',
     TO_FIELD: 'toField',
+    UNDO_EVENT: 'undoEvent',
+    RETURN_UNDO_EVENT: 'returnUndoEvent',
 };

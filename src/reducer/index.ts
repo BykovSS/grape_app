@@ -270,6 +270,42 @@ export const dataReducer = (state = initialState, action: ActionType) => {
                 data: newData
             };
         }
+        case actionTypes.UNDO_EVENT: {
+            const {data, logOrder, logs} = state;
+            const newLogOrder = logOrder === 0 ? logOrder : logOrder - 1;
+            const newEvent = logs && logs[newLogOrder];
+            const {fieldId, prevData} = newEvent || {};
+            const fieldData = data ? data[fieldId] : [];
+            const newFieldData = fieldData.map(e => {
+                const newElement = prevData ? prevData.find(item => item.id === e.id) : null;
+
+                return newElement ? newElement : e;
+            });
+
+            return {
+                ...state,
+                logOrder: newLogOrder,
+                data: {...data, [fieldId]: newFieldData}
+            };
+        }
+        case actionTypes.RETURN_UNDO_EVENT: {
+            const {data, logOrder, logs} = state;
+            const newLogOrder = logs && logOrder >= logs.length ? logOrder : logOrder + 1;
+            const newEvent = logs && logs[newLogOrder-1];
+            const {fieldId, currentData} = newEvent || {};
+            const fieldData = data ? data[fieldId] : [];
+            const newFieldData = fieldData.map(e => {
+                const newElement = currentData ? currentData.find(item => item.id === e.id) : null;
+
+                return newElement ? newElement : e;
+            });
+
+            return {
+                ...state,
+                logOrder: newLogOrder,
+                data: {...data, [fieldId]: newFieldData}
+            };
+        }
         default:
             return state;
     }

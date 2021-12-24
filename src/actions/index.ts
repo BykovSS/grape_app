@@ -182,3 +182,11 @@ export const toField = (newCurrentIndex: number) => ({
     type: actionTypes.TO_FIELD,
     newCurrentIndex
 });
+
+export const undoEvent = () => ({
+    type: actionTypes.UNDO_EVENT
+});
+
+export const returnUndoEvent = () => ({
+    type: actionTypes.RETURN_UNDO_EVENT
+});
