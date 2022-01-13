@@ -1,9 +1,9 @@
 export default {
-    apiKey: 'AIzaSyAbdCR3uDjQ34_FmlwrEwhxZoL2ls6OjfE',
-    authDomain: 'grape-app-b151f.firebaseapp.com',
-    projectId: 'grape-app-b151f',
-    databaseURL: 'https://grape-app-b151f-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'grape-app-b151f.appspot.com',
-    messagingSenderId: '126469982770',
-    appId: '1:126469982770:web:eed2ac3ac12d94ecdd4a2b'
+    apiKey: 'AIzaSyCfhpLmTcP81INGfN8WSz7jAHH-HIchfQs',
+    authDomain: 'grapeapp-7c1c5.firebaseapp.com',
+    projectId: 'grapeapp-7c1c5',
+    storageBucket: 'grapeapp-7c1c5.appspot.com',
+    messagingSenderId: '98381851316',
+    appId: '1:98381851316:web:8f3dccef042cfb31d885e1',
+    databaseURL: 'https://grapeapp-7c1c5-default-rtdb.europe-west1.firebasedatabase.app/',
 };
